@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Kenzie Food - Dashboard</title>
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <a href="../index.html">
+                <h1>Kenzie</h1>
+                <h2>Food</h2>
+            </a>
+        </div>
+        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+        <figure id="profile">
+            <img src="" alt="profile" id="profile-image">
+        </figure>
+    </header>
+
+    <main>
+
+        <div id="categoy&new-product"></div>
+            <ul id="category-list">
+                <li class="category-button active">Todos</li>
+                <li class="category-button">Panificadora</li>
+                <li class="category-button">Frutas</li>
+                <li class="category-button">Bebidas</li>
+            </ul>
+
+            <button id="new-product-button">Adicionar novo produto</button>
+        </div>
+
+        <ul id="owner-product-list">
+            <!-- Lista dos Produtos com os botões de editar e deletar -->
+        </ul>
+
+    </main>
+
+    <div class="modal-status"> <!-- Modal do status  -->
+        <div id="modal-status-header">
+            <h3>Status</h3>
+            <button id="close-modal-status">X</button>
+        </div>
+        <p id="status-message">Ocorreu algum erro, o produto não foi adicionado</p>
+    </div>
+
+    <script type="module" src="js/dashboardScript.js"></script>
+</body>
+</html>
