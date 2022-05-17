@@ -30,8 +30,10 @@ function renderizeUserProducts(productsArray) {
             cardDescription.innerText = product.descricao
 
             cardEditProduct.setAttribute("src", "#")
+            cardEditProduct.id = product.id
             
             cardDeleteProduct.setAttribute("src", "#")
+            cardDeleteProduct.id = product.id
 
             productCardLi.appendChild(cardImg)
             productCardLi.appendChild(cardProductName)
