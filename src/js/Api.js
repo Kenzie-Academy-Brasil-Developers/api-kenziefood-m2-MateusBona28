@@ -64,6 +64,20 @@ class Api {
             body: JSON.stringify(data)
         })
     }
+
+    static async deletePost(id) {
+
+        const deleteUrl = `/my/products/${id}`
+
+        fetch(`${this.baseUrl}${deleteUrl}`,{
+            method: "DELETE",
+            headers: {
+                "Authorization" : `Bearer ${localStorage.getItem("token")}`
+            }
+        }).finally(()=>{
+            window.location.href = "dashboard.html"
+        })
+    }
 }
 
 export default Api;
