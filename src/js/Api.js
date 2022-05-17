@@ -32,7 +32,6 @@ class Api {
     }
 
     static async getUserRegister(data) {
-
         const registerUrl = "/auth/register"
         const response = await fetch(`${this.baseUrl}${registerUrl}`,{
             method: "POST",
@@ -44,7 +43,6 @@ class Api {
     }
 
     static async getUserLogin(data) {
-
         const loginUrl = "/auth/login"
         const response = await fetch(`${this.baseUrl}${loginUrl}`,{
             method: "POST",
@@ -55,10 +53,9 @@ class Api {
         })
         const newData = await response.json()
         localStorage.setItem("token", newData)
+        //console.log(newData)
     }
 
 }
-
-        
 
 export default Api;
