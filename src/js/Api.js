@@ -50,6 +50,20 @@ class Api {
 
         return newData
     }
+
+    static async postNewProduct(data) {
+
+        const addProductUrl = "/my/products"
+
+        const response = await fetch(`${this.baseUrl}${addProductUrl}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(data)
+        })
+    }
 }
 
 export default Api;

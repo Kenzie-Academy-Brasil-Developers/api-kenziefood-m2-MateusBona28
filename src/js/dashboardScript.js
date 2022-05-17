@@ -1,8 +1,22 @@
 import Api from "./Api.js";
 
 const ulProducts = document.getElementById("owner-product-list")
+const btnAddProduct = document.getElementById("new-product-button")
+const allModals = document.getElementsByClassName("modal")
+const closeModals = document.getElementsByClassName("close-modal")
+const btnPostProduct = document.getElementById("add-product")
 
 
+btnAddProduct.addEventListener("click", displayNewProductModal)
+
+for(let i = 0; i < allModals.length; i++){
+    
+    const modal = allModals[i]
+
+    modal.addEventListener("click", closeAllModals)
+}
+
+btnPostProduct.addEventListener("click", postNewProduct)
 
 const productsArray = await Api.getUserProducts()
 console.log(productsArray)
@@ -50,3 +64,49 @@ function renderizeUserProducts(productsArray) {
 }
 
 renderizeUserProducts(productsArray)
+
+function displayNewProductModal(event) {
+
+    const modalProduct = document.getElementById("add-product-modal")
+
+    modalProduct.style.display = "flex"
+
+    event.preventDefault()
+
+
+}
+
+function closeAllModals(event) {
+
+    event.preventDefault()
+
+    for(let i = 0; i < closeModals.length; i++){
+        if(event.target.id === "close-modal"){
+            allModals[i].style.display = "none"
+        }
+    }
+}
+
+async function postNewProduct(event) {
+
+    event.preventDefault()
+
+    const formNewProduct = document.getElementById("form-add-product")
+
+    const newProductInfo = formNewProduct.elements
+
+    console.log(newProductInfo)
+
+    const newProduct = {}
+
+    for(let i = 0; i < newProductInfo.length; i++){
+
+        const info = newProductInfo[i]
+
+        if(info.value !== ""){
+            newProduct[info.name] = info.value
+        }
+    }
+
+    await Api.postNewProduct(newProduct)
+}
