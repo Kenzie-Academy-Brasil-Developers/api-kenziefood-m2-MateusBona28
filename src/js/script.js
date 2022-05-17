@@ -136,15 +136,15 @@ function createFilterElements() {
 createFilterElements()
 
 function filterPerCategory() {
-    const todos = document.getElementById('category-list')
-    todos.addEventListener('click', (event) => {
+    const list = document.getElementById('category-list')
+    list.addEventListener('click', (event) => {
         const e = event.target
         const target = e.innerText
-        const filtro = productsPub.filter(element => {
+        const filter = productsPub.filter(element => {
             return element.categoria === target
         })
         if(target !== 'Todos') {
-            productsHomePage(filtro)
+            productsHomePage(filter)
         } else {
             productsHomePage(productsPub)
         }
