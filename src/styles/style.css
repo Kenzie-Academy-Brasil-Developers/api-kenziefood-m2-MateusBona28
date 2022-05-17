@@ -4,6 +4,16 @@
     --color-grey-3: #868E96;
 }
 
+#category-list {
+    display: flex;
+}
+
+.category-button {
+    max-width: 90px;
+    margin: 0 15px;
+    cursor: pointer;
+}
+
 .modal {
     display: none;
     position: fixed;
