@@ -32,8 +32,24 @@ class Api {
 
         localStorage.setItem("token", newData)
     }
-}
 
-        
+    static async getUserProducts(data) {
+
+        const productsUrl = "/my/products"
+
+        const response = await fetch(`${this.baseUrl}${productsUrl}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(data)
+        })
+
+        const newData = await response.json()
+
+        return newData
+    }
+}
 
 export default Api;
