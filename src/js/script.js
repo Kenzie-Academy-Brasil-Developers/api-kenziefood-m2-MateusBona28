@@ -1,9 +1,80 @@
 import Api from "./Api.js";
+//import productsHomePage from "./dashboardScript.js"
+
 
 const api_products = await Api.getPublicProducts()
 const cart_items_list     = document.querySelector("#cart-list")
 const cart_items_quantity = document.querySelector("#cart-footer-total-amount > p")
 const cart_items_price    = document.querySelector("#cart-footer-total-price > p")
+
+if(localStorage.getItem('productsInCart') != undefined){
+    let ids_from_localStorage = localStorage.getItem('productsInCart')
+    let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
+    cart_products(products_from_localStorage)
+}
+
+
+function productsHomePage(products) {
+    const containerCards = document.querySelector('.container-cards')
+
+    products.forEach(element => {
+        const card = document.createElement('article')
+        card.classList.add('card')
+        card.dataset.id = element.id
+
+        const figure = document.createElement('figure')
+        const img = document.createElement('img')
+        img.src = element.imagem
+        img.alt = element.nome
+
+        figure.appendChild(img)
+
+        const cardBody = document.createElement('div')
+        cardBody.classList.add('card-body')
+
+        const cardBodyTitle = document.createElement('h2')
+        cardBodyTitle.innerText = element.nome
+        const CardBodyDesc = document.createElement('p')
+        CardBodyDesc.classList.add('card-desc')
+        CardBodyDesc.innerText = element.descricao
+
+        cardBody.append(cardBodyTitle, CardBodyDesc)
+
+        const cardCategory = document.createElement('div')
+        cardCategory.classList.add('card-category')
+        cardCategory.innerText = element.categoria
+
+        const cardFooter = document.createElement('div')
+        const cardFooterPrice = document.createElement('p')
+        const cardFooterAddCart = document.createElement('button')
+
+        cardFooterPrice.innerText = element.preco
+        cardFooterAddCart.innerText = 'Add'
+        cardFooterAddCart.addEventListener('click', () => {
+
+            if(localStorage.getItem('productsInCart') == undefined || localStorage.getItem('productsInCart') == ''){
+                localStorage.setItem('productsInCart', element.id)
+                cart_items_list.innerHTML = ''
+                let ids_from_localStorage = localStorage.getItem('productsInCart')
+                let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
+                cart_products(products_from_localStorage)
+            } else {
+                cart_items_list.innerHTML = ''
+                localStorage.setItem('productsInCart', localStorage.getItem('productsInCart') + ',' + element.id)
+                let ids_from_localStorage = localStorage.getItem('productsInCart')
+                let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
+                cart_products(products_from_localStorage)
+            }
+        })
+        //cardFooterAddCart.dataset.id = element.id
+        cardFooter.append(cardFooterPrice, cardFooterAddCart)
+
+        card.append(figure, cardBody, cardCategory, cardFooter)
+
+        containerCards.append(card)
+    })
+}
+
 
 function cart_item_template(image, name, description, price, id) {
     const cart_item = document.createElement("li")
@@ -36,7 +107,11 @@ function cart_item_template(image, name, description, price, id) {
                             </div>`
 
     cart_items_list.appendChild(cart_item)
-    localStorage.setItem(`@${id}`, id)
+    remove_buttons()
+    quantity_update(cart_items_list.children)
+    const arr_ids_from_localStorage = localStorage.getItem('productsInCart').split(',')
+    const products_from_localStorage = find_on_API_by_ID(arr_ids_from_localStorage)
+    price_update(products_from_localStorage)
 }
 
 function cart_products(array) {
@@ -61,15 +136,6 @@ function find_on_API_by_ID(productsIds) {
     return products
 }
 
-/* remover esses IDS de teste e passar o array com os novos IDS pra buscar na API */
-let ids_for_test = ["7ceaf644-8169-472a-8610-54f68f3cea7e",
-                    "dba6fb97-89fa-410f-818e-2445a4e013c0",
-                    "20072a65-cd42-4433-8541-a6a6e9637084",
-                    "c4e8e1ed-91a9-497e-b67a-47d23fca32a2"]
-
-let produtos_teste = find_on_API_by_ID(ids_for_test)
-
-cart_products(produtos_teste)
 
 function remove_buttons() {
     const get_remove_buttons = document.getElementsByClassName("cart-remove-button")
@@ -78,26 +144,26 @@ function remove_buttons() {
 
             const product_ID = target.path[2].id
             target.path[2].remove()
-            
-            /* passar novo array de IDS aqui */
-            produtos_teste = produtos_teste.filter(element => product_ID !== element.id)
-            
-            localStorage.removeItem(`@${product_ID}`)
 
-            /* colocar aqui a requisição de delete da API e passar
-            a const productID como parâmetro */
+            const arr_ids_from_localStorage = localStorage.getItem('productsInCart').split(',')
+            const remove_product_ID = arr_ids_from_localStorage.filter(id => id != product_ID).join(',')
+            localStorage.setItem('productsInCart', remove_product_ID)
             
             /* passar novo array de IDS aqui */
-            quantity_update(produtos_teste)
-            price_update(produtos_teste)
+            //produtos_teste = produtos_teste.filter(element => product_ID !== element.id)
+            
+            const products_from_localStorage = find_on_API_by_ID(arr_ids_from_localStorage)
+            /* passar novo array de IDS aqui */
+            quantity_update(cart_items_list.children)
+            price_update(products_from_localStorage)
         })
     }
 }
 
-remove_buttons()
+
 
 function quantity_update(array) {
-    cart_items_quantity.innerText = array.length
+    cart_items_quantity.innerText = 'Quantidade:' + array.length
 }
 
 function price_update(array) {
@@ -105,5 +171,121 @@ function price_update(array) {
     array.forEach(element => {
         final_price += element.preco
     })
-    cart_items_price.innerText = final_price
+    cart_items_price.innerText ='Total: R$' + final_price
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+function verifyUserLogged() {
+    if(localStorage.getItem("token") === ""){
+        localStorage.setItem("userIsLogged", false)
+    }
+    else{
+        localStorage.setItem("userIsLogged", true)
+    }
+}
+
+verifyUserLogged()
+
+//localStorage.clear()
+
+const cartHeadder = document.getElementById('cart-header');
+const modalCart = document.getElementById('modal-cart');
+const modalLogin = document.getElementById('login')
+const modalRegister = document.getElementById('register')
+const btnRegisterForm = document.getElementById('register-button')
+const btnLoginForm = document.getElementById('login-button')
+const closeModal = document.getElementsByClassName('close-modal');
+const profileImg = document.getElementById("profile-image")
+const redirectRegister = document.getElementById('redirect-register')
+const redirectLogin = document.getElementById('redirect-login')
+
+
+function redirectToRegister() {
+    redirectRegister.addEventListener('click', () => {
+        modalLogin.style.display = 'none'
+        modalRegister.style.display = 'flex'
+    })
+}
+redirectToRegister()
+
+function redirectToLogin() {
+    redirectLogin.addEventListener('click', () => {
+        modalRegister.style.display = 'none'
+        modalLogin.style.display = 'flex'
+    })
+}
+redirectToLogin()
+
+cartHeadder.addEventListener('click', displayModal)
+btnRegisterForm.addEventListener("click", registerNewUser)
+btnLoginForm.addEventListener("click", logUser)
+profileImg.addEventListener("click", (event)=>{
+    if(localStorage.getItem("userIsLogged")){
+    }
+    else{
+        modalRegister.style.display = "flex";
+        modalLogin.style.display = "flex";
+    }
+})
+
+function displayModal() {
+    modalCart.style.display = 'flex';
+}
+
+function closeModalFunctionality() {
+    for(let i = 0; i < closeModal.length; i++) {
+        closeModal[i].addEventListener('click', (event) => {
+
+            const modals = document.getElementsByClassName("modal")
+            modals[i].style.display = "none"
+        })
+    }
+}
+closeModalFunctionality()
+
+async function registerNewUser(event) {
+    event.preventDefault()
+
+    const registerForm = document.getElementById("form-register")
+    const userInfo = registerForm.elements
+    const newUser = {}
+
+    for(let i = 0; i < userInfo.length; i++){
+        const info = userInfo[i]
+        if(userInfo[i].value !== ""){
+            newUser[info.name] = info.value
+        }
+    }
+
+    await Api.getUserRegister(newUser)
+}
+
+async function logUser(event) {
+    event.preventDefault()
+
+    const formLogin = document.getElementById("form-login")
+    const loginInfo = formLogin.elements
+    const user = {}
+
+    for(let i = 0; i < loginInfo.length; i++){
+        const info = loginInfo[i]
+        if(info.value !== ""){
+            user[info.name] = info.value
+        }
+    }
+
+    await Api.getUserLogin(user)
+
+    localStorage.setItem("userIsLogged", true)
+
+    console.log(localStorage.getItem("userIsLogged"))
+    console.log(localStorage.getItem("token"))
+}
+
+// const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzZWViNTk3LTUzZGQtNDQ0MS04M2ZmLTkzMjIzYjFiY2Q5MyIsImlhdCI6MTY1Mjc5NTc3OCwiZXhwIjoxNjUzNjU5Nzc4LCJzdWIiOiJbb2JqZWN0IFVuZGVmaW5lZF0ifQ.8g38AzX3nY_zbsi_fCf9JCvakfxgcSUHsm5GrTSGNdM'
+// const produtos = await Api.getPrivateProducts(token)
+
+const productsPub = await Api.getPublicProducts()
+
+productsHomePage(productsPub)
