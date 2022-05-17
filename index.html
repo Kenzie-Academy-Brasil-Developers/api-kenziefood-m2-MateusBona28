@@ -115,41 +115,51 @@
     </div>
 
     <div class="modal" id="login">
-        <div id="login-header">
-            <h3>Login</h3>
+
+        <div class="modal-content">
+            <div id="login-header">
+                <h3>Login</h3>
+                <p>X</p>
+            </div>
+            <div id="login-body">
+                <form action="">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="Digite seu email">
+                    <label for="password">Senha</label>
+                    <input type="password" name="password" placeholder="Digite sua senha">
+                    <button id="login-button">Entrar</button>
+                </form>
+            </div>
+            <div id="login-footer">
+                <p>Não tem conta? <a href="">Cadastre-se</a></p>
+            </div>
         </div>
-        <div id="login-body">
-            <form action="">
-                <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Digite seu email">
-                <label for="password">Senha</label>
-                <input type="password" name="password" placeholder="Digite sua senha">
-                <button id="login-button">Entrar</button>
-            </form>
-        </div>
-        <div id="login-footer">
-            <p>Não tem conta? <a href="">Cadastre-se</a></p>
-        </div>
+            
     </div>
 
     <div class="modal" id="register">
-        <div id="register-header">
-            <h3>Cadastro</h3>
+        
+        <div class="modal-content">
+            <div id="register-header">
+                <h3>Cadastro</h3>
+                <p>X</p>
+            </div>
+            <div id="register-body">
+                <form action="">
+                    <!-- <label for="name">Nome</label> -->
+                    <input type="text" name="name" placeholder="Digite seu nome">
+                    <!-- <label for="email">Email</label> -->
+                    <input type="email" name="email" placeholder="Digite seu email">
+                    <!-- <label for="password">Senha</label> -->
+                    <input type="password" name="password" placeholder="Digite sua senha">
+                    <button id="register-button">Cadastrar</button>
+                </form>
+            </div>
+            <div id="register-footer">
+                <p>Já tem conta? <a href="">Entrar</a></p>
+            </div>
         </div>
-        <div id="register-body">
-            <form action="">
-                <label for="name">Nome</label>
-                <input type="text" name="name" placeholder="Digite seu nome">
-                <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Digite seu email">
-                <label for="password">Senha</label>
-                <input type="password" name="password" placeholder="Digite sua senha">
-                <button id="register-button">Cadastrar</button>
-            </form>
-        </div>
-        <div id="register-footer">
-            <p>Já tem conta? <a href="">Entrar</a></p>
-        </div>
+
     </div>
     
     <script type="module" src="src/js/script.js"></script>
