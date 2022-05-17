@@ -1,5 +1,4 @@
 import Api from "./Api.js";
-import productsHomePage from "./dashboardScript.js"
 
 function verifyUserLogged() {
     if(localStorage.getItem("token") === ""){
@@ -111,6 +110,94 @@ async function logUser(event) {
 // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzZWViNTk3LTUzZGQtNDQ0MS04M2ZmLTkzMjIzYjFiY2Q5MyIsImlhdCI6MTY1Mjc5NTc3OCwiZXhwIjoxNjUzNjU5Nzc4LCJzdWIiOiJbb2JqZWN0IFVuZGVmaW5lZF0ifQ.8g38AzX3nY_zbsi_fCf9JCvakfxgcSUHsm5GrTSGNdM'
 // const produtos = await Api.getPrivateProducts(token)
 
+function createFilterElements() {
+    const categoryList = document.getElementById('category-list')
+
+    const liTodos = document.createElement('li')
+    const liPanificadora = document.createElement('li')
+    const liFrutas = document.createElement('li')
+    const liBebidas = document.createElement('li')
+
+    liTodos.classList.add('category-button')
+    liPanificadora.classList.add('category-button')
+    liFrutas.classList.add('category-button')
+    liBebidas.classList.add('category-button')
+
+    liTodos.innerText = 'Todos'
+    liPanificadora.innerText = 'Panificadora'
+    liFrutas.innerText = 'Frutas'
+    liBebidas.innerText = 'Bebidas'
+
+    categoryList.append(liTodos, liPanificadora, liFrutas, liBebidas)
+
+    filterPerCategory()
+}
+
+createFilterElements()
+
+function filterPerCategory() {
+    const todos = document.getElementById('category-list')
+    todos.addEventListener('click', (event) => {
+        const e = event.target
+        const target = e.innerText
+        const filtro = productsPub.filter(element => {
+            return element.categoria === target
+        })
+        if(target !== 'Todos') {
+            productsHomePage(filtro)
+        } else {
+            productsHomePage(productsPub)
+        }
+    })
+}
+
 const productsPub = await Api.getPublicProducts()
+
+function productsHomePage(products) {
+    const containerCards = document.querySelector('.container-cards')
+
+    containerCards.innerHTML = ''
+
+    products.forEach(element => {
+        const card = document.createElement('article')
+        card.classList.add('card')
+        card.dataset.id = element.id
+
+        const figure = document.createElement('figure')
+        const img = document.createElement('img')
+        img.src = element.imagem
+        img.alt = element.nome
+
+        figure.appendChild(img)
+
+        const cardBody = document.createElement('div')
+        cardBody.classList.add('card-body')
+
+        const cardBodyTitle = document.createElement('h2')
+        cardBodyTitle.innerText = element.nome
+        const CardBodyDesc = document.createElement('p')
+        CardBodyDesc.classList.add('card-desc')
+        CardBodyDesc.innerText = element.descricao
+
+        cardBody.append(cardBodyTitle, CardBodyDesc)
+
+        const cardCategory = document.createElement('div')
+        cardCategory.classList.add('card-category')
+        cardCategory.innerText = element.categoria
+
+        const cardFooter = document.createElement('div')
+        const cardFooterPrice = document.createElement('p')
+        const cardFooterAddCart = document.createElement('button')
+
+        cardFooterPrice.innerText = `R$ ${element.preco}`
+        cardFooterAddCart.innerText = 'Add'
+        cardFooterAddCart.dataset.id = element.id
+        cardFooter.append(cardFooterPrice, cardFooterAddCart)
+
+        card.append(figure, cardBody, cardCategory, cardFooter)
+
+        containerCards.append(card)
+    })
+}
 
 productsHomePage(productsPub)
