@@ -14,11 +14,6 @@ class Api {
             },
             body: JSON.stringify(data)
         })
-
-        const newData = response.json()
-
-        localStorage.setItem("token", newData.token)
-        localStorage.setItem("userId", newData.userId)
     }
 
     static async getUserLogin(data) {
@@ -33,9 +28,9 @@ class Api {
             body: JSON.stringify(data)
         })
 
-        const newData = response.json()
+        const newData = await response.json()
 
-        console.log(newData)
+        localStorage.setItem("token", newData)
     }
 }
 
