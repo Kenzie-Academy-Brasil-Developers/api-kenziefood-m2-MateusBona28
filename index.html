@@ -83,32 +83,34 @@
     </section>
 
     <div class="modal" id="modal-cart">
-        <div id="modal-cart-header">
+
+        <div class="modal-content">
             <div id="modal-cart-header">
                 <!-- Imagem do carrinho -->
                 <h3>Carrinho</h3>
+                <p class="close-modal">X</p>
             </div>
-        </div>
-        
-        <div id="modal-cart-body">
-            <span id="empty-modal-cart-message">
-                <img src="" alt="empty-cart-image" id="empty-cart-image-modal">
-                <p>Por enquanto não temos produtos no carrinho</p>
-            </span>
-            <ul id="cart-list-modal">
-                <!-- Lista de produtos do carrinho (os itens do carrinho deverão ser adicionados a esta modal simultaneamente) -->
-            </ul>
-        </div>
+            
+            <div id="modal-cart-body">
+                <span id="empty-modal-cart-message">
+                    <img src="" alt="empty-cart-image" id="empty-cart-image-modal">
+                    <p>Por enquanto não temos produtos no carrinho</p>
+                </span>
+                <ul id="cart-list-modal">
+                    <!-- Lista de produtos do carrinho (os itens do carrinho deverão ser adicionados a esta modal simultaneamente) -->
+                </ul>
+            </div>
 
-        <div id="modal-cart-footer">
-            <div id="modal-cart-footer-total-amount">
-                <p>Quantidade: R$ 0,00</p>
-            </div>
-            <div id="modal-cart-footer-total-price">
-                <p>Total: R$ 0,00</p>
-            </div>
-            <div id="modal-cart-footer-button">
-                <button>Finalizar Compra</button>
+            <div id="modal-cart-footer">
+                <div id="modal-cart-footer-total-amount">
+                    <p>Quantidade: R$ 0,00</p>
+                </div>
+                <div id="modal-cart-footer-total-price">
+                    <p>Total: R$ 0,00</p>
+                </div>
+                <div id="modal-cart-footer-button">
+                    <button>Finalizar Compra</button>
+                </div>
             </div>
         </div>
 
@@ -119,7 +121,7 @@
         <div class="modal-content">
             <div id="login-header">
                 <h3>Login</h3>
-                <p>X</p>
+                <p class="close-modal">X</p>
             </div>
             <div id="login-body">
                 <form action="">
@@ -142,7 +144,7 @@
         <div class="modal-content">
             <div id="register-header">
                 <h3>Cadastro</h3>
-                <p>X</p>
+                <p class="close-modal">X</p>
             </div>
             <div id="register-body">
                 <form action="">

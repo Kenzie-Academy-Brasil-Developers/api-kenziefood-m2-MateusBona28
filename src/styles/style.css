@@ -1,6 +1,4 @@
-
-
- .modal {
+.modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -29,7 +27,11 @@
     padding: 20px;
 }
 
-#register-header, #login-header {
+#register-header, #login-header, #modal-cart-header {
     display: flex;
     justify-content: space-between;
+}
+
+.close-modal {
+    cursor: pointer;
 }
