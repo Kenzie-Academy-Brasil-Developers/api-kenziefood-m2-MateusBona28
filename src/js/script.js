@@ -24,7 +24,7 @@ const closeModal = document.getElementsByClassName('close-modal');
 const profileImg = document.getElementById("profile-image")
 const redirectRegister = document.getElementById('redirect-register')
 const redirectLogin = document.getElementById('redirect-login')
-
+const logoutBtn = document.getElementById('index-logout-button')
 
 function redirectToRegister() {
     redirectRegister.addEventListener('click', () => {
@@ -114,3 +114,8 @@ async function logUser(event) {
 const productsPub = await Api.getPublicProducts()
 
 productsHomePage(productsPub)
+
+logoutBtn.addEventListener("click", () => {
+    localStorage.clear()
+    window.location.href = "/index.html"
+})

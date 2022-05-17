@@ -1,5 +1,7 @@
 import Api from "./Api.js";
 
+const logoutBtn = document.getElementById('dashboard-logout-button')
+
 function productsHomePage(products) {
     const containerCards = document.querySelector('.container-cards')
 
@@ -44,5 +46,15 @@ function productsHomePage(products) {
         containerCards.append(card)
     })
 }
+
+/*
+
+se descomentar isso ele dá conflito com o script.js,
+    pq o script tá lendo esse eventListener por algum motivo
+
+logoutBtn.addEventListener("click", () => {
+    localStorage.clear()
+    window.location.href = "/index.html"
+})*/
 
 export default productsHomePage
