@@ -109,9 +109,7 @@ function cart_item_template(image, name, description, price, id) {
     cart_items_list.appendChild(cart_item)
     remove_buttons()
     quantity_update(cart_items_list.children)
-    const arr_ids_from_localStorage = localStorage.getItem('productsInCart').split(',')
-    const products_from_localStorage = find_on_API_by_ID(arr_ids_from_localStorage)
-    price_update(products_from_localStorage)
+    price_update()
 }
 
 function cart_products(array) {
@@ -147,15 +145,14 @@ function remove_buttons() {
 
             const arr_ids_from_localStorage = localStorage.getItem('productsInCart').split(',')
             const remove_product_ID = arr_ids_from_localStorage.filter(id => id != product_ID).join(',')
+            
             localStorage.setItem('productsInCart', remove_product_ID)
             
-            /* passar novo array de IDS aqui */
-            //produtos_teste = produtos_teste.filter(element => product_ID !== element.id)
             
             const products_from_localStorage = find_on_API_by_ID(arr_ids_from_localStorage)
-            /* passar novo array de IDS aqui */
+
             quantity_update(cart_items_list.children)
-            price_update(products_from_localStorage)
+            price_update()
         })
     }
 }
@@ -166,16 +163,19 @@ function quantity_update(array) {
     cart_items_quantity.innerText = 'Quantidade:' + array.length
 }
 
-function price_update(array) {
+function price_update() {
+    const precos = document.querySelectorAll('.cart-item-price > p')
     let final_price = 0
-    array.forEach(element => {
-        final_price += element.preco
-    })
-    cart_items_price.innerText ='Total: R$' + final_price
+    
+    for(let i = 0; i < precos.length; i++){
+        const priceNumber = +precos[i].innerText.split('R$')[1]
+        final_price += priceNumber
+    }
+    
+
+    cart_items_price.innerText = 'Total: R$' + final_price
 }
 
-
-/////////////////////////////////////////////////////////////////////////////////////////
 function verifyUserLogged() {
     if(localStorage.getItem("token") === ""){
         localStorage.setItem("userIsLogged", false)
