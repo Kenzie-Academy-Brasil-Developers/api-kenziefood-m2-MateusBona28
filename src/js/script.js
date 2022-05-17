@@ -11,7 +11,7 @@ function verifyUserLogged() {
 
 verifyUserLogged()
 
-localStorage.clear()
+//localStorage.clear()
 
 console.log(localStorage.getItem("userIsLogged"))
 console.log(localStorage.getItem("token"))
@@ -24,6 +24,25 @@ const btnRegisterForm = document.getElementById('register-button')
 const btnLoginForm = document.getElementById('login-button')
 const closeModal = document.getElementsByClassName('close-modal');
 const profileImg = document.getElementById("profile-image")
+const redirectRegister = document.getElementById('redirect-register')
+const redirectLogin = document.getElementById('redirect-login')
+
+
+function redirectToRegister() {
+    redirectRegister.addEventListener('click', () => {
+        modalLogin.style.display = 'none'
+        modalRegister.style.display = 'flex'
+    })
+}
+redirectToRegister()
+
+function redirectToLogin() {
+    redirectLogin.addEventListener('click', () => {
+        modalRegister.style.display = 'none'
+        modalLogin.style.display = 'flex'
+    })
+}
+redirectToLogin()
 
 cartHeadder.addEventListener('click', displayModal)
 btnRegisterForm.addEventListener("click", registerNewUser)
@@ -53,19 +72,14 @@ function closeModalFunctionality() {
 closeModalFunctionality()
 
 async function registerNewUser(event) {
-    
     event.preventDefault()
 
     const registerForm = document.getElementById("form-register")
-
     const userInfo = registerForm.elements
-
     const newUser = {}
 
     for(let i = 0; i < userInfo.length; i++){
-
         const info = userInfo[i]
-
         if(userInfo[i].value !== ""){
             newUser[info.name] = info.value
         }
@@ -75,19 +89,14 @@ async function registerNewUser(event) {
 }
 
 async function logUser(event) {
-
     event.preventDefault()
 
     const formLogin = document.getElementById("form-login")
-
     const loginInfo = formLogin.elements
-
     const user = {}
 
     for(let i = 0; i < loginInfo.length; i++){
-
         const info = loginInfo[i]
-
         if(info.value !== ""){
             user[info.name] = info.value
         }
