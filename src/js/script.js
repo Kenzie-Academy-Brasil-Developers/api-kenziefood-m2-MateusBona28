@@ -1,6 +1,6 @@
-import { Api } from "./Api.js"
+import Api from "./Api.js";
 
-const api_products = await Api.getAllProducts()
+const api_products = await Api.getPublicProducts()
 const cart_items_list     = document.querySelector("#cart-list")
 const cart_items_quantity = document.querySelector("#cart-footer-total-amount > p")
 const cart_items_price    = document.querySelector("#cart-footer-total-price > p")
@@ -107,27 +107,3 @@ function price_update(array) {
     })
     cart_items_price.innerText = final_price
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
