@@ -3,7 +3,6 @@ import Api from "./Api.js";
 const ulProducts = document.getElementById("owner-product-list")
 const btnAddProduct = document.getElementById("new-product-button")
 const allModals = document.getElementsByClassName("modal")
-const closeModals = document.getElementsByClassName("close-modal")
 const btnPostProduct = document.getElementById("add-product")
 
 
@@ -13,7 +12,7 @@ for(let i = 0; i < allModals.length; i++){
     
     const modal = allModals[i]
 
-    modal.addEventListener("click", closeAllModals)
+    modal.addEventListener("click", closeModal)
 }
 
 btnPostProduct.addEventListener("click", postNewProduct)
@@ -87,15 +86,11 @@ function displayNewProductModal(event) {
     event.preventDefault()
 }
 
-function closeAllModals(event) {
+function closeModal(event) {
 
     event.preventDefault()
-
-    for(let i = 0; i < closeModals.length; i++){
-        if(event.target.id === "close-modal"){
-            allModals[i].style.display = "none"
-        }
-    }
+    const targetModal = event.target.closest('.modal')
+    targetModal.style.display = 'none'
 }
 
 async function postNewProduct(event) {
