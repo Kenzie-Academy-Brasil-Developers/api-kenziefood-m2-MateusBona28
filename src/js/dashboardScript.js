@@ -18,8 +18,7 @@ for(let i = 0; i < allModals.length; i++){
 
 btnPostProduct.addEventListener("click", postNewProduct)
 
-const productsArray = await Api.getUserProducts()
-console.log(productsArray)
+let productsArray = await Api.getUserProducts()
 
 
 function renderizeUserProducts(productsArray) {
@@ -72,8 +71,6 @@ function displayNewProductModal(event) {
     modalProduct.style.display = "flex"
 
     event.preventDefault()
-
-
 }
 
 function closeAllModals(event) {
@@ -95,8 +92,6 @@ async function postNewProduct(event) {
 
     const newProductInfo = formNewProduct.elements
 
-    console.log(newProductInfo)
-
     const newProduct = {}
 
     for(let i = 0; i < newProductInfo.length; i++){
@@ -109,4 +104,7 @@ async function postNewProduct(event) {
     }
 
     await Api.postNewProduct(newProduct)
+
+    productsArray = await Api.getUserProducts()
+    renderizeUserProducts(productsArray)
 }
