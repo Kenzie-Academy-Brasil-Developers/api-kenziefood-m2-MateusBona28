@@ -107,8 +107,10 @@ function displayNewProductModal(event) {
 function closeModal(event) {
 
     event.preventDefault()
-    const targetModal = event.target.closest('.modal')
-    targetModal.style.display = 'none'
+    if(event.target.classList == 'close-modal'){
+        const targetModal = event.target.closest('.modal')
+        targetModal.style.display = 'none'
+    }
 }
 
 async function postNewProduct(event) {
