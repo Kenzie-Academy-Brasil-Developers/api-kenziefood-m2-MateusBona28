@@ -35,7 +35,7 @@
     border-radius: 10px;
 }
 
-#register-body > form, #login-body > form {
+#register-body > form, #login-body > form, #form-add-product {
     display: flex;
     flex-flow: column;
     width: fit-content;
