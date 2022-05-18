@@ -4,9 +4,16 @@ const ulProducts = document.getElementById("owner-product-list")
 const btnAddProduct = document.getElementById("new-product-button")
 const allModals = document.getElementsByClassName("modal")
 const btnPostProduct = document.getElementById("add-product")
+const deleteProduct = document.getElementsByClassName("delete-product")
 
 
 btnAddProduct.addEventListener("click", displayNewProductModal)
+
+const productsArray = await Api.getUserProducts()
+console.log(productsArray)
+
+renderizeUserProducts(productsArray)
+
 
 for(let i = 0; i < allModals.length; i++){
     
@@ -15,9 +22,15 @@ for(let i = 0; i < allModals.length; i++){
     modal.addEventListener("click", closeModal)
 }
 
-btnPostProduct.addEventListener("click", postNewProduct)
+for(let i = 0; i < deleteProduct.length; i++){
 
 let productsArray = await Api.getUserProducts()
+
+deleteProduct[i].addEventListener("click", displayConfirmDelete)
+    
+}
+
+btnPostProduct.addEventListener("click", postNewProduct)
 
 
 function renderizeUserProducts(productsArray) {
@@ -33,6 +46,9 @@ function renderizeUserProducts(productsArray) {
             const cardEditProduct = document.createElement("img")
             const cardDeleteProduct = document.createElement("img")
 
+            productCardLi.classList.add("product-card")
+            productCardLi.id = product.id
+
             cardImg.setAttribute("src", `${product.imagem}`)
 
             cardProductName.innerText = product.nome
@@ -44,6 +60,7 @@ function renderizeUserProducts(productsArray) {
             cardEditProduct.setAttribute("src", "#")
             cardEditProduct.id = product.id
             
+            cardDeleteProduct.classList.add("delete-product")
             cardDeleteProduct.setAttribute("src", "#")
             cardDeleteProduct.id = product.id
 
@@ -116,4 +133,35 @@ async function postNewProduct(event) {
 
     productsArray = await Api.getUserProducts()
     renderizeUserProducts(productsArray)
+}
+
+function displayConfirmDelete(event) {
+    
+    event.preventDefault()
+
+    const productId = event.target.id
+    console.log(productId)
+
+    const confirmDeleteModal = document.getElementById("confirm-delete")
+
+    confirmDeleteModal.style.display = "flex"
+
+    const btnCancel = document.getElementById("cancel-delete")
+    const btnDelete = document.getElementById("delete-product")
+
+    btnCancel.addEventListener("click", (event)=>{
+
+        event.preventDefault()
+
+        confirmDeleteModal.style.display = "none"
+    })
+
+    btnDelete.addEventListener("click", (event)=>{
+
+        event.preventDefault()
+
+        Api.deletePost(productId)
+    })
+
+    
 }
