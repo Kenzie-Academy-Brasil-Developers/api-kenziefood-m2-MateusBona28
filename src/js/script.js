@@ -134,7 +134,6 @@ function find_on_API_by_ID(productsIds) {
     return products
 }
 
-
 function remove_buttons() {
     const get_remove_buttons = document.getElementsByClassName("cart-remove-button")
     for (let i = 0; i < get_remove_buttons.length; i++) {
@@ -283,6 +282,9 @@ async function logUser(event) {
     console.log(localStorage.getItem("token"))
 }
 
+
+/* essa func ta criando os filtros via dom mas os filtros já estão criados
+    direto no HTML, verificar o qual dos 2 vai ser utilizado 
 function createFilterElements() {
     const categoryList = document.getElementById('category-list')
 
@@ -303,10 +305,10 @@ function createFilterElements() {
 
     categoryList.append(liTodos, liPanificadora, liFrutas, liBebidas)
 
-    filterPerCategory()
+    
 }
 
-createFilterElements()
+createFilterElements()*/
 
 function filterPerCategory() {
     const list = document.getElementById('category-list')
@@ -327,8 +329,9 @@ function filterPerCategory() {
 
 const productsPub = await Api.getPublicProducts()
 
-
 productsHomePage(productsPub)
+
+filterPerCategory()
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()

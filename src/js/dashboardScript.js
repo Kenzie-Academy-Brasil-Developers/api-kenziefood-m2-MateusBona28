@@ -1,168 +1,78 @@
 import Api from "./Api.js";
 
-const ulProducts = document.getElementById("owner-product-list")
-const btnAddProduct = document.getElementById("new-product-button")
-const allModals = document.getElementsByClassName("modal")
-const btnPostProduct = document.getElementById("add-product")
-const deleteProduct = document.getElementsByClassName("delete-product")
-
-
-btnAddProduct.addEventListener("click", displayNewProductModal)
-
-let productsArray = await Api.getUserProducts()
-
-renderizeUserProducts(productsArray)
-
-
-for(let i = 0; i < allModals.length; i++){
-    
-    const modal = allModals[i]
-
-    modal.addEventListener("click", closeModal)
-}
-
-for(let i = 0; i < deleteProduct.length; i++){
-
-    let productsArray = await Api.getUserProducts()
-
-    deleteProduct[i].addEventListener("click", displayConfirmDelete)
-    
-}
-
-btnPostProduct.addEventListener("click", postNewProduct)
-
-
-function renderizeUserProducts(productsArray) {
-
-    ulProducts.innerHTML = ''
-    if(productsArray.length > 0){
-        productsArray.forEach(product => {
-            
-            const productCardLi = document.createElement("li")
-            const cardImg = document.createElement("img")
-            const cardProductName = document.createElement("h3")
-            const cardCategories = document.createElement("span")
-            const cardDescription = document.createElement("span")
-            const cardEditProduct = document.createElement("img")
-            const cardDeleteProduct = document.createElement("img")
-
-            productCardLi.classList.add("product-card")
-            productCardLi.id = product.id
-
-            cardImg.setAttribute("src", `${product.imagem}`)
-
-            cardProductName.innerText = product.nome
-            
-            cardCategories.innerText = product.categoria
-
-            cardDescription.innerText = product.descricao
-
-            cardEditProduct.setAttribute("src", "#")
-            cardEditProduct.id = product.id
-            
-            cardDeleteProduct.classList.add("delete-product")
-            cardDeleteProduct.setAttribute("src", "#")
-            cardDeleteProduct.id = product.id
-            cardDeleteProduct.addEventListener('click', displayConfirmDelete)
-
-            productCardLi.appendChild(cardImg)
-            productCardLi.appendChild(cardProductName)
-            productCardLi.appendChild(cardCategories)
-            productCardLi.appendChild(cardDescription)
-            productCardLi.appendChild(cardEditProduct)
-            productCardLi.appendChild(cardDeleteProduct)
-
-            ulProducts.appendChild(productCardLi)
-        });
-    }
-    else{
-        ulProducts.innerText = "Você ainda não cadastrou nenhum produto!"
-    }
-    
-}
-
-renderizeUserProducts(productsArray)
 const logoutBtn = document.getElementById('dashboard-logout-button')
 
-/*
+function productsHomePage(products) {
+    const containerCards = document.querySelector('#owner-product-list')
+    console.log(products)
+    products.forEach(element => {
+        const card = document.createElement('article')
+        card.classList.add('card')
+        card.dataset.id = element.id
 
-se descomentar isso ele dá conflito com o script.js,
-    pq o script tá lendo esse eventListener por algum motivo
+        const figure = document.createElement('figure')
+        const img = document.createElement('img')
+        img.src = element.imagem
+        img.alt = element.nome
+
+        figure.appendChild(img)
+
+        const cardBody = document.createElement('div')
+        cardBody.classList.add('card-body')
+
+        const cardBodyTitle = document.createElement('h2')
+        cardBodyTitle.innerText = element.nome
+        const CardBodyDesc = document.createElement('p')
+        CardBodyDesc.classList.add('card-desc')
+        CardBodyDesc.innerText = element.descricao
+
+        cardBody.append(cardBodyTitle, CardBodyDesc)
+
+        const cardCategory = document.createElement('div')
+        cardCategory.classList.add('card-category')
+        cardCategory.innerText = element.categoria
+
+        const cardFooter = document.createElement('div')
+        const cardFooterPrice = document.createElement('p')
+        const cardFooterAddCart = document.createElement('button')
+
+        cardFooterPrice.innerText = element.preco
+        cardFooterAddCart.innerText = 'Add'
+        cardFooterAddCart.dataset.id = element.id
+        cardFooter.append(cardFooterPrice, cardFooterAddCart)
+
+        card.append(figure, cardBody, cardCategory, cardFooter)
+
+        containerCards.append(card)
+    })
+}
+
+function filterPerCategory() {
+    const list = document.getElementById('category-list')
+    list.addEventListener('click', (event) => {
+        const e = event.target
+        const target = e.innerText
+        const filter = privateProducts.filter(element => {
+            return element.categoria === target
+        })
+        
+        if(target !== 'Todos') {
+            productsHomePage(filter)
+        } else {
+            productsHomePage(privateProducts)
+        }
+    })
+}
+
+const privateProducts = await Api.getPrivateProducts()
+
+productsHomePage(privateProducts)
+
+filterPerCategory()
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
     window.location.href = "/index.html"
-})*/
+})
 
-
-function displayNewProductModal(event) {
-
-    const modalProduct = document.getElementById("add-product-modal")
-
-    modalProduct.style.display = "flex"
-
-    event.preventDefault()
-}
-
-function closeModal(event) {
-
-    event.preventDefault()
-    const targetModal = event.target.closest('.modal')
-    targetModal.style.display = 'none'
-}
-
-async function postNewProduct(event) {
-
-    event.preventDefault()
-
-    const formNewProduct = document.getElementById("form-add-product")
-
-    const newProductInfo = formNewProduct.elements
-
-    const newProduct = {}
-
-    for(let i = 0; i < newProductInfo.length; i++){
-
-        const info = newProductInfo[i]
-
-        if(info.value !== ""){
-            newProduct[info.name] = info.value
-        }
-    }
-
-    await Api.postNewProduct(newProduct)
-
-    productsArray = await Api.getUserProducts()
-    renderizeUserProducts(productsArray)
-}
-
-function displayConfirmDelete(event) {
-    
-    event.preventDefault()
-
-    const productId = event.target.id
-    console.log(productId)
-
-    const confirmDeleteModal = document.getElementById("confirm-delete")
-
-    confirmDeleteModal.style.display = "flex"
-
-    const btnCancel = document.getElementById("cancel-delete")
-    const btnDelete = document.getElementById("delete-product")
-
-    btnCancel.addEventListener("click", (event)=>{
-
-        event.preventDefault()
-
-        confirmDeleteModal.style.display = "none"
-    })
-
-    btnDelete.addEventListener("click", (event)=>{
-
-        event.preventDefault()
-
-        Api.deletePost(productId)
-    })
-
-    
-}
+export default productsHomePage
