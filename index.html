@@ -9,17 +9,20 @@
     <title>Kenzie Food</title>
 </head>
 <body>
+    <div class="main-content" >
     <header>
         <div id="logo">
             <a href="/src/dashboard.html">
-                <h1>Kenzie</h1>
-                <h2>Food</h2>
+                <h1>Kenzie<span>Food</span></h1>
             </a>
+            <figure id="profile">
+                <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
+            </figure>
         </div>
-        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
-        <figure id="profile">
-            <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
-        </figure>
+        <div id="search-area">
+            <div id="search-icon"></div>
+            <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+        </div>
 
         <button id="index-logout-button">Sair</button>
     </header>
@@ -29,71 +32,78 @@
 
         </ul>
 
-        <section class="container-cards">
-            <!-- <article class="card">
-                <figure>
-                    <img src="./src/img.png" alt="">
-                </figure>
-                <div class="card-body">
-                    <h2>Panqueca de banana com aveia</h2>
-                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
-                </div>
-                <div class="card-category">Panificadora Frutas</div>
-                <div class="card-footer">
-                    <p>R$ 20,00 <button>Add</button></p> 
-                </div>
-            </article>
+        <div id="pos">
+            <section class="container-cards">
+                <!-- <article class="card">
+                    <figure>
+                        <img src="./src/img.png" alt="">
+                    </figure>
+                    <div class="card-body">
+                        <h2>Panqueca de banana com aveia</h2>
+                        <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                    </div>
+                    <div class="card-category">Panificadora Frutas</div>
+                    <div class="card-footer">
+                        <p>R$ 20,00 <button>Add</button></p> 
+                    </div>
+                </article>
 
-            <article class="card">
-                <figure>
-                    <img src="./src/img.png" alt="">
-                </figure>
-                <div class="card-body">
-                    <h2>Panqueca de banana com aveia</h2>
-                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
-                </div>
-                <div class="card-category">Panificadora Frutas</div>
-                <div class="card-footer">
-                    <p>R$ 20,00 <button>Add</button></p> 
-                </div>
-            </article>
+                <article class="card">
+                    <figure>
+                        <img src="./src/img.png" alt="">
+                    </figure>
+                    <div class="card-body">
+                        <h2>Panqueca de banana com aveia</h2>
+                        <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                    </div>
+                    <div class="card-category">Panificadora Frutas</div>
+                    <div class="card-footer">
+                        <p>R$ 20,00 <button>Add</button></p> 
+                    </div>
+                </article>
 
-            <article class="card">
-                <figure>
-                    <img src="./src/img.png" alt="">
-                </figure>
-                <div class="card-body">
-                    <h2>Panqueca de banana com aveia</h2>
-                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
-                </div>
-                <div class="card-category">Panificadora Frutas</div>
-                <div class="card-footer">
-                    <p>R$ 20,00 <button>Add</button></p> 
-                </div>
-            </article>
+                <article class="card">
+                    <figure>
+                        <img src="./src/img.png" alt="">
+                    </figure>
+                    <div class="card-body">
+                        <h2>Panqueca de banana com aveia</h2>
+                        <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                    </div>
+                    <div class="card-category">Panificadora Frutas</div>
+                    <div class="card-footer">
+                        <p>R$ 20,00 <button>Add</button></p> 
+                    </div>
+                </article>
 
-            <article class="card">
-                <figure>
-                    <img src="./src/img.png" alt="">
-                </figure>
-                <div class="card-body">
-                    <h2>Panqueca de banana com aveia</h2>
-                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
-                </div>
-                <div class="card-category"><p>Panificadora Frutas</p></div>
-                <div class="card-footer">
-                    <p>R$ 20,00 <button>Add</button></p> 
-                </div>
-            </article> -->
-            
-        </section>
+                <article class="card">
+                    <figure>
+                        <img src="./src/img.png" alt="">
+                    </figure>
+                    <div class="card-body">
+                        <h2>Panqueca de banana com aveia</h2>
+                        <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                    </div>
+                    <div class="card-category"><p>Panificadora Frutas</p></div>
+                    <div class="card-footer">
+                        <p>R$ 20,00 <button>Add</button></p> 
+                    </div>
+                </article> -->
+                
+            </section>
+
+            <!-- <div id="div"></div> -->
+        </div>
 
     </main>
+    </div>
     <section id="cart">
         <div id="cart-header">
             <!-- Imagem do carrinho -->
             <h3>Carrinho</h3>
         </div>
+        
+        <div id="cart-desktop-content">
 
         <div id="cart-body">
             <span id="empty-cart-message">
@@ -104,12 +114,18 @@
 
             </ul>
         </div>
+
+
         <div id="cart-footer">
-            <div id="cart-footer-total-amount">
-                <p>Total de produtos: 0</p>
-            </div>
-            <div id="cart-footer-total-price">
-                <p>Total: R$ 0,00</p>
+            <div id="cart-footer">
+                <div id="cart-footer-total-amount">
+                    <p>Quantidade:</p>
+                    <span>0</span>
+                </div>
+                <div id="cart-footer-total-price">
+                    <p>Total:</p>
+                    <span>R$ 0,00</span>
+                </div>
             </div>
             <div id="cart-footer-button">
                 <button>Finalizar Compra</button>
@@ -126,23 +142,26 @@
                 <h3>Carrinho</h3>
                 <p class="close-modal">X</p>
             </div>
-            
-            <div id="modal-cart-body">
-                <span id="empty-modal-cart-message">
-                    <img src="" alt="empty-cart-image" id="empty-cart-image-modal">
-                    <p>Por enquanto não temos produtos no carrinho</p>
-                </span>
-                <ul id="cart-list-modal">
-                    <!-- Lista de produtos do carrinho (os itens do carrinho deverão ser adicionados a esta modal simultaneamente) -->
-                </ul>
-            </div>
-
-            <div id="modal-cart-footer">
-                <div id="modal-cart-footer-total-amount">
-                    <p>Quantidade: R$ 0,00</p>
+            <div id="modal-cart-content">
+                <div id="modal-cart-body">
+                    <span id="empty-modal-cart-message">
+                        <img src="src/imgs/sacola.png" alt="empty-cart-image" id="empty-cart-image-modal">
+                        <p>Por enquanto não temos produtos no carrinho</p>
+                    </span>
+                    <ul id="cart-list-modal">
+                        <!-- Lista de produtos do carrinho (os itens do carrinho deverão ser adicionados a esta modal simultaneamente) -->
+                    </ul>
                 </div>
-                <div id="modal-cart-footer-total-price">
-                    <p>Total: R$ 0,00</p>
+
+                <div id="modal-cart-footer">
+                    <div id="modal-cart-footer-total-amount">
+                        <p>Quantidade:</p>
+                        <span>0</span>
+                    </div>
+                    <div id="modal-cart-footer-total-price">
+                        <p>Total:</p>
+                        <span>R$ 0,00</span>
+                    </div>
                 </div>
                 <div id="modal-cart-footer-button">
                     <button>Finalizar Compra</button>

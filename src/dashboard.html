@@ -9,18 +9,21 @@
     <title>Kenzie Food - Dashboard</title>
 </head>
 <body>
+    <div class="main-content" >
     <header>
         <div id="logo">
             <a href="../index.html">
-                <h1>Kenzie</h1>
-                <h2>Food</h2>
+                <h1>Kenzie<span>Food</span></h1>
             </a>
+            <figure id="profile">
+                <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
+            </figure>
         </div>
-        <figure id="profile">
-            <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
-        </figure>
-        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
-        <button id="dashboard-logout-button">Sair</button>
+        <div id="search-area">
+            <div id="search-icon"></div>
+            <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+        </div>
+        <!-- <button id="dashboard-logout-button">Sair</button> -->
     </header>
 
     <main>
@@ -41,6 +44,7 @@
         </ul>
 
     </main>
+    </div>
 
     <div class="modal" id="modal-logout">
         <span id="username"></span>
@@ -90,6 +94,7 @@
             <button id="cancel-delete">Não</button>
         </div>
     </div>
+    
 
     <script type="module" src="js/dashboardScript.js"></script>
 </body>

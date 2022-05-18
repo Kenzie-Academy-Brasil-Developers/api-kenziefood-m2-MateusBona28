@@ -2,8 +2,9 @@ import Api from "./Api.js";
 
 const api_products = await Api.getPublicProducts()
 const cart_items_list     = document.querySelector("#cart-list")
-const cart_items_quantity = document.querySelector("#cart-footer-total-amount > p")
-const cart_items_price    = document.querySelector("#cart-footer-total-price > p")
+const cart_items_quantity = document.querySelector("#cart-footer-total-amount > span")
+const cart_items_price    = document.querySelector("#cart-footer-total-price > span")
+
 
 let globalFinalPrice = 0
 let globalQuantity = 0
@@ -17,8 +18,8 @@ async function actualizeCart() {
     const newCartProductsArray = await Api.getCartProducts()
     const ulCartItems = document.getElementById("cart-list")
 
-    const footerFinalPrice = document.getElementById("cart-footer-total-price")
-    const footerProductsQuantity = document.getElementById("cart-footer-total-amount")
+    const footerFinalPrice = document.querySelector("#cart-footer-total-price>span")
+    const footerProductsQuantity = document.querySelector("#cart-footer-total-amount>span")
     let finalPrice = 0
     let quantity = 0
 
@@ -39,8 +40,8 @@ async function actualizeCart() {
 
         })
             
-        footerFinalPrice.innerText = `Total: R$${finalPrice}`
-        footerProductsQuantity.innerText = `Total de produtos no carrinho : ${quantity}`
+        footerFinalPrice.innerText = `${finalPrice.toFixed(2).split(".").join(",")}`
+        footerProductsQuantity.innerText = `${quantity}`
     }
     
 }
@@ -228,7 +229,7 @@ function productsHomePage(products) {
         const cardFooterPrice = document.createElement('p')
         const cardFooterAddCart = document.createElement('button')
 
-        cardFooterPrice.innerText = element.preco
+        cardFooterPrice.innerText = 'R$' + (element.preco.toFixed(2) + ' ').split('.').join(',')
         cardFooterAddCart.innerText = 'Add'
         cardFooterAddCart.addEventListener('click', addProductToCart)
 
@@ -465,6 +466,7 @@ function createFilterElements() {
     const liBebidas = document.createElement('li')
 
     liTodos.classList.add('category-button')
+    liTodos.classList.add('active')
     liPanificadora.classList.add('category-button')
     liFrutas.classList.add('category-button')
     liBebidas.classList.add('category-button')
