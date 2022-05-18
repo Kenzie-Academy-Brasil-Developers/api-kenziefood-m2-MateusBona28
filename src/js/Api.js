@@ -101,6 +101,22 @@ class Api {
             window.location.href = "dashboard.html"
         })
     }
+
+    static async editPost(id, token, data) {
+        const response = await fetch(`${this.baseUrl}/my/products/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => response)
+        .catch(error => error)
+
+        return response
+    }
 }
 
 export default Api;
