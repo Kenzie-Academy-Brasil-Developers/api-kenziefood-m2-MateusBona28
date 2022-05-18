@@ -14,6 +14,8 @@ if(localStorage.getItem('productsInCart') != undefined){
 
 function productsHomePage(products) {
     const containerCards = document.querySelector('.container-cards')
+    
+    containerCards.innerHTML = ''
 
     products.forEach(element => {
         const card = document.createElement('article')
@@ -314,6 +316,7 @@ function filterPerCategory() {
         const filter = productsPub.filter(element => {
             return element.categoria === target
         })
+        console.log(filter)
         if(target !== 'Todos') {
             productsHomePage(filter)
         } else {
