@@ -2,10 +2,7 @@ import Api from "./Api.js";
 
 const ulProducts = document.getElementById("owner-product-list")
 
-
-
 const productsArray = await Api.getUserProducts()
-console.log(productsArray)
 
 
 function renderizeUserProducts(productsArray) {
@@ -52,3 +49,15 @@ function renderizeUserProducts(productsArray) {
 }
 
 renderizeUserProducts(productsArray)
+const logoutBtn = document.getElementById('dashboard-logout-button')
+
+/*
+
+se descomentar isso ele dá conflito com o script.js,
+    pq o script tá lendo esse eventListener por algum motivo
+
+logoutBtn.addEventListener("click", () => {
+    localStorage.clear()
+    window.location.href = "/index.html"
+})*/
+

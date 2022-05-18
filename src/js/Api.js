@@ -1,12 +1,38 @@
 //criar class para acessar o api
 class Api {
-
     static baseUrl = "https://api-kenzie-food.herokuapp.com"
+    
+    static async getPublicProducts() {
+        const response = await fetch(`${this.baseUrl}/products`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => response.json())
+        .then(response => response)
+        .catch(error => error)
+        
+        return response
+    }
+    
+    static async getPrivateProducts(token) {
+        const response = await fetch('https://api-kenzie-food.herokuapp.com/my/products', {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+        })
+        .then(response => response.json())
+        .then(response => response)
+        .catch(error => error)
+    
+        return response
+    }
 
     static async getUserRegister(data) {
-
         const registerUrl = "/auth/register"
-
         const response = await fetch(`${this.baseUrl}${registerUrl}`,{
             method: "POST",
             headers: {
@@ -17,9 +43,7 @@ class Api {
     }
 
     static async getUserLogin(data) {
-
         const loginUrl = "/auth/login"
-
         const response = await fetch(`${this.baseUrl}${loginUrl}`,{
             method: "POST",
             headers: {
@@ -27,10 +51,9 @@ class Api {
             },
             body: JSON.stringify(data)
         })
-
         const newData = await response.json()
-
         localStorage.setItem("token", newData)
+        //console.log(newData)
     }
 
     static async getUserProducts(data) {

@@ -20,19 +20,73 @@
         <figure id="profile">
             <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
         </figure>
+
+        <button id="index-logout-button">Sair</button>
     </header>
     <main>
 
         <ul id="category-list">
-            <li class="category-button active">Todos</li>
-            <li class="category-button">Panificadora</li>
-            <li class="category-button">Frutas</li>
-            <li class="category-button">Bebidas</li>
+
         </ul>
-        
-        <ul id="product-list">
-            <!-- Lista dos Produtos -->
-        </ul>
+
+        <section class="container-cards">
+            <!-- <article class="card">
+                <figure>
+                    <img src="./src/img.png" alt="">
+                </figure>
+                <div class="card-body">
+                    <h2>Panqueca de banana com aveia</h2>
+                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                </div>
+                <div class="card-category">Panificadora Frutas</div>
+                <div class="card-footer">
+                    <p>R$ 20,00 <button>Add</button></p> 
+                </div>
+            </article>
+
+            <article class="card">
+                <figure>
+                    <img src="./src/img.png" alt="">
+                </figure>
+                <div class="card-body">
+                    <h2>Panqueca de banana com aveia</h2>
+                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                </div>
+                <div class="card-category">Panificadora Frutas</div>
+                <div class="card-footer">
+                    <p>R$ 20,00 <button>Add</button></p> 
+                </div>
+            </article>
+
+            <article class="card">
+                <figure>
+                    <img src="./src/img.png" alt="">
+                </figure>
+                <div class="card-body">
+                    <h2>Panqueca de banana com aveia</h2>
+                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                </div>
+                <div class="card-category">Panificadora Frutas</div>
+                <div class="card-footer">
+                    <p>R$ 20,00 <button>Add</button></p> 
+                </div>
+            </article>
+
+            <article class="card">
+                <figure>
+                    <img src="./src/img.png" alt="">
+                </figure>
+                <div class="card-body">
+                    <h2>Panqueca de banana com aveia</h2>
+                    <p class="card-desc">Esta receita serve muito bem 2 pessoas, deixa a gente bem satisfeito, se não tiver outra opção de café. Se tiver mais comida, como pães e frutas.</p>
+                </div>
+                <div class="card-category"><p>Panificadora Frutas</p></div>
+                <div class="card-footer">
+                    <p>R$ 20,00 <button>Add</button></p> 
+                </div>
+            </article> -->
+            
+        </section>
 
     </main>
     <section id="cart">
@@ -47,30 +101,12 @@
                 <p>Por enquanto não temos produtos no carrinho</p>
             </span>
             <ul id="cart-list">
-                <!-- Lista de produtos do carrinho -->
-                <!-- Exemplo de produto no carrinho (não é obrigado a ser assim) -->
-                <!-- <li>
-                    <div class="cart-item-header">
-                        <img src="" alt="product" class="cart-item-image">
-                        <div class="cart-item-info">
-                            <h4 class="cart-item-name">Nome do produto</h4>
-                            <p class="cart-item-description">Descrição do produto</p>
-                        </div>
-                    </div>
-                    <div class="cart-item-footer">
-                        <div class="cart-item-price">
-                            <p>R$ 0,00</p>
-                        </div>
-                        <div class="cart-item-quantity">
-                            <p>1</p>
-                        </div>
-                    </div>
-                </li> -->
+
             </ul>
         </div>
         <div id="cart-footer">
             <div id="cart-footer-total-amount">
-                <p>Quantidade: R$ 0,00</p>
+                <p>Quantidade: 0</p>
             </div>
             <div id="cart-footer-total-price">
                 <p>Total: R$ 0,00</p>
@@ -133,13 +169,13 @@
                 </form>
             </div>
             <div id="login-footer">
-                <p>Não tem conta? <a href="">Cadastre-se</a></p>
+                <p>Não tem conta? <a id="redirect-register">Cadastre-se</a></p>
             </div>
         </div>
             
     </div>
 
-    <div class="modal display" id="register">
+    <div class="modal" id="register">
         
         <div class="modal-content">
             <div id="register-header">
@@ -148,17 +184,17 @@
             </div>
             <div id="register-body">
                 <form action="" id="form-register">
-                    <!-- <label for="name">Nome</label> -->
+                    <label for="name">Nome</label>
                     <input type="text" name="name" placeholder="Digite seu nome">
-                    <!-- <label for="email">Email</label> -->
+                    <label for="email">Email</label>
                     <input type="email" name="email" placeholder="Digite seu email">
-                    <!-- <label for="password">Senha</label> -->
+                    <label for="password">Senha</label>
                     <input type="password" name="password" placeholder="Digite sua senha">
                     <button id="register-button">Cadastrar</button>
                 </form>
             </div>
             <div id="register-footer">
-                <p>Já tem conta? <a href="">Entrar</a></p>
+                <p>Já tem conta? <a id="redirect-login">Entrar</a></p>
             </div>
         </div>
 

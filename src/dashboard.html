@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
     <title>Kenzie Food - Dashboard</title>
 </head>
 <body>
@@ -16,10 +16,11 @@
                 <h2>Food</h2>
             </a>
         </div>
-        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
         <figure id="profile">
-            <img src="" alt="profile" id="profile-image">
+            <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
         </figure>
+        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+        <button id="dashboard-logout-button">Sair</button>
     </header>
 
     <main>
@@ -40,6 +41,11 @@
         </ul>
 
     </main>
+
+    <div class="modal" id="modal-logout">
+        <span id="username"></span>
+        <button></button>
+    </div>
 
     <div class="modal-status"> <!-- Modal do status  -->
         <div id="modal-status-header">
