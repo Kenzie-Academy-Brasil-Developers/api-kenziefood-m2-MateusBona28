@@ -9,8 +9,7 @@ const deleteProduct = document.getElementsByClassName("delete-product")
 
 btnAddProduct.addEventListener("click", displayNewProductModal)
 
-const productsArray = await Api.getUserProducts()
-console.log(productsArray)
+let productsArray = await Api.getUserProducts()
 
 renderizeUserProducts(productsArray)
 
@@ -24,9 +23,9 @@ for(let i = 0; i < allModals.length; i++){
 
 for(let i = 0; i < deleteProduct.length; i++){
 
-let productsArray = await Api.getUserProducts()
+    let productsArray = await Api.getUserProducts()
 
-deleteProduct[i].addEventListener("click", displayConfirmDelete)
+    deleteProduct[i].addEventListener("click", displayConfirmDelete)
     
 }
 
@@ -35,6 +34,7 @@ btnPostProduct.addEventListener("click", postNewProduct)
 
 function renderizeUserProducts(productsArray) {
 
+    ulProducts.innerHTML = ''
     if(productsArray.length > 0){
         productsArray.forEach(product => {
             
@@ -63,6 +63,7 @@ function renderizeUserProducts(productsArray) {
             cardDeleteProduct.classList.add("delete-product")
             cardDeleteProduct.setAttribute("src", "#")
             cardDeleteProduct.id = product.id
+            cardDeleteProduct.addEventListener('click', displayConfirmDelete)
 
             productCardLi.appendChild(cardImg)
             productCardLi.appendChild(cardProductName)
