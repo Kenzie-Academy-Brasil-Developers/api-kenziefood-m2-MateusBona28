@@ -222,6 +222,7 @@ header {
     padding: 15px;
     justify-content: center;
     font-weight: 600;
+    cursor: pointer;
 }
 
 #register-header, #login-header, #modal-cart-header {
