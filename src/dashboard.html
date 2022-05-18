@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
     <title>Kenzie Food - Dashboard</title>
 </head>
 <body>
@@ -15,17 +16,23 @@
                 <h1>Kenzie</h1>
                 <h2>Food</h2>
             </a>
+            <figure id="profile">
+                <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
+            </figure>
         </div>
-        <figure id="profile">
-            <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
-        </figure>
-        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+        
+        <div id="search-area">
+            <div id="search-icon"></div>
+            <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+            <button id="dashboard-search-btn">Buscar</button>
+        </div>
+
         <button id="dashboard-logout-button">Sair</button>
     </header>
 
     <main>
 
-        <div id="categoy&new-product"></div>
+        <div id="categoy-new-product"></div>
             <ul id="category-list">
                 <li class="category-button active">Todos</li>
                 <li class="category-button">Panificadora</li>
@@ -54,7 +61,6 @@
         </div>
         <p id="status-message">Ocorreu algum erro, o produto não foi adicionado</p>
     </div>
-
 
     <div class="" id="add-product-modal">
         <div class="modal-content">

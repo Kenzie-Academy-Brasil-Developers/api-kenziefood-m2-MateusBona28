@@ -308,7 +308,8 @@ function createFilterElements() {
     
 }
 
-createFilterElements()*/
+createFilterElements()
+*/
 
 function filterPerCategory() {
     const list = document.getElementById('category-list')

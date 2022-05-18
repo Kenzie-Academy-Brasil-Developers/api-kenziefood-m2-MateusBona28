@@ -1,10 +1,13 @@
 import Api from "./Api.js";
 
 const logoutBtn = document.getElementById('dashboard-logout-button')
+const addProductBtn = document.getElementById('add-product')
 
 function productsHomePage(products) {
     const containerCards = document.querySelector('#owner-product-list')
-    console.log(products)
+    
+    containerCards.innerHTML = ''
+    
     products.forEach(element => {
         const card = document.createElement('article')
         card.classList.add('card')
@@ -66,9 +69,17 @@ function filterPerCategory() {
 
 const privateProducts = await Api.getPrivateProducts()
 
+console.log(privateProducts)
+
 productsHomePage(privateProducts)
 
 filterPerCategory()
+
+/*
+addProductBtn.addEventListener("click", () => {
+
+})
+*/
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
