@@ -11,6 +11,8 @@ if(localStorage.getItem('productsInCart') != undefined){
     cart_products(products_from_localStorage)
 }
 
+console.log(api_products)
+
 
 function productsHomePage(products) {
     const containerCards = document.querySelector('.container-cards')
