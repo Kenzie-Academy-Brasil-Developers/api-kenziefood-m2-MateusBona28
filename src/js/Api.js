@@ -50,9 +50,15 @@ class Api {
                 "Content-Type" : "application/json"
             },
             body: JSON.stringify(data)
+        }).then((response)=>{
+            return response.json()
+            
+        }).then((response)=>{
+            localStorage.setItem("token", response)
+        }).finally(()=>{
+            window.location.href = "index.html"
         })
-        const newData = await response.json()
-        localStorage.setItem("token", newData)
+        
         //console.log(newData)
     }
 
@@ -99,6 +105,52 @@ class Api {
             }
         }).finally(()=>{
             window.location.href = "dashboard.html"
+        })
+    }
+
+    static async postCartProduct(id) {
+
+        const postCartProductUrl = "/cart/add"
+
+        const response = await fetch(`${this.baseUrl}${postCartProductUrl}`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({"product_id": id})
+        })
+
+        const newData = await response.json()
+
+        return newData
+        
+    }
+
+    static async getCartProducts() {
+
+        const getCartProducts = "/cart"
+
+        const response = await fetch(`${this.baseUrl}${getCartProducts}`,{
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+        })
+
+        const data = await response.json()
+
+        return data
+    }
+
+    static async deleteCartProduct(id){
+
+        const deleteProductUrl = `/cart/remove/${id}`
+
+        const response = await fetch(`${this.baseUrl}${deleteProductUrl}`,{
+            method: "DELETE",
+            headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}
         })
     }
 }

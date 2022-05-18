@@ -5,12 +5,192 @@ const cart_items_list     = document.querySelector("#cart-list")
 const cart_items_quantity = document.querySelector("#cart-footer-total-amount > p")
 const cart_items_price    = document.querySelector("#cart-footer-total-price > p")
 
-if(localStorage.getItem('productsInCart') != undefined){
-    let ids_from_localStorage = localStorage.getItem('productsInCart')
-    let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
-    cart_products(products_from_localStorage)
+let globalFinalPrice = 0
+let globalQuantity = 0
+
+
+localStorage.setItem("productsInStorage", [])
+
+
+async function actualizeCart() {
+
+    const newCartProductsArray = await Api.getCartProducts()
+    const ulCartItems = document.getElementById("cart-list")
+
+    const footerFinalPrice = document.getElementById("cart-footer-total-price")
+    const footerProductsQuantity = document.getElementById("cart-footer-total-amount")
+    let finalPrice = 0
+    let quantity = 0
+
+    ulCartItems.innerHTML = ""
+
+    if(localStorage.getItem("token") === null){
+    }
+    else{
+        newCartProductsArray.forEach(product =>{
+
+            quantity += product.quantity
+
+            finalPrice += product.quantity * product.products.preco
+
+            const liProduct = renderizeCartProduct(product)
+
+            ulCartItems.appendChild(liProduct)
+
+        })
+            
+        footerFinalPrice.innerText = `Total: R$${finalPrice}`
+        footerProductsQuantity.innerText = `Total de produtos no carrinho : ${quantity}`
+    }
+    
 }
 
+async function deleteCartProduct(event) {
+
+    const target = event.target.title
+
+    const newCartProductsArray = await Api.getCartProducts()
+
+    if(target === "delete-cart-item"){
+        await Api.deleteCartProduct(event.target.id)
+
+        newCartProductsArray.forEach(product =>{
+    
+            renderizeCartProduct(product)
+    
+        })
+    }
+
+    actualizeCart()
+    actualizeModalCart()
+
+}
+
+function deleteCartProductOff(event) {
+
+
+    const newProductsInLocalStorage = localStorage.getItem("productsInStorage").split(",")
+    const footerFinalPrice = document.getElementById("cart-footer-total-price")
+    const footerProductsQuantity = document.getElementById("cart-footer-total-amount")
+    const productPrice = document.getElementsByClassName("preco-produtos")
+
+    const productId = event.target.id
+    let removeCounter = 1
+
+    const attProducts = []
+
+    newProductsInLocalStorage.forEach(id =>{
+
+        if(id === productId && removeCounter === 1){
+            removeCounter -= 1
+        }
+        else{
+            attProducts.push(id)
+        }
+    })
+
+    localStorage.setItem("productsInStorage", attProducts)
+
+    const closeLi = event.target.closest("li")
+
+    let priceCounter = 1
+
+    for(let i = 0; i< productPrice.length; i++){
+        const item = productPrice[i]
+
+        if(item.id === event.target.title && priceCounter === 1){
+            priceCounter -= 1
+            globalFinalPrice -= item.id
+            globalQuantity -= 1
+        }
+    }
+
+    footerFinalPrice.innerText = `Total: R$${globalFinalPrice}`
+    footerProductsQuantity.innerText = `Total de produtos no carrinho : ${globalQuantity}`
+
+    closeLi.style.display = "none"
+}
+
+async function actualizeModalCart() {
+
+    const newCartProductsArray = await Api.getCartProducts()
+
+    const ulModalCartItems = document.getElementById("cart-list-modal")
+
+    const modalFinalPrice = document.getElementById("modal-cart-footer-total-price")
+    const modalProductsAmount = document.getElementById("modal-cart-footer-total-amount")
+
+    let finalPrice = 0
+    let quantity = 0
+
+    ulModalCartItems.innerHTML = ""
+
+    if(localStorage.getItem("token") === null){
+    }
+    else{
+        newCartProductsArray.forEach(product =>{
+
+            quantity += product.quantity
+
+            finalPrice += product.quantity * product.products.preco
+
+            const liProduct = renderizeCartProduct(product)
+
+            ulModalCartItems.appendChild(liProduct)
+
+        })
+
+        modalFinalPrice.innerText = `Total: R$${finalPrice}`
+        modalProductsAmount.innerText = `Total de produtos no carrinho : ${quantity}`
+    }
+}
+
+async function addProductToCart(event) {
+
+    const idProduct = event.target.id
+    if(localStorage.getItem("token") === null){
+
+        const newProductsInLocalStorage = [localStorage.getItem("productsInStorage")]
+        const ulCartItems = document.getElementById("cart-list")
+
+        const footerFinalPrice = document.getElementById("cart-footer-total-price")
+        const footerProductsQuantity = document.getElementById("cart-footer-total-amount")
+
+        const product = api_products.filter((product)=>{
+            if(product.id === idProduct){
+
+                globalFinalPrice += product.preco
+
+                globalQuantity += 1
+                
+                const newProduct = renderizeCartProductOff(product)
+
+                ulCartItems.appendChild(newProduct)
+            }
+        })
+
+        footerFinalPrice.innerText = `Total: R$${globalFinalPrice}`
+        footerProductsQuantity.innerText = `Total de produtos no carrinho : ${globalQuantity}`
+
+        newProductsInLocalStorage.push(idProduct)
+
+        localStorage.setItem("productsInStorage", newProductsInLocalStorage)
+
+    }
+    else{
+        await Api.postCartProduct(idProduct)
+        const newCartProductsArray = await Api.getCartProducts()
+
+        newCartProductsArray.forEach(product =>{
+
+            renderizeCartProduct(product)
+            
+        })
+
+        actualizeCart()
+        actualizeModalCart()
+    }
+}
 
 function productsHomePage(products) {
     const containerCards = document.querySelector('.container-cards')
@@ -50,9 +230,11 @@ function productsHomePage(products) {
 
         cardFooterPrice.innerText = element.preco
         cardFooterAddCart.innerText = 'Add'
-        cardFooterAddCart.addEventListener('click', () => {
+        cardFooterAddCart.addEventListener('click', addProductToCart)
 
-            if(localStorage.getItem('productsInCart') == undefined || localStorage.getItem('productsInCart') == ''){
+            
+
+            /*if(localStorage.getItem('productsInCart') == undefined || localStorage.getItem('productsInCart') == ''){
                 localStorage.setItem('productsInCart', element.id)
                 cart_items_list.innerHTML = ''
                 let ids_from_localStorage = localStorage.getItem('productsInCart')
@@ -65,8 +247,8 @@ function productsHomePage(products) {
                 let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
                 cart_products(products_from_localStorage)
             }
-        })
-        //cardFooterAddCart.dataset.id = element.id
+        })*/
+        cardFooterAddCart.id = element.id
         cardFooter.append(cardFooterPrice, cardFooterAddCart)
 
         card.append(figure, cardBody, cardCategory, cardFooter)
@@ -76,118 +258,97 @@ function productsHomePage(products) {
 }
 
 
-function cart_item_template(image, name, description, price, id) {
-    const cart_item = document.createElement("li")
-    cart_item.id = id
-    cart_item.innerHTML =  `<div class="cart-item-header">
-                                <img src="${image}" alt="product" class="cart-item-image">
-
-                                <div class="cart-item-info">
-                                    <h4 class="cart-item-name">${name}</h4>
-                                    <p class="cart-item-description">
-                                        ${description}
-                                    </p>
-                                </div>
-
-                                <button class="cart-remove-button">teste</button>
-                            </div>
-
-                            <div class="cart-item-footer">
-                                <div class="cart-item-price">
-                                    <p>
-                                        R$${price}
-                                    </p>
-                                </div>
-
-                                <div class="cart-item-quantity">
-                                    <p>
-                                        1
-                                    </p>
-                                </div>
-                            </div>`
-
-    cart_items_list.appendChild(cart_item)
-    remove_buttons()
-    quantity_update(cart_items_list.children)
-    price_update()
-}
-
-function cart_products(array) {
-    array.forEach(element => {
-        cart_item_template(element.imagem,
-                           element.nome,
-                           element.descricao,
-                           element.preco,
-                           element.id)
-    });
-}
-
-function find_on_API_by_ID(productsIds) {
-    let products = []
-    productsIds.forEach(ids => {
-        api_products.find(element => {
-            if (element.id === ids) {
-                products.push(element)
-            }
-        })
-    })
-    return products
-}
-
-
-function remove_buttons() {
-    const get_remove_buttons = document.getElementsByClassName("cart-remove-button")
-    for (let i = 0; i < get_remove_buttons.length; i++) {
-        get_remove_buttons[i].addEventListener("click", target => {
-
-            const product_ID = target.path[2].id
-            target.path[2].remove()
-
-            const arr_ids_from_localStorage = localStorage.getItem('productsInCart').split(',')
-            const remove_product_ID = arr_ids_from_localStorage.filter(id => id != product_ID).join(',')
-            
-            localStorage.setItem('productsInCart', remove_product_ID)
-            
-            
-            const products_from_localStorage = find_on_API_by_ID(arr_ids_from_localStorage)
-
-            quantity_update(cart_items_list.children)
-            price_update()
-        })
-    }
-}
-
-
-
-function quantity_update(array) {
-    cart_items_quantity.innerText = 'Quantidade:' + array.length
-}
-
-function price_update() {
-    const precos = document.querySelectorAll('.cart-item-price > p')
-    let final_price = 0
+function renderizeCartProduct(product) {
     
-    for(let i = 0; i < precos.length; i++){
-        const priceNumber = +precos[i].innerText.split('R$')[1]
-        final_price += priceNumber
-    }
-    
+    const ulCartItems = document.getElementById("cart-list")
+    const ulModalCartItems = document.getElementById("cart-list-modal")
 
-    cart_items_price.innerText = 'Total: R$' + final_price
+    ulCartItems.addEventListener("click", deleteCartProduct)
+    ulModalCartItems.addEventListener("click", deleteCartProduct)
+
+    const cartProductCard = document.createElement("li")
+    const productImg = document.createElement("img")
+    const productName = document.createElement("h3")
+    const productPrice = document.createElement("span")
+    const productQuantity = document.createElement("span")
+    const btnRemoveProduct = document.createElement("button")
+  
+
+    productImg.setAttribute("src", `${product.products.imagem}`)
+    productName.innerText = `${product.products.nome}`
+    productPrice.innerText = `Preço: ${product.products.preco}`
+    productQuantity.innerText = `Quantidade: ${product.quantity}`
+
+    btnRemoveProduct.innerText = "Remover"
+    btnRemoveProduct.title = "delete-cart-item"
+    btnRemoveProduct.id = `${product.products.id}`
+
+    cartProductCard.appendChild(productImg)
+    cartProductCard.appendChild(productName)
+    cartProductCard.appendChild(productPrice)
+    cartProductCard.appendChild(productQuantity)
+    cartProductCard.appendChild(btnRemoveProduct)
+
+    //ulCartItems.appendChild(cartProductCard)
+
+    return cartProductCard
 }
 
-function verifyUserLogged() {
-    if(localStorage.getItem("token") === ""){
+function renderizeCartProductOff(product) {
+
+    const ulCartItems = document.getElementById("cart-list")
+    const ulModalCartItems = document.getElementById("cart-list-modal")
+
+    ulCartItems.addEventListener("click", deleteCartProductOff)
+    ulModalCartItems.addEventListener("click", deleteCartProductOff)
+
+    const cartProductCard = document.createElement("li")
+    const productImg = document.createElement("img")
+    const productName = document.createElement("h3")
+    const productPrice = document.createElement("span")
+    const btnRemoveProduct = document.createElement("button")
+  
+
+    productImg.setAttribute("src", `${product.imagem}`)
+    productName.innerText = `${product.nome}`
+    productPrice.innerText = `Preço: ${product.preco}`
+    productPrice.id = product.preco
+    productPrice.classList.add("preco-produtos")
+
+    btnRemoveProduct.innerText = "Remover"
+    btnRemoveProduct.title = product.preco
+    btnRemoveProduct.id = `testeId`
+
+    cartProductCard.appendChild(productImg)
+    cartProductCard.appendChild(productName)
+    cartProductCard.appendChild(productPrice)
+    cartProductCard.appendChild(btnRemoveProduct)
+
+    return cartProductCard
+}
+
+
+
+async function verifyUserLogged() {
+    if(localStorage.getItem("token") === null){
         localStorage.setItem("userIsLogged", false)
+        modalLogin.style.display = "flex"
     }
     else{
         localStorage.setItem("userIsLogged", true)
+        const newCartProductsArray = await Api.getCartProducts()
+
+        newCartProductsArray.forEach(product =>{
+
+            renderizeCartProduct(product)
+
+        })
+
+        actualizeCart()
+        actualizeModalCart()
     }
 }
 
-verifyUserLogged()
-
-//localStorage.clear()
 
 const cartHeadder = document.getElementById('cart-header');
 const modalCart = document.getElementById('modal-cart');
@@ -207,6 +368,7 @@ function redirectToRegister() {
         modalRegister.style.display = 'flex'
     })
 }
+verifyUserLogged()
 redirectToRegister()
 
 function redirectToLogin() {
@@ -279,6 +441,17 @@ async function logUser(event) {
 
     localStorage.setItem("userIsLogged", true)
 
+    const arrProductsInCart = localStorage.getItem("productsInStorage").split(",")
+
+    arrProductsInCart.forEach(async (productId) =>{
+        if(productId !== ""){
+            await Api.postCartProduct(productId)
+        }
+    })
+
+    actualizeCart()
+    actualizeModalCart()
+
     console.log(localStorage.getItem("userIsLogged"))
     console.log(localStorage.getItem("token"))
 }
@@ -329,6 +502,7 @@ const productsPub = await Api.getPublicProducts()
 
 
 productsHomePage(productsPub)
+
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()

@@ -136,6 +136,10 @@ async function postNewProduct(event) {
 
     productsArray = await Api.getUserProducts()
     renderizeUserProducts(productsArray)
+
+    const modalProduct = document.getElementById("add-product-modal")
+
+    modalProduct.style.display = "none"
 }
 
 function displayConfirmDelete(event) {
