@@ -316,7 +316,7 @@ function filterPerCategory() {
         const filter = productsPub.filter(element => {
             return element.categoria === target
         })
-        console.log(filter)
+        
         if(target !== 'Todos') {
             productsHomePage(filter)
         } else {
