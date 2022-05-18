@@ -1,51 +1,55 @@
 import Api from "./Api.js";
 
-const logoutBtn = document.getElementById('dashboard-logout-button')
+const ulProducts = document.getElementById("owner-product-list")
 
-function productsHomePage(products) {
-    const containerCards = document.querySelector('.container-cards')
+const productsArray = await Api.getUserProducts()
 
-    products.forEach(element => {
-        const card = document.createElement('article')
-        card.classList.add('card')
-        card.dataset.id = element.id
 
-        const figure = document.createElement('figure')
-        const img = document.createElement('img')
-        img.src = element.imagem
-        img.alt = element.nome
+function renderizeUserProducts(productsArray) {
 
-        figure.appendChild(img)
+    if(productsArray.length > 0){
+        productsArray.forEach(product => {
+            
+            const productCardLi = document.createElement("li")
+            const cardImg = document.createElement("img")
+            const cardProductName = document.createElement("h3")
+            const cardCategories = document.createElement("span")
+            const cardDescription = document.createElement("span")
+            const cardEditProduct = document.createElement("img")
+            const cardDeleteProduct = document.createElement("img")
 
-        const cardBody = document.createElement('div')
-        cardBody.classList.add('card-body')
+            cardImg.setAttribute("src", `${product.imagem}`)
 
-        const cardBodyTitle = document.createElement('h2')
-        cardBodyTitle.innerText = element.nome
-        const CardBodyDesc = document.createElement('p')
-        CardBodyDesc.classList.add('card-desc')
-        CardBodyDesc.innerText = element.descricao
+            cardProductName.innerText = product.nome
+            
+            cardCategories.innerText = product.categoria
 
-        cardBody.append(cardBodyTitle, CardBodyDesc)
+            cardDescription.innerText = product.descricao
 
-        const cardCategory = document.createElement('div')
-        cardCategory.classList.add('card-category')
-        cardCategory.innerText = element.categoria
+            cardEditProduct.setAttribute("src", "#")
+            cardEditProduct.id = product.id
+            
+            cardDeleteProduct.setAttribute("src", "#")
+            cardDeleteProduct.id = product.id
 
-        const cardFooter = document.createElement('div')
-        const cardFooterPrice = document.createElement('p')
-        const cardFooterAddCart = document.createElement('button')
+            productCardLi.appendChild(cardImg)
+            productCardLi.appendChild(cardProductName)
+            productCardLi.appendChild(cardCategories)
+            productCardLi.appendChild(cardDescription)
+            productCardLi.appendChild(cardEditProduct)
+            productCardLi.appendChild(cardDeleteProduct)
 
-        cardFooterPrice.innerText = element.preco
-        cardFooterAddCart.innerText = 'Add'
-        cardFooterAddCart.dataset.id = element.id
-        cardFooter.append(cardFooterPrice, cardFooterAddCart)
-
-        card.append(figure, cardBody, cardCategory, cardFooter)
-
-        containerCards.append(card)
-    })
+            ulProducts.appendChild(productCardLi)
+        });
+    }
+    else{
+        ulProducts.innerText = "Você ainda não cadastrou nenhum produto!"
+    }
+    
 }
+
+renderizeUserProducts(productsArray)
+const logoutBtn = document.getElementById('dashboard-logout-button')
 
 /*
 
@@ -57,4 +61,3 @@ logoutBtn.addEventListener("click", () => {
     window.location.href = "/index.html"
 })*/
 
-export default productsHomePage
