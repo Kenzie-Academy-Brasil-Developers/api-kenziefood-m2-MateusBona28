@@ -29,8 +29,8 @@ body {
     justify-content: space-between;
 }
 
-#main-content {
-    padding: 20px;
+.main-content {
+    padding: 15px;
 }
 
 
