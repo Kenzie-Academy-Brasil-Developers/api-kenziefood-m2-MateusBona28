@@ -2,8 +2,8 @@ import Api from "./Api.js";
 
 const api_products = await Api.getPublicProducts()
 const cart_items_list     = document.querySelector("#cart-list")
-const cart_items_quantity = document.querySelector("#cart-footer-total-amount > p")
-const cart_items_price    = document.querySelector("#cart-footer-total-price > p")
+const cart_items_quantity = document.querySelector("#cart-footer-total-amount > span")
+const cart_items_price    = document.querySelector("#cart-footer-total-price > span")
 
 if(localStorage.getItem('productsInCart') != undefined){
     let ids_from_localStorage = localStorage.getItem('productsInCart')
@@ -48,7 +48,7 @@ function productsHomePage(products) {
         const cardFooterPrice = document.createElement('p')
         const cardFooterAddCart = document.createElement('button')
 
-        cardFooterPrice.innerText = element.preco
+        cardFooterPrice.innerText = 'R$' + (element.preco.toFixed(2) + ' ').split('.').join(',')
         cardFooterAddCart.innerText = 'Add'
         cardFooterAddCart.addEventListener('click', () => {
 
@@ -84,9 +84,7 @@ function cart_item_template(image, name, description, price, id) {
 
                                 <div class="cart-item-info">
                                     <h4 class="cart-item-name">${name}</h4>
-                                    <p class="cart-item-description">
-                                        ${description}
-                                    </p>
+                                    
                                 </div>
 
                                 <button class="cart-remove-button">teste</button>
@@ -160,7 +158,7 @@ function remove_buttons() {
 
 
 function quantity_update(array) {
-    cart_items_quantity.innerText = 'Quantidade:' + array.length
+    cart_items_quantity.innerText = array.length
 }
 
 function price_update() {
@@ -173,7 +171,7 @@ function price_update() {
     }
     
 
-    cart_items_price.innerText = 'Total: R$' + final_price
+    cart_items_price.innerText = 'R$' + final_price.toFixed(2).split('.').join(',')
 }
 
 function verifyUserLogged() {
@@ -292,6 +290,7 @@ function createFilterElements() {
     const liBebidas = document.createElement('li')
 
     liTodos.classList.add('category-button')
+    liTodos.classList.add('active')
     liPanificadora.classList.add('category-button')
     liFrutas.classList.add('category-button')
     liBebidas.classList.add('category-button')
