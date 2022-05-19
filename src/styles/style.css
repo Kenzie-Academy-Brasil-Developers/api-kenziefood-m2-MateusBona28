@@ -803,11 +803,18 @@ header {
     justify-content: space-between;
 }
 
+.cart-card figure {
+    height: 70px;
+    width: 70px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+    border-radius: 10px;
+}
+
 .cart-img {
-    width: 75px;
-    height: 75px;
-    border-radius: 15px;
-    margin-top: 3px;
+    height: 100%;
 }
 
 .div-product-info {

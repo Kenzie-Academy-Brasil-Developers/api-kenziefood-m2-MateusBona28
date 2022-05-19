@@ -319,6 +319,8 @@ function renderizeCartProduct(product) {
 
     const cartProductCard = document.createElement("li")
     cartProductCard.classList.add("cart-card")
+
+    const productFigure = document.createElement("figure")
     const productImg = document.createElement("img")
     productImg.classList.add("cart-img")
 
@@ -354,8 +356,8 @@ function renderizeCartProduct(product) {
     divProductInfo.appendChild(productQuantity)
     divProductInfo.appendChild(productPrice)
 
-
-    cartProductCard.appendChild(productImg)
+    productFigure.append(productImg)
+    cartProductCard.appendChild(productFigure)
     cartProductCard.appendChild(divProductInfo)
     cartProductCard.appendChild(btnRemoveProduct)
 
