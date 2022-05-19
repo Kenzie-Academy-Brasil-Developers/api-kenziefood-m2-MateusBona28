@@ -232,9 +232,10 @@ function editProduct(event) {
     cancelBtn.addEventListener('click', () => {
         modalContainer.style.display = 'none'
     })
-    closeModal.addEventListener('click', () => {
-        modalContainer.style.display = 'none'
-    })
+    // closeModal.addEventListener('click', () => {
+    //     console.log('olá mundo')
+    //     //modalContainer.style.display = 'none'
+    // })
     // editBtn.forEach(element => {
     //     element.addEventListener('click', (event) => {
     //         const e = event.target
@@ -354,9 +355,10 @@ logoutBtn.addEventListener("click", () => {
 function closeModalFunctionality() {
     for(let i = 0; i < closeModal.length; i++) {
         closeModal[i].addEventListener('click', (event) => {
-
             const modals = document.getElementsByClassName("modal")
-            modals[i].style.display = "none"
+            for(let j = 0; j < modals.length; j++) {
+                modals[j].style.display = 'none'
+            }
         })
     }
 }
