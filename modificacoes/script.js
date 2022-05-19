@@ -31,6 +31,8 @@ async function postNewProduct(event) {
     renderizeUserProducts(productsArray)
 }
 
+/* o codigo dos modais */
+
 function errorModalDisplay() {
     const modalBody    = document.getElementById("error-product-status-modal")
     const modalMessage = document.getElementById("error-status-message")
