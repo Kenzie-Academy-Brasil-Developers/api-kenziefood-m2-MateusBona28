@@ -793,6 +793,7 @@ header {
     flex-direction: column;
     justify-content: flex-start;
     overflow: auto;
+    min-width: 100%;
 }
 
 .cart-card {
