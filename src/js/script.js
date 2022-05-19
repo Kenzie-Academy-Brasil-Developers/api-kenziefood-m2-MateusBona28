@@ -334,7 +334,6 @@ function renderizeCartProductOff(product) {
 async function verifyUserLogged() {
     if(localStorage.getItem("token") === null){
         localStorage.setItem("userIsLogged", false)
-        modalLogin.style.display = "flex"
     }
     else{
         localStorage.setItem("userIsLogged", true)
@@ -369,12 +368,32 @@ function redirectToRegister() {
         modalLogin.style.display = 'none'
         modalRegister.style.display = 'flex'
     })
+
+    const modalLoginRegister = document.getElementById("login-register")
+    const modalGoRegister = document.getElementById("goTo-register")
+
+    modalGoRegister.addEventListener("click", () => {
+        modalLoginRegister.style.display = "none"
+        modalLogin.style.display = 'none'
+        modalRegister.style.display = 'flex'
+    })
 }
 verifyUserLogged()
 redirectToRegister()
 
 function redirectToLogin() {
+    
     redirectLogin.addEventListener('click', () => {
+        modalRegister.style.display = 'none'
+        modalLogin.style.display = 'flex'
+    })
+
+    const modalLoginRegister = document.getElementById("login-register")
+    const modalGoLogin = document.getElementById("goTo-login")
+    const modalSignIn = document.getElementById("login-register")
+
+    modalGoLogin.addEventListener("click", () => {
+        modalLoginRegister.style.display = "none"
         modalRegister.style.display = 'none'
         modalLogin.style.display = 'flex'
     })
@@ -385,11 +404,14 @@ cartHeadder.addEventListener('click', displayModal)
 btnRegisterForm.addEventListener("click", registerNewUser)
 btnLoginForm.addEventListener("click", logUser)
 profileImg.addEventListener("click", (event)=>{
-    if(localStorage.getItem("userIsLogged")){
+    if(localStorage.getItem("token") !== null){
+        
+        const modalLogout = document.getElementById("modal-logout")
+        modalLogout.style.display = "flex"
     }
     else{
-        modalRegister.style.display = "flex";
-        modalLogin.style.display = "flex";
+        const modalLoginRegister = document.getElementById("login-register")
+        modalLoginRegister.style.display = "flex"
     }
 })
 
@@ -453,9 +475,6 @@ async function logUser(event) {
 
     actualizeCart()
     actualizeModalCart()
-
-    console.log(localStorage.getItem("userIsLogged"))
-    console.log(localStorage.getItem("token"))
 }
 
 

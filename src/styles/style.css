@@ -44,7 +44,83 @@ header {
 }
 
 #index-logout-button {
+    display: flex;
+    max-width: 90px;
+    cursor: pointer;
+    color: #fff;;
+    background-color: rgb(255, 34, 83);
+    border-radius: 40px;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.close-modal__logout {
+    align-self: flex-end;
+    margin-bottom: 15px;
+}
+
+#goTo-login {
+    display: flex;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    color: #fff;;
+    background-color: rgb(255, 34, 83);
+    border-radius: 40px;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    justify-content: center;
+}
+
+#goTo-register {
+    display: flex;
+    margin-top: 10px;
+    width: 90px;
+    height: 50px;
+    cursor: pointer;
+    color: #fff;;
+    background-color: rgb(255, 34, 83);
+    border-radius: 40px;
+    padding: 15px;
+    font-size: 16px;
+    border: none;
+    justify-content: center;
+}
+
+#index-logout-button:hover {
+    background-color: rgb(219, 21, 64);
+}
+
+#goTo-register:hover {
+    background-color: rgb(219, 21, 64);
+}
+
+#goTo-login:hover {
+    background-color: rgb(219, 21, 64);
+}
+
+#profile-image:hover {
+    cursor: pointer;
+}
+
+#modal-logout {
     display: none;
+}
+
+#content-logout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.close-modal__register-login {
+    margin-left: auto;
+    margin-bottom: 15px;
 }
 
 #logo {
@@ -232,7 +308,11 @@ header {
     cursor: pointer;
 }
 
-#register-header, #login-header, #modal-cart-header, .modal-edit-header {
+#cart-header:hover, #finalize-purchase:hover {
+    background-color: rgb(219, 21, 64);
+}
+
+#register-header, #login-header, #modal-cart-header, .modal-edit-header, #login-register-header {
     display: flex;
     justify-content: space-between;
 }
