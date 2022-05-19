@@ -360,10 +360,21 @@ header {
 .card-footer-addcart {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .card-footer-addbtn {
-    color: var(--color-pink-1);
+    background-color: var(--color-grey-3);
+    padding: 10px;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card-footer-addbtn:hover {
+    background-color: var(--color-pink-1);
+    transition: 0.3s;
 }
 
 #cart {
@@ -449,6 +460,10 @@ header {
     cursor: pointer;
     font-family: 'Poppins';
     font-size: 16px;
+}
+
+#modal-cart-footer-button button {
+    min-width: 300px;
 }
 
 #modal-cart-content {
@@ -761,7 +776,7 @@ header {
     margin: 5px;
     display: flex;
     flex-direction: row;
-    width: 268px;
+    justify-content: space-between;
 }
 
 .cart-img {
@@ -772,6 +787,7 @@ header {
 }
 
 .div-product-info {
+    width: 100%;
     margin: 0 8px;
     display: flex;
     flex-direction: column;
