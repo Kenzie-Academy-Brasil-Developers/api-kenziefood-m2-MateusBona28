@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
     <title>Kenzie Food - Dashboard</title>
 </head>
 <body>
@@ -36,7 +36,7 @@
             <button id="new-product-button">Adicionar novo produto</button>
         </div>
 
-        <ul id="owner-product-list">
+        <ul class="" id="owner-product-list">
             <!-- Lista dos Produtos com os botões de editar e deletar -->
         </ul>
 
@@ -47,16 +47,50 @@
         <button></button>
     </div>
 
-    <div class="modal-status"> <!-- Modal do status  -->
-        <div id="modal-status-header">
-            <h3>Status</h3>
-            <button id="close-modal-status">X</button>
+    <div class="modal" id="error-product-status-modal"> <!-- Modal do status  -->
+        <p id="error-status-message">Ocorreu algum erro, o produto não foi adicionado, verifique as informações inseridas e tente novamente.</p>
+        <div id="error-modal-status-header">
+            <button id="close-error-modal-status-btn">X</button>
         </div>
-        <p id="status-message">Ocorreu algum erro, o produto não foi adicionado</p>
+    </div>
+
+    <div class="modal" id="success-product-status-modal">
+        <p id="success-status-message">O produto foi adicionado com sucesso.</p>
+        <div id="success-modal-status-header">
+            <button id="close-success-modal-status-btn">X</button>
+        </div>
+    </div>
+
+    <div class="modal" id="delete-error-product-status-modal">
+        <p id="delete-error-status-message">Ocorreu algum erro, o produto não pôde ser deletado.</p>
+        <div id="delete-error-modal-status-header">
+            <button id="close-error-delete-modal-status-btn">X</button>
+        </div>
+    </div>
+
+    <div class="modal" id="delete-success-product-status-modal">
+        <p id="delete-success-status-message">O produto foi deletado com sucesso.</p>
+        <div id="delete-success-modal-status-header">
+            <button id="close-success-delete-modal-status-btn">X</button>
+        </div>
+    </div>
+
+    <div class="modal" id="edit-error-product-status-modal">
+        <p id="edit-error-status-message">Ocorreu algum erro, o produto não foi editado. Verifique as informações inseridas e tente novamente.</p>
+        <div id="edit-error-modal-status-header">
+            <button id="close-error-edit-modal-status-btn">X</button>
+        </div>
+    </div>
+
+    <div class="modal" id="edit-success-product-status-modal">
+        <p id="edit-success-status-message">O produto foi editado com sucesso.</p>
+        <div id="edit-success-modal-status-header">
+            <button id="close-success-edit-modal-status-btn">X</button>
+        </div>
     </div>
 
 
-    <div class="modal" id="add-product-modal">
+    <div class="" id="add-product-modal">
         <div class="modal-content">
             <div id="register-header">
                 <h3>Adicionar Produto</h3>

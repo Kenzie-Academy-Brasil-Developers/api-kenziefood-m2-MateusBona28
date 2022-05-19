@@ -6,13 +6,11 @@ const allModals = document.getElementsByClassName("modal")
 const btnPostProduct = document.getElementById("add-product")
 const deleteProduct = document.getElementsByClassName("delete-product")
 
-
 btnAddProduct.addEventListener("click", displayNewProductModal)
 
 let productsArray = await Api.getUserProducts()
 
 renderizeUserProducts(productsArray)
-
 
 for(let i = 0; i < allModals.length; i++){
     
@@ -30,7 +28,6 @@ for(let i = 0; i < deleteProduct.length; i++){
 }
 
 btnPostProduct.addEventListener("click", postNewProduct)
-
 
 function renderizeUserProducts(productsArray) {
 
@@ -82,18 +79,6 @@ function renderizeUserProducts(productsArray) {
 }
 
 renderizeUserProducts(productsArray)
-const logoutBtn = document.getElementById('dashboard-logout-button')
-
-/*
-
-se descomentar isso ele dá conflito com o script.js,
-    pq o script tá lendo esse eventListener por algum motivo
-
-logoutBtn.addEventListener("click", () => {
-    localStorage.clear()
-    window.location.href = "/index.html"
-})*/
-
 
 function displayNewProductModal(event) {
 
@@ -105,7 +90,6 @@ function displayNewProductModal(event) {
 }
 
 function closeModal(event) {
-
     event.preventDefault()
     const targetModal = event.target.closest('.modal')
     targetModal.style.display = 'none'
@@ -130,11 +114,84 @@ async function postNewProduct(event) {
         }
     }
 
-    await Api.postNewProduct(newProduct)
+    const requestStatus = await Api.postNewProduct(newProduct)
 
+    if (requestStatus === false) {
+        errorModalDisplay()
+    } else {
+        successModalDisplay()
+    }
+    
     productsArray = await Api.getUserProducts()
     renderizeUserProducts(productsArray)
 }
+
+function errorModalDisplay() {
+    const modalBody    = document.getElementById("error-product-status-modal")
+    const modalMessage = document.getElementById("error-status-message")
+    const modalBtn     = document.getElementById("close-error-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function successModalDisplay() {
+    const modalBody    = document.getElementById("success-product-status-modal")
+    const modalMessage = document.getElementById("success-status-message")
+    const modalBtn     = document.getElementById("close-success-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function deleteErrorModalDisplay() {
+    const modalBody    = document.getElementById("delete-error-product-status-modal")
+    const modalMessage = document.getElementById("delete-error-status-message")
+    const modalBtn     = document.getElementById("close-error-delete-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function deleteSuccessModalDisplay() {
+    const modalBody    = document.getElementById("delete-success-product-status-modal")
+    const modalMessage = document.getElementById("delete-success-status-message")
+    const modalBtn     = document.getElementById("close-success-delete-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function editErrorModalDisplay() {
+    const modalBody    = document.getElementById("edit-error-product-status-modal")
+    const modalMessage = document.getElementById("edit-error-status-message")
+    const modalBtn     = document.getElementById("close-error-edit-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function editSuccessModalDisplay() {
+    const modalBody    = document.getElementById("edit-success-product-status-modal")
+    const modalMessage = document.getElementById("edit-success-status-message")
+    const modalBtn     = document.getElementById("close-success-edit-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
 
 function displayConfirmDelete(event) {
     
@@ -157,11 +214,15 @@ function displayConfirmDelete(event) {
         confirmDeleteModal.style.display = "none"
     })
 
-    btnDelete.addEventListener("click", (event)=>{
+    btnDelete.addEventListener("click", async (event) =>{
 
         event.preventDefault()
 
         Api.deletePost(productId)
+        
+        let teste = await Api.getUserProducts()
+        
+        renderizeUserProducts(teste)
     })
 
     

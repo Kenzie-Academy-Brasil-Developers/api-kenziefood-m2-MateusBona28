@@ -53,31 +53,24 @@ class Api {
         })
         const newData = await response.json()
         localStorage.setItem("token", newData)
-        //console.log(newData)
     }
 
-    static async getUserProducts(data) {
-
+    static async getUserProducts() {
         const productsUrl = "/my/products"
-
         const response = await fetch(`${this.baseUrl}${productsUrl}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify(data)
+            }
         })
-
         const newData = await response.json()
-
         return newData
     }
+    
 
     static async postNewProduct(data) {
-
         const addProductUrl = "/my/products"
-
         const response = await fetch(`${this.baseUrl}${addProductUrl}`, {
             method: "POST",
             headers: {
@@ -86,20 +79,23 @@ class Api {
             },
             body: JSON.stringify(data)
         })
+        return response.ok
     }
 
     static async deletePost(id) {
-
         const deleteUrl = `/my/products/${id}`
-
-        fetch(`${this.baseUrl}${deleteUrl}`,{
+        let response = fetch(`${this.baseUrl}${deleteUrl}`,{
             method: "DELETE",
             headers: {
                 "Authorization" : `Bearer ${localStorage.getItem("token")}`
             }
-        }).finally(()=>{
-            window.location.href = "dashboard.html"
         })
+
+        /*
+        .finally(()=>{
+            window.location.href = "dashboard.html"
+        })*/
+        return response.ok
     }
 }
 

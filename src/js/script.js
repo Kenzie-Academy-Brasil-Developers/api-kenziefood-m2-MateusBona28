@@ -76,7 +76,7 @@ function productsHomePage(products) {
 }
 
 
-function cart_item_template(image, name, description, price, id) {
+function cart_item_template(image, name, price, id) {
     const cart_item = document.createElement("li")
     cart_item.id = id
     cart_item.innerHTML =  `<div class="cart-item-header">
@@ -84,9 +84,6 @@ function cart_item_template(image, name, description, price, id) {
 
                                 <div class="cart-item-info">
                                     <h4 class="cart-item-name">${name}</h4>
-                                    <p class="cart-item-description">
-                                        ${description}
-                                    </p>
                                 </div>
 
                                 <button class="cart-remove-button">teste</button>
