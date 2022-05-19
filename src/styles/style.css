@@ -43,11 +43,10 @@ header {
     width: 20%; */
 }
 
-#index-logout-button {
+#index-logout-button, #redirect-dashboard {
     display: flex;
-    max-width: 90px;
     cursor: pointer;
-    color: #fff;;
+    color: #fff;
     background-color: rgb(255, 34, 83);
     border-radius: 40px;
     padding: 15px;
@@ -55,12 +54,14 @@ header {
     border: none;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25px;
+}
+
+#redirect-dashboard a {
+    color: #fff;
 }
 
 .close-modal__logout {
     align-self: flex-end;
-    margin-bottom: 15px;
 }
 
 #goTo-login {
@@ -116,6 +117,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 20px;
 }
 
 .close-modal__register-login {
@@ -668,6 +670,11 @@ header {
 
 .selected {
     background-color: var();
+}
+
+#redirect-login, #redirect-register {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 /* modal edit */

@@ -406,10 +406,12 @@ btnLoginForm.addEventListener("click", logUser)
 profileImg.addEventListener("click", (event)=>{
     if(localStorage.getItem("token") !== null){
         
+        
         const modalLogout = document.getElementById("modal-logout")
         modalLogout.style.display = "flex"
     }
     else{
+        
         const modalLoginRegister = document.getElementById("login-register")
         modalLoginRegister.style.display = "flex"
     }
