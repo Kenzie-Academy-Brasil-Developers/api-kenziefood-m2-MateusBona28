@@ -71,14 +71,25 @@ async function deleteCartProduct(event) {
 
 }
 
-function deleteCartProductOff(event) {
+async function deleteCartProductOff(event) {
 
 
     if(event.target.id === "testeId"){
         const newProductsInLocalStorage = localStorage.getItem("productsInStorage").split(",")
         const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
         const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
+        const footerFinalPriceModal = document.querySelector("#modal-cart-footer-total-amount > span")
+        const footerProductsQuantityModal = document.querySelector("#modal-cart-footer-total-price > span")
         const productPrice = document.getElementsByClassName("preco-produtos")
+
+        const ulCartItems = document.getElementById("cart-list")
+        const ulModalCartItems = document.getElementById("cart-list-modal")
+
+        const newProducts = await Api.getPublicProducts()
+        ulCartItems.innerHTML = ""
+        ulModalCartItems.innerHTML = ""
+        globalFinalPrice = 0
+        globalQuantity = 0
 
         const productId = event.target.dataset.id
         let removeCounter = 1
@@ -95,10 +106,6 @@ function deleteCartProductOff(event) {
             }
         })
 
-        localStorage.setItem("productsInStorage", attProducts)
-
-        const closeLi = event.target.closest("li")
-
         let priceCounter = 1
 
         for(let i = 0; i< productPrice.length; i++){
@@ -106,15 +113,37 @@ function deleteCartProductOff(event) {
 
             if(item.id === event.target.title && priceCounter === 1){
                 priceCounter -= 1
-                globalFinalPrice -= item.id
                 globalQuantity -= 1
             }
         }
 
-        footerFinalPrice.innerText = `R$ ${globalFinalPrice.toFixed(2).split('.').join(',')}`
+        newProducts.forEach(product =>{
+            
+            for(let i = 0; i < attProducts.length; i++){
+
+                const id = attProducts[i]
+
+                if(id === product.id && id !== ""){
+
+                    globalFinalPrice += product.preco
+
+                    globalQuantity += 1
+
+                    const newProduct = renderizeCartProductOff(product)
+                    ulCartItems.appendChild(newProduct)
+                    const newProductModal = renderizeCartProductOff(product)
+                    ulModalCartItems.appendChild(newProductModal)
+                }
+            }
+        })
+
+        footerFinalPrice.innerText = `R$: ${globalFinalPrice.toFixed(2).split('.').join(',')}`
         footerProductsQuantity.innerText = `${globalQuantity}`
 
-        closeLi.style.display = "none"
+        footerFinalPriceModal.innerText = `R$: ${globalFinalPrice.toFixed(2).split('.').join(',')}`
+        footerProductsQuantityModal.innerText = `${globalQuantity}`
+
+        localStorage.setItem("productsInStorage", attProducts)
 
         verifyCart()
     }
@@ -165,30 +194,47 @@ async function addProductToCart(event) {
 
         const newProductsInLocalStorage = [localStorage.getItem("productsInStorage")]
         const ulCartItems = document.getElementById("cart-list")
+        const ulModalCartItems = document.getElementById("cart-list-modal")
         ulCartItems.style.display = "block"
 
         const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
         const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
+        const footerFinalPriceModal = document.querySelector("#modal-cart-footer-total-amount > span")
+        const footerProductsQuantityModal = document.querySelector("#modal-cart-footer-total-price > span")
 
-        const product = api_products.filter((product)=>{
-            if(product.id === idProduct){
+        newProductsInLocalStorage.push(idProduct)
 
-                globalFinalPrice += product.preco
+        const newProducts = await Api.getPublicProducts()
 
-                globalQuantity += 1
-                
-                const newProduct = renderizeCartProductOff(product)
+        newProductsInLocalStorage.forEach(id =>{
+            
+            for(let i = 0; i < newProducts.length; i++){
 
-                ulCartItems.appendChild(newProduct)
+                const product = newProducts[i]
+
+                if(id === product.id){
+
+                    globalFinalPrice += product.preco
+
+                    globalQuantity += 1
+
+                    const newProduct = renderizeCartProductOff(product)
+                    ulCartItems.appendChild(newProduct)
+                    const newProductModal = renderizeCartProductOff(product)
+                    ulModalCartItems.appendChild(newProductModal)
+                }
             }
         })
 
         footerFinalPrice.innerText = `R$ ${globalFinalPrice.toFixed(2).split('.').join(',')}`
         footerProductsQuantity.innerText = `${globalQuantity}`
 
-        newProductsInLocalStorage.push(idProduct)
+        footerFinalPriceModal.innerText = `R$: ${globalFinalPrice.toFixed(2).split('.').join(',')}`
+        footerProductsQuantityModal.innerText = `${globalQuantity}`
 
         localStorage.setItem("productsInStorage", newProductsInLocalStorage)
+
+        verifyCart()
 
     }
     else{
@@ -300,6 +346,7 @@ function renderizeCartProduct(product) {
     productPrice.classList.add("product-cart-price")
 
     const productQuantity = document.createElement("span")
+    productQuantity.classList.add("cart-product-category")
     
     const btnRemoveProduct = document.createElement("button")
 
@@ -320,7 +367,9 @@ function renderizeCartProduct(product) {
 
     divProductInfo.appendChild(productName)
     divProductInfo.appendChild(productCategory)
+    divProductInfo.appendChild(productQuantity)
     divProductInfo.appendChild(productPrice)
+
 
     cartProductCard.appendChild(productImg)
     cartProductCard.appendChild(divProductInfo)
@@ -385,17 +434,20 @@ async function verifyCart() {
 
     if(localStorage.getItem("token") === null){
 
-        const arrProducts = localStorage.getItem("productsInStorage").split(",")
+        const arrProducts = localStorage.getItem("productsInStorage")
         const divNoProducts = document.getElementById("cart-body")
+        const divNoProductsModal = document.getElementById("modal-cart-body")
         const divUlProducts = document.getElementById("cart-list")
         divUlProducts.style.display = "block"
 
         if(arrProducts.length > 1){
             divNoProducts.style.display = "none"
+            divNoProductsModal.style.display = "none"
             divUlProducts.style.display = "block"
         }
         else{
             divNoProducts.style.display = "flex"
+            divNoProductsModal.style.display = "flex"
             divUlProducts.style.display = "none"
         }
     }
@@ -452,6 +504,9 @@ const profileImg = document.getElementById("profile-image")
 const redirectRegister = document.getElementById('redirect-register')
 const redirectLogin = document.getElementById('redirect-login')
 const logoutBtn = document.getElementById('index-logout-button')
+const btnFinalizePurchase = document.getElementById("finalize-purchase")
+
+btnFinalizePurchase.addEventListener("click", displayModal)
 
 function redirectToRegister() {
     redirectRegister.addEventListener('click', () => {
