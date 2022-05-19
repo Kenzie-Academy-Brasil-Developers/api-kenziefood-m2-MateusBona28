@@ -246,10 +246,11 @@ function productsHomePage(products) {
 
         const cardFooter = document.createElement('div')
         const cardFooterPrice = document.createElement('p')
-        const cardFooterAddCart = document.createElement('button')
+        const cardFooterAddCart = document.createElement('i')
 
+        cardFooter.classList.add('card-footer-addcart')
         cardFooterPrice.innerText = 'R$' + (element.preco.toFixed(2)).split('.').join(',')
-        cardFooterAddCart.innerText = 'Add'
+        cardFooterAddCart.classList.add('card-footer-addbtn', 'fa-solid', 'fa-cart-shopping')
         cardFooterAddCart.addEventListener('click', addProductToCart)
 
             
