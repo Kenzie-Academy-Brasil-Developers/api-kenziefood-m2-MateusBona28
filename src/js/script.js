@@ -292,10 +292,11 @@ function productsHomePage(products) {
 
         const cardFooter = document.createElement('div')
         const cardFooterPrice = document.createElement('p')
-        const cardFooterAddCart = document.createElement('button')
+        const cardFooterAddCart = document.createElement('i')
 
+        cardFooter.classList.add('card-footer-addcart')
         cardFooterPrice.innerText = 'R$' + (element.preco.toFixed(2)).split('.').join(',')
-        cardFooterAddCart.innerText = 'Add'
+        cardFooterAddCart.classList.add('card-footer-addbtn', 'fa-solid', 'fa-cart-shopping')
         cardFooterAddCart.addEventListener('click', addProductToCart)
 
             
@@ -348,7 +349,7 @@ function renderizeCartProduct(product) {
     const productQuantity = document.createElement("span")
     productQuantity.classList.add("cart-product-category")
     
-    const btnRemoveProduct = document.createElement("button")
+    const btnRemoveProduct = document.createElement("i")
 
     const productCategory = document.createElement("span")
     productCategory.classList.add("cart-product-category")
@@ -362,8 +363,7 @@ function renderizeCartProduct(product) {
 
     btnRemoveProduct.title = "delete-cart-item"
     btnRemoveProduct.id = `${product.products.id}`
-    btnRemoveProduct.classList.add("fa-solid")
-    btnRemoveProduct.classList.add("fa-trash")
+    btnRemoveProduct.classList.add("fa-solid", "fa-trash", "delete-cart-product")
 
     divProductInfo.appendChild(productName)
     divProductInfo.appendChild(productCategory)
@@ -651,31 +651,45 @@ function createFilterElements() {
 
 createFilterElements()
 
-
 function filterPerCategory() {
-    const list = document.getElementById('category-list')
-    list.addEventListener('click', (event) => {
-        const e = event.target
-        const target = e.innerText
-        const filter = productsPub.filter(element => {
-            return element.categoria === target
-        })
+    const list = document.getElementsByClassName('category-button')
+    for (let i = 0; i < list.length; i++) {
+        list[i].addEventListener('click', (event) => {
+            for (let i = 0; i < list.length; i++) {
+                list[i].classList.remove("active")
+            }
+            const e = event.target
+            e.classList.add("active")
+
+            const target = e.innerText
         
-        if(target !== 'Todos') {
-            productsHomePage(filter)
-        } else {
-            productsHomePage(productsPub)
-        }
-    })
+            const filter = productsPub.filter(element => {
+                return element.categoria === target
+            })
+            
+            if(target !== 'Todos') {
+                productsHomePage(filter)
+            } else {
+                productsHomePage(productsPub)
+            }
+        })
+    }
+    
 }
 
 const productsPub = await Api.getPublicProducts()
 
 productsHomePage(productsPub)
 
-//filterPerCategory()
-
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
     window.location.href = "/index.html"
+})
+
+const searchInput = document.getElementById('search-product-input')
+searchInput.addEventListener('keyup', (e) => {
+    const searchProducts = productsPub.filter(product => product.nome.toLowerCase().includes(e.currentTarget.value.toLowerCase()))
+    console.log(searchProducts)
+    console.log(e.currentTarget.value)
+    productsHomePage(searchProducts)
 })

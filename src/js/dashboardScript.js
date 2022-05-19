@@ -232,9 +232,10 @@ function editProduct(event) {
     cancelBtn.addEventListener('click', () => {
         modalContainer.style.display = 'none'
     })
-    closeModal.addEventListener('click', () => {
-        modalContainer.style.display = 'none'
-    })
+    // closeModal.addEventListener('click', () => {
+    //     console.log('olá mundo')
+    //     //modalContainer.style.display = 'none'
+    // })
     // editBtn.forEach(element => {
     //     element.addEventListener('click', (event) => {
     //         const e = event.target
@@ -307,7 +308,13 @@ async function postNewProduct(event) {
         }
     }
 
-    await Api.postNewProduct(newProduct)
+    const requestStatus = await Api.postNewProduct(newProduct)
+
+    if (requestStatus === false) {
+        errorModalDisplay()
+    } else {
+        successModalDisplay()
+    }
 
     productsArray = await Api.getUserProducts()
     renderizeUserProducts(productsArray)
@@ -354,11 +361,93 @@ logoutBtn.addEventListener("click", () => {
 function closeModalFunctionality() {
     for(let i = 0; i < closeModal.length; i++) {
         closeModal[i].addEventListener('click', (event) => {
-
             const modals = document.getElementsByClassName("modal")
-            modals[i].style.display = "none"
+            for(let j = 0; j < modals.length; j++) {
+                modals[j].style.display = 'none'
+            }
         })
     }
 }
 
+function filterPerCategoryDashboard() {
+    const list = document.getElementById('category-list')
+    list.addEventListener('click', (event) => {
+        const e = event.target
+        const target = e.innerHTML
+        const filter = productsArray.filter(element => {
+            return element.categoria === target
+        })
+
+        if(target !== 'Todos') {
+            renderizeUserProducts(filter)
+        } else {
+            renderizeUserProducts(productsArray)
+        }
+    })
+}
+
+const searchInput = document.getElementById('search-product-input')
+searchInput.addEventListener('keyup', (e) => {
+    const searchProducts = productsArray.filter(product => product.nome.toLowerCase().includes(e.currentTarget.value.toLowerCase()))
+    console.log(searchProducts)
+    console.log(e.currentTarget.value)
+    renderizeUserProducts(searchProducts)
+})
+
+filterPerCategoryDashboard()
 closeModalFunctionality()
+
+function successModalDisplay() {
+    const modalBody    = document.getElementById("success-product-status-modal")
+    const modalMessage = document.getElementById("success-status-message")
+    const modalBtn     = document.getElementById("close-success-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function deleteErrorModalDisplay() {
+    const modalBody    = document.getElementById("delete-error-product-status-modal")
+    const modalMessage = document.getElementById("delete-error-status-message")
+    const modalBtn     = document.getElementById("close-error-delete-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function deleteSuccessModalDisplay() {
+    const modalBody    = document.getElementById("delete-success-product-status-modal")
+    const modalMessage = document.getElementById("delete-success-status-message")
+    const modalBtn     = document.getElementById("close-success-delete-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function editErrorModalDisplay() {
+    const modalBody    = document.getElementById("edit-error-product-status-modal")
+    const modalMessage = document.getElementById("edit-error-status-message")
+    const modalBtn     = document.getElementById("close-error-edit-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
+
+function editSuccessModalDisplay() {
+    const modalBody    = document.getElementById("edit-success-product-status-modal")
+    const modalMessage = document.getElementById("edit-success-status-message")
+    const modalBtn     = document.getElementById("close-success-edit-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+}
