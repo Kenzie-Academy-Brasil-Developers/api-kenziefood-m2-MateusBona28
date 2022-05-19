@@ -837,6 +837,13 @@ header {
     height: fit-content;
     padding: 10px;
     border-radius: 5px;
+    transition: 0.3s;
+}
+
+.delete-cart-product:hover {
+    transition: 0.3s;
+    color: #fff;
+    background-color: var(--color-pink-1);
 }
 
 /* .fa-solid {
