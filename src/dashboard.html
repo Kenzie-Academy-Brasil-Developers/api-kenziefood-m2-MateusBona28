@@ -38,7 +38,7 @@
                     <li class="category-button">Bebidas</li>
                 </ul>
 
-                <button id="new-product-button">Adicionar novo produto</button>
+                <button id="new-product-button" class="new-product-button">Adicionar novo produto</button>
             </div>
 
             <ul id="owner-product-list">
@@ -69,17 +69,21 @@
                 <p class="close-modal" id="close-modal">X</p>
             </div>
 
-            <form action="" id="form-edit-product">
-                <p>Nome do produto:</p>
-                <input type="text" name="nome" id="" placeholder="Nome do produto">
-                <p>Preço do produto:</p>
-                <input type="text" name="preco" id="" placeholder="Preço do produto">
-                <p>Categoria do produto:</p>
-                <input type="text" name="categoria" placeholder="Categoria do produto">
-                <p>Imagem do produto:</p>
-                <input type="text" name="imagem" placeholder="URL do produto">
-                <p>Descrição do produto:</p>
-                <input type="text" name="descricao" placeholder="Descrição do produto">
+            <form action="" id="form-edit-product" class="form-product form-product-edit">
+                <p>Nome do Produto</p>
+                <input type="text" name="nome" id="" placeholder="Digitar o nome">
+                <p>Descrição</p>
+                <input type="text" name="descricao" id="" placeholder="Digitar a descrição">
+                <p>Categorias</p>
+                <div class="button-category-dashboard">
+                    <button>Frutas</button>
+                    <button>Panificadora</button>
+                    <button>Bebidas</button>
+                </div>
+                <p>Valor do Produto</p>
+                <input type="text" name="preco" placeholder="Digite o valor aqui">
+                <p>Link da imagem</p>
+                <input type="text" name="imagem" placeholder="Inserir link">
             </form>
 
             <div class="modal-edit-footer">
@@ -93,23 +97,28 @@
     <div class="modal" id="add-product-modal">
         <div class="modal-content">
             <div id="register-header">
-                <h3>Adicionar Produto</h3>
+                <h3>Cadastro de Produto</h3>
                 <p class="close-modal" id="close-modal">X</p>
             </div>
 
-            <form action="" id="form-add-product">
-                
-                <input type="text" name="nome" placeholder="Nome do produto">
+            <form action="" id="form-add-product" class="form-product">
+                <p>Nome do Produto</p>
+                <input type="text" name="nome" placeholder="Digitar o nome">
+                <p>Descrição</p>
+                <input type="text" name="descricao" placeholder="Digitar a descrição">
+                <p>Categorias</p>
+                <div class="button-category-dashboard">
+                    <button>Frutas</button>
+                    <button>Panificadora</button>
+                    <button>Bebidas</button>
+                </div>
+                <!-- <input type="text" name="categoria" placeholder="Categoria do produto"> -->
+                <p>Valor do Produto</p>
+                <input type="text" name="preco" placeholder="Digite o valor aqui">
+                <p>Link da imagem</p>
+                <input type="text" name="imagem" placeholder="Inserir link">
 
-                <input type="text" name="preco" placeholder="Preço do produto">
-
-                <input type="text" name="categoria" placeholder="Categoria do produto">
-
-                <input type="text" name="imagem" placeholder="URL do produto">
-
-                <input type="text" name="descricao" placeholder="Descrição do produto">
-
-                <button id="add-product">Cadastrar</button>
+                <button id="add-product">Cadastrar Produto</button>
             </form>
         </div>
     </div>
