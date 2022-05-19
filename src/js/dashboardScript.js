@@ -309,7 +309,7 @@ async function postNewProduct(event) {
     }
 
     const requestStatus = await Api.postNewProduct(newProduct)
-
+    console.log(requestStatus)
     if (requestStatus === false) {
         errorModalDisplay()
     } else {
@@ -389,8 +389,6 @@ function filterPerCategoryDashboard() {
 const searchInput = document.getElementById('search-product-input')
 searchInput.addEventListener('keyup', (e) => {
     const searchProducts = productsArray.filter(product => product.nome.toLowerCase().includes(e.currentTarget.value.toLowerCase()))
-    console.log(searchProducts)
-    console.log(e.currentTarget.value)
     renderizeUserProducts(searchProducts)
 })
 
@@ -429,6 +427,17 @@ closeModalFunctionality()
 
 filterPerCategory()
 
+function errorModalDisplay() {
+    const modalBody    = document.getElementById("error-product-status-modal")
+    const modalMessage = document.getElementById("error-status-message")
+    const modalBtn     = document.getElementById("close-error-modal-status-btn")
+
+    modalBody.style.display = "flex"
+    modalBody.classList.add("dashboard-body-modal")
+    modalMessage.classList.add("dashboard-modal-status-message")
+    modalBtn.classList.add("close-dashboard-error-modal-status")
+    modalBtn.classList.add("close-modal")
+}
 
 function successModalDisplay() {
     const modalBody    = document.getElementById("success-product-status-modal")
@@ -439,7 +448,9 @@ function successModalDisplay() {
     modalBody.classList.add("dashboard-body-modal")
     modalMessage.classList.add("dashboard-modal-status-message")
     modalBtn.classList.add("close-dashboard-error-modal-status")
+    modalBtn.classList.add("close-dashboard-error-modal-status", "close-modal")
 }
+
 
 function deleteErrorModalDisplay() {
     const modalBody    = document.getElementById("delete-error-product-status-modal")
@@ -450,6 +461,7 @@ function deleteErrorModalDisplay() {
     modalBody.classList.add("dashboard-body-modal")
     modalMessage.classList.add("dashboard-modal-status-message")
     modalBtn.classList.add("close-dashboard-error-modal-status")
+    modalBtn.classList.add("close-dashboard-error-modal-status", "close-modal")
 }
 
 function deleteSuccessModalDisplay() {
@@ -461,6 +473,7 @@ function deleteSuccessModalDisplay() {
     modalBody.classList.add("dashboard-body-modal")
     modalMessage.classList.add("dashboard-modal-status-message")
     modalBtn.classList.add("close-dashboard-error-modal-status")
+    modalBtn.classList.add("close-dashboard-error-modal-status", "close-modal")
 }
 
 function editErrorModalDisplay() {
@@ -471,7 +484,7 @@ function editErrorModalDisplay() {
     modalBody.style.display = "flex"
     modalBody.classList.add("dashboard-body-modal")
     modalMessage.classList.add("dashboard-modal-status-message")
-    modalBtn.classList.add("close-dashboard-error-modal-status")
+    modalBtn.classList.add("close-dashboard-error-modal-status", "close-modal")
 }
 
 function editSuccessModalDisplay() {
@@ -483,4 +496,5 @@ function editSuccessModalDisplay() {
     modalBody.classList.add("dashboard-body-modal")
     modalMessage.classList.add("dashboard-modal-status-message")
     modalBtn.classList.add("close-dashboard-error-modal-status")
+    modalBtn.classList.add("close-dashboard-error-modal-status", "close-modal")
 }
