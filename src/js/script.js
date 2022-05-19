@@ -299,22 +299,6 @@ function productsHomePage(products) {
         cardFooterAddCart.classList.add('card-footer-addbtn', 'fa-solid', 'fa-cart-shopping')
         cardFooterAddCart.addEventListener('click', addProductToCart)
 
-            
-
-            /*if(localStorage.getItem('productsInCart') == undefined || localStorage.getItem('productsInCart') == ''){
-                localStorage.setItem('productsInCart', element.id)
-                cart_items_list.innerHTML = ''
-                let ids_from_localStorage = localStorage.getItem('productsInCart')
-                let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
-                cart_products(products_from_localStorage)
-            } else {
-                cart_items_list.innerHTML = ''
-                localStorage.setItem('productsInCart', localStorage.getItem('productsInCart') + ',' + element.id)
-                let ids_from_localStorage = localStorage.getItem('productsInCart')
-                let products_from_localStorage = find_on_API_by_ID(ids_from_localStorage.split(','))
-                cart_products(products_from_localStorage)
-            }
-        })*/
         cardFooterAddCart.id = element.id
         cardFooter.append(cardFooterPrice, cardFooterAddCart)
 
@@ -398,7 +382,7 @@ function renderizeCartProductOff(product) {
 
     const productName = document.createElement("h3")
     const productPrice = document.createElement("span")
-    const btnRemoveProduct = document.createElement("button")
+    const btnRemoveProduct = document.createElement("i")
   
 
     productImg.setAttribute("src", `${product.imagem}`)
@@ -415,8 +399,7 @@ function renderizeCartProductOff(product) {
     btnRemoveProduct.title = product.preco
     btnRemoveProduct.id = `testeId`
     btnRemoveProduct.dataset.id = product.id
-    btnRemoveProduct.classList.add("fa-solid")
-    btnRemoveProduct.classList.add("fa-trash")
+    btnRemoveProduct.classList.add("fa-solid", "fa-trash", "delete-cart-product")
     productCategory.innerText = product.categoria
 
     divProductInfo.appendChild(productName)
