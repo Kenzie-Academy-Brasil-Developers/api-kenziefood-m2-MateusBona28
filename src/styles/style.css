@@ -840,6 +840,42 @@ header {
     background-color: var(--color-pink-1);
 }
 
+.dashboard-body-modal {
+    position: fixed;
+    top: 600px;
+    left: 898px;
+    margin: 20px;
+    display: flex;
+    padding: 10px;
+    margin-left: 200px;
+    border-radius: 7px;
+    width: 300px;
+    height: 100px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px 2px #00000040;
+}
+
+.dashboard-modal-status-message {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.close-dashboard-error-modal-status {
+    width: 30px;
+    height: 25px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #ffffff;
+    border: 1px solid #FF2253;
+    background-color: #FF2253;
+}
+
+.close-dashboard-error-modal-status:hover {
+    cursor: pointer;
+}
+
 /* .fa-solid {
     margin: 2px;
     margin-left: auto;
