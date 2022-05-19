@@ -357,6 +357,14 @@ header {
     word-spacing: 25px;
 }
 
+.card-footer-addcart {
+    display: flex;
+}
+
+.card-footer-addbtn {
+    color: var(--color-pink-1);
+}
+
 #cart {
     font-family: 'Poppins';
 }
