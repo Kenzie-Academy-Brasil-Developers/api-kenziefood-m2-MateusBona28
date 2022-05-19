@@ -1,107 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-body {
-    font-family: 'Poppins', sans-serif;
-}
-
-header {
-    display: flex;
-    background-color: #ffffff;
-    margin-bottom: 30px;
-    width: 100%;
-    height: 100px;
-    justify-content: space-around;
-    align-items: center;
-    box-shadow: 0px 4px 5px 0px #00000040;
-}
-
-#logo {
-    display: flex;
-    margin-left: 20px;
-}
-
-#logo > a {
-    margin-top: 8px;
-    display: flex;
-    width: 200px;
-    text-decoration: none;
-}
-
-#logo > a > h1 {
-    color: black;
-    margin-bottom: 10px;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-#logo > a > h2 {
-    margin-top: 7px;
-    margin-left: 6px;
-    font-size: 20px;
-    color: #FF2253;
-    font-weight: bold;
-}
-
-#profile > img {
-    height: 50px;
-    width: 50px;
-    border-radius: 100%;
-}
-
-#search-area {
-    height: 100%;
-    width: 30%;
-    margin-bottom: 17px;
-}
-
-#search-product-input {
-    background-color: blue;
-    width: 65%;
-    height: 50%;
-    padding-left: 35px;
-    border-radius: 12px;
-    border: 1.5px solid #E9ECEF;
+.delete-product {
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
     background-color: #E9ECEF;
 }
 
-#search-icon {
-    border: none;
-    height: 30px;
-    width: 30px;
-    background: url(http://www.devmedia.com.br/imagens/2013/buscar_grey.png) no-repeat;
-    position: relative;
-    top: 48px;
-    left: 10px;
+.delete-product:hover {
+    background-color: var(--color-pink-1);
+    color: #fff;
+    width: fit-content;
+    height: fit-content;
 }
-
-#dashboard-search-btn {
-    height: 30%;
-    min-width: 60px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #FF2253;
-    cursor: pointer;
-    position: relative;
-    left: -1px;
-}
-
-#dashboard-logout-button {
-    height: 30%;
-    width: 60px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #FF2253;
-    cursor: pointer;
-    margin-bottom: 2px;
-}
-
-@media screen and (max-width: 1000px){
-    #dashboard-search-btn {
-        display: none;
-    }
-}
-

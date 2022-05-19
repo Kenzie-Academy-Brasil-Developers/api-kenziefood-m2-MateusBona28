@@ -325,6 +325,10 @@ header {
     height: 200px;
 }
 
+.card figure {
+    height: 200px;
+}
+
 .card-body {
     width: 300px;
     display: flex;
@@ -748,7 +752,6 @@ header {
     display: flex;
     flex-direction: row;
     width: 268px;
-    height: 103px;
 }
 
 .cart-img {
@@ -759,9 +762,10 @@ header {
 }
 
 .div-product-info {
-    margin: 8px;
+    margin: 0 8px;
     display: flex;
     flex-direction: column;
+    height: fit-content;
 }
 
 .product-cart-title {
