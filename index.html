@@ -24,7 +24,13 @@
                 <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
             </div>
 
-            <button id="index-logout-button">Sair</button>
+            <div class="modal" id="modal-logout">
+                <div class="modal-content" id="content-logout">
+                    <p class="close-modal close-modal__logout">X</p>
+                    <h3>Deseja realmente sair?</h3>
+                    <button id="index-logout-button">Logout</button>
+                </div>
+            </div>
         </header>
         <div class="main-content" >
         <main>
@@ -150,7 +156,7 @@
         </div>
 
         <div id="cart-footer-button">
-            <button>Finalizar Compra</button>
+            <button id="finalize-purchase">Finalizar Compra</button>
         </div>
 
     </section>
@@ -239,7 +245,19 @@
         </div>
 
     </div>
-    
+
+    <div  class="modal" id="login-register">
+        <div class="modal-content">  
+            <div id="login-register-header">
+                <p class="close-modal close-modal__register-login">X</p>
+            </div>
+            <div id="modal-body">
+                <button id="goTo-login">Login</button>
+                <button id="goTo-register">Registrar</button>
+            </div>
+        </div>  
+    </div>
+
     <script type="module" src="src/js/script.js"></script>
 </body>
 </html>

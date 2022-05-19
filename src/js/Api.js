@@ -56,7 +56,7 @@ class Api {
         }).then((response)=>{
             localStorage.setItem("token", response)
         }).finally(()=>{
-            window.location.href = "index.html"
+            window.location.href = window.location.href
         })
         
         //console.log(newData)

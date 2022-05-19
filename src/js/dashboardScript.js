@@ -1,11 +1,120 @@
 import Api from "./Api.js";
 
-const logoutBtn = document.getElementById('dashboard-logout-button')
+const logoutBtn = document.getElementById('index-logout-button')
 const ulProducts = document.getElementById("owner-product-list")
 const btnAddProduct = document.getElementById("new-product-button")
 const allModals = document.getElementsByClassName("modal")
 const btnPostProduct = document.getElementById("add-product")
 const deleteProduct = document.getElementsByClassName("delete-product")
+const profileImg = document.getElementById("profile-image")
+const redirectRegister = document.getElementById('redirect-register')
+const redirectLogin = document.getElementById('redirect-login')
+const modalLogin = document.getElementById('login')
+const modalRegister = document.getElementById('register')
+const btnRegisterForm = document.getElementById('register-button')
+const btnLoginForm = document.getElementById('login-button')
+const closeModal = document.getElementsByClassName('close-modal');
+
+btnLoginForm.addEventListener("click", logUser)
+btnRegisterForm.addEventListener("click", registerNewUser)
+
+profileImg.addEventListener("click", (event)=>{
+    if(localStorage.getItem("token") !== null){
+        
+        const modalLogout = document.getElementById("modal-logout")
+        modalLogout.style.display = "flex"
+    }
+    else{
+        const modalLoginRegister = document.getElementById("login-register")
+        modalLoginRegister.style.display = "flex"
+    }
+})
+
+function redirectToLogin() {
+    
+    redirectLogin.addEventListener('click', () => {
+        modalRegister.style.display = 'none'
+        modalLogin.style.display = 'flex'
+    })
+
+    const modalLoginRegister = document.getElementById("login-register")
+    const modalGoLogin = document.getElementById("goTo-login")
+    const modalSignIn = document.getElementById("login-register")
+
+    modalGoLogin.addEventListener("click", () => {
+        modalLoginRegister.style.display = "none"
+        modalRegister.style.display = 'none'
+        modalLogin.style.display = 'flex'
+    })
+}
+redirectToLogin()
+
+function redirectToRegister() {
+    redirectRegister.addEventListener('click', () => {
+        modalLogin.style.display = 'none'
+        modalRegister.style.display = 'flex'
+    })
+
+    const modalLoginRegister = document.getElementById("login-register")
+    const modalGoRegister = document.getElementById("goTo-register")
+
+    modalGoRegister.addEventListener("click", () => {
+        modalLoginRegister.style.display = "none"
+        modalLogin.style.display = 'none'
+        modalRegister.style.display = 'flex'
+    })
+}
+
+async function logUser(event) {
+    event.preventDefault()
+
+    const formLogin = document.getElementById("form-login")
+    const loginInfo = formLogin.elements
+    const user = {}
+
+    for(let i = 0; i < loginInfo.length; i++){
+        const info = loginInfo[i]
+        if(info.value !== ""){
+            user[info.name] = info.value
+        }
+    }
+
+    await Api.getUserLogin(user)
+
+    localStorage.setItem("userIsLogged", true)
+
+    const arrProductsInCart = localStorage.getItem("productsInStorage").split(",")
+
+    arrProductsInCart.forEach(async (productId) =>{
+        if(productId !== ""){
+            await Api.postCartProduct(productId)
+        }
+    })
+
+    actualizeCart()
+    actualizeModalCart()
+}
+
+
+redirectToRegister()
+
+async function registerNewUser(event) {
+    event.preventDefault()
+
+    const registerForm = document.getElementById("form-register")
+    const userInfo = registerForm.elements
+    const newUser = {}
+
+    for(let i = 0; i < userInfo.length; i++){
+        const info = userInfo[i]
+        if(userInfo[i].value !== ""){
+            newUser[info.name] = info.value
+        }
+    }
+
+    await Api.getUserRegister(newUser)
+}
+
 
 btnAddProduct.addEventListener("click", displayNewProductModal)
 
@@ -13,11 +122,6 @@ let productsArray = await Api.getUserProducts()
 
 renderizeUserProducts(productsArray)
 
-
-for(let i = 0; i < allModals.length; i++){
-    const modal = allModals[i]
-    modal.addEventListener("click", closeModal)
-}
 
 for(let i = 0; i < deleteProduct.length; i++){
     let productsArray = await Api.getUserProducts()
@@ -188,15 +292,6 @@ function displayNewProductModal(event) {
     event.preventDefault()
 }
 
-function closeModal(event) {
-
-    event.preventDefault()
-    if(event.target.classList == 'close-modal'){
-        const targetModal = event.target.closest('.modal')
-        targetModal.style.display = 'none'
-    }
-}
-
 async function postNewProduct(event) {
 
     event.preventDefault()
@@ -250,3 +345,20 @@ function displayConfirmDelete(event) {
         Api.deletePost(productId)
     })
 }
+
+logoutBtn.addEventListener("click", () => {
+    localStorage.clear()
+    window.location.href = "/index.html"
+})
+
+function closeModalFunctionality() {
+    for(let i = 0; i < closeModal.length; i++) {
+        closeModal[i].addEventListener('click', (event) => {
+
+            const modals = document.getElementsByClassName("modal")
+            modals[i].style.display = "none"
+        })
+    }
+}
+
+closeModalFunctionality()
