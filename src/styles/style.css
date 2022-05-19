@@ -359,6 +359,7 @@ header {
 
 .card-footer-addcart {
     display: flex;
+    justify-content: space-between;
 }
 
 .card-footer-addbtn {
