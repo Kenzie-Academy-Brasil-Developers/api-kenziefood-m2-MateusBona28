@@ -61,6 +61,7 @@ function renderizeUserProducts(productsArray) {
             cardEditProduct.setAttribute("src", "#")
             cardEditProduct.id = product.id
             cardEditProduct.innerText = 'Editar'
+            cardEditProduct.addEventListener('click', editProduct)
             
             cardDeleteProduct.classList.add("delete-product")
             cardDeleteProduct.setAttribute("src", "#")
@@ -81,6 +82,82 @@ function renderizeUserProducts(productsArray) {
         ulProducts.innerText = "Você ainda não cadastrou nenhum produto!"
     }
     
+}
+
+function editProduct(event) {
+    const token = localStorage.getItem("token")
+    // const editBtn = document.querySelectorAll('.edit-product')
+    const modalContainer = document.querySelector('.modal-edit-container')
+    const formEdit = document.getElementById('form-edit-product')
+    const sendBtn = document.querySelector('.modal-edit-btn')
+    const cancelBtn = document.querySelector('.modal-cancel-btn')
+    const closeModal = document.querySelector('.close-modal')
+    const e = event.target
+    const id = e.id
+    const product = productsArray.filter(element => {
+        return element.id === id
+    })
+    formEdit[0].value = product[0].nome
+    formEdit[1].value = product[0].preco
+    formEdit[2].value = product[0].categoria
+    formEdit[3].value = product[0].imagem
+    formEdit[4].value = product[0].descricao
+    modalContainer.style.display = 'flex'
+    sendBtn.addEventListener('click', () => {
+        const data = {
+            nome: formEdit[0].value,
+            preco: formEdit[1].value,
+            categoria: formEdit[2].value,
+            imagem: formEdit[3].value,
+            descricao: formEdit[4].value
+        }
+        Api.editPost(id, token, data)
+        modalContainer.style.display = 'none'
+        setTimeout(() => {
+            document.location.reload(true)
+        }, 1500)
+    })
+    cancelBtn.addEventListener('click', () => {
+        modalContainer.style.display = 'none'
+    })
+    closeModal.addEventListener('click', () => {
+        modalContainer.style.display = 'none'
+    })
+    // editBtn.forEach(element => {
+    //     element.addEventListener('click', (event) => {
+    //         const e = event.target
+    //         const id = e.id
+    //         const product = productsArray.filter(element => {
+    //             return element.id === id
+    //         })
+    //         formEdit[0].value = product[0].nome
+    //         formEdit[1].value = product[0].preco
+    //         formEdit[2].value = product[0].categoria
+    //         formEdit[3].value = product[0].imagem
+    //         formEdit[4].value = product[0].descricao
+    //         modalContainer.style.display = 'flex'
+    //         sendBtn.addEventListener('click', () => {
+    //             const data = {
+    //                 nome: formEdit[0].value,
+    //                 preco: formEdit[1].value,
+    //                 categoria: formEdit[2].value,
+    //                 imagem: formEdit[3].value,
+    //                 descricao: formEdit[4].value
+    //             }
+    //             Api.editPost(id, token, data)
+    //             modalContainer.style.display = 'none'
+    //             setTimeout(() => {
+    //                 document.location.reload(true)
+    //             }, 1500)
+    //         })
+    //         cancelBtn.addEventListener('click', () => {
+    //             modalContainer.style.display = 'none'
+    //         })
+    //         closeModal.addEventListener('click', () => {
+    //             modalContainer.style.display = 'none'
+    //         })
+    //     })
+    // })
 }
 
 renderizeUserProducts(productsArray)
@@ -168,50 +245,4 @@ function displayConfirmDelete(event) {
         Api.deletePost(productId)
     })
 }
-
-function editProduct() {
-    const token = localStorage.getItem("token")
-    const editBtn = document.querySelectorAll('.edit-product')
-    const modalContainer = document.querySelector('.modal-edit-container')
-    const formEdit = document.getElementById('form-edit-product')
-    const sendBtn = document.querySelector('.modal-edit-btn')
-    const cancelBtn = document.querySelector('.modal-cancel-btn')
-    const closeModal = document.querySelector('.close-modal')
-    editBtn.forEach(element => {
-        element.addEventListener('click', (event) => {
-            const e = event.target
-            const id = e.id
-            const product = productsArray.filter(element => {
-                return element.id === id
-            })
-            formEdit[0].value = product[0].nome
-            formEdit[1].value = product[0].preco
-            formEdit[2].value = product[0].categoria
-            formEdit[3].value = product[0].imagem
-            formEdit[4].value = product[0].descricao
-            modalContainer.style.display = 'flex'
-            sendBtn.addEventListener('click', () => {
-                const data = {
-                    nome: formEdit[0].value,
-                    preco: formEdit[1].value,
-                    categoria: formEdit[2].value,
-                    imagem: formEdit[3].value,
-                    descricao: formEdit[4].value
-                }
-                Api.editPost(id, token, data)
-                modalContainer.style.display = 'none'
-                setTimeout(() => {
-                    document.location.reload(true)
-                }, 1500)
-            })
-            cancelBtn.addEventListener('click', () => {
-                modalContainer.style.display = 'none'
-            })
-            closeModal.addEventListener('click', () => {
-                modalContainer.style.display = 'none'
-            })
-        })
-    })
-}
-editProduct()
 
