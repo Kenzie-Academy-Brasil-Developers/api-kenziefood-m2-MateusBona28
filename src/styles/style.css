@@ -381,8 +381,9 @@ header {
 }
 
 
-#empty-cart-image {
-    height: 100px;
+#empty-cart-image, #empty-cart-image-modal {
+    font-size: 100px;
+    color: var(--color-grey-3);
 }
 
 #cart-desktop-content {
@@ -805,7 +806,15 @@ header {
     color: #868E96;
 }
 
-.fa-solid {
+.delete-cart-product {
+    color: var(--color-grey-3);
+    background-color: var(--color-grey-1);
+    height: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* .fa-solid {
     margin: 2px;
     margin-left: auto;
     width: 25px;
@@ -823,4 +832,4 @@ header {
     width: 25px;
     height: 25px;
     color: #868E96;
-}
+} */

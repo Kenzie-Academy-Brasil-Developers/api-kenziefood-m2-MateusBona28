@@ -301,7 +301,7 @@ function renderizeCartProduct(product) {
 
     const productQuantity = document.createElement("span")
     
-    const btnRemoveProduct = document.createElement("button")
+    const btnRemoveProduct = document.createElement("i")
 
     const productCategory = document.createElement("span")
     productCategory.classList.add("cart-product-category")
@@ -315,8 +315,7 @@ function renderizeCartProduct(product) {
 
     btnRemoveProduct.title = "delete-cart-item"
     btnRemoveProduct.id = `${product.products.id}`
-    btnRemoveProduct.classList.add("fa-solid")
-    btnRemoveProduct.classList.add("fa-trash")
+    btnRemoveProduct.classList.add("fa-solid", "fa-trash", "delete-cart-product")
 
     divProductInfo.appendChild(productName)
     divProductInfo.appendChild(productCategory)
