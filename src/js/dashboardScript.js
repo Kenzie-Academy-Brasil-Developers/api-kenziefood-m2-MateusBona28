@@ -40,38 +40,40 @@ function renderizeUserProducts(productsArray) {
             
             const productCardLi = document.createElement("li")
             const cardImg = document.createElement("img")
-            const cardProductName = document.createElement("h3")
-            const cardCategories = document.createElement("span")
-            const cardDescription = document.createElement("span")
-            const cardEditProduct = document.createElement("img")
-            const cardDeleteProduct = document.createElement("img")
+            const divCardBody = document.createElement("div")
+            const cardProductName = document.createElement("h2")
+            const cardCategories = document.createElement("div")
+            const cardDescription = document.createElement("p")
+            const cardImgfigure = document.createElement("figure")
+            const cardEditProduct = document.createElement("button")
+            const cardDeleteProduct = document.createElement("button")
 
-            productCardLi.classList.add("product-card")
+            productCardLi.classList.add("product-card", "card")
             productCardLi.id = product.id
 
+            cardImgfigure.append(cardImg)
             cardImg.setAttribute("src", `${product.imagem}`)
 
+            divCardBody.classList.add("card-body")
             cardProductName.innerText = product.nome
-            
-            cardCategories.innerText = product.categoria
-
             cardDescription.innerText = product.descricao
-
-            cardEditProduct.setAttribute("src", "#")
+            cardDescription.classList.add("card-desc")
+            cardCategories.innerText = product.categoria
+            cardCategories.classList.add("card-category")
+            divCardBody.append(cardProductName, cardDescription)
+            
+            cardEditProduct.classList.add("edit-product")
+            cardEditProduct.innerText = "Editar produto"
             cardEditProduct.id = product.id
             
             cardDeleteProduct.classList.add("delete-product")
-            cardDeleteProduct.setAttribute("src", "#")
             cardDeleteProduct.id = product.id
+            cardDeleteProduct.innerText = "Deletar produto"
             cardDeleteProduct.addEventListener('click', displayConfirmDelete)
 
-            productCardLi.appendChild(cardImg)
-            productCardLi.appendChild(cardProductName)
-            productCardLi.appendChild(cardCategories)
-            productCardLi.appendChild(cardDescription)
-            productCardLi.appendChild(cardEditProduct)
-            productCardLi.appendChild(cardDeleteProduct)
+            productCardLi.append(cardImgfigure, divCardBody, cardCategories, cardEditProduct, cardDeleteProduct)
 
+            ulProducts.classList.add('container-cards')
             ulProducts.appendChild(productCardLi)
         });
     }
