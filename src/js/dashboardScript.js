@@ -367,7 +367,40 @@ function closeModalFunctionality() {
     }
 }
 
+function filterPerCategory() {
+    const list = document.getElementsByClassName('category-button')
+    for (let i = 0; i < list.length; i++) {
+        list[i].addEventListener('click', (event) => {
+            for (let i = 0; i < list.length; i++) {
+                list[i].classList.remove("active")
+            }
+            const e = event.target
+            e.classList.add("active")
+
+            const target = e.innerText
+        
+            const filter = userProducts.filter(element => {
+                return element.categoria === target
+            })
+            
+            if(target !== 'Todos') {
+                renderizeUserProducts(filter)
+            } else {
+                renderizeUserProducts(userProducts)
+            }
+        })
+    }
+}
+
+
+const userProducts = await Api.getUserProducts()
+
+renderizeUserProducts(userProducts)
+
 closeModalFunctionality()
+
+filterPerCategory()
+
 
 function successModalDisplay() {
     const modalBody    = document.getElementById("success-product-status-modal")

@@ -596,6 +596,10 @@ function createFilterElements() {
 
 createFilterElements()
 
+const productsPub = await Api.getPublicProducts()
+
+productsHomePage(productsPub)
+
 function filterPerCategory() {
     const list = document.getElementsByClassName('category-button')
     for (let i = 0; i < list.length; i++) {
@@ -619,12 +623,7 @@ function filterPerCategory() {
             }
         })
     }
-    
 }
-
-const productsPub = await Api.getPublicProducts()
-
-productsHomePage(productsPub)
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
