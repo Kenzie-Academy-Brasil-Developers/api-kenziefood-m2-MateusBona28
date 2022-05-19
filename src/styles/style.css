@@ -861,6 +861,7 @@ header {
     padding: 10px;
     border-radius: 5px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .delete-cart-product:hover {
