@@ -13,8 +13,6 @@
     font-family: 'Inter';
 }
 
-
-
 /* body/main-content {
     padding: 20px;
 } */
@@ -298,10 +296,6 @@ header {
 .close-modal {
     cursor: pointer;
 }
-
-/* .display {
-    display: flex;
-} */
 
 .container-cards {
     font-family: 'Poppins', sans-serif;
