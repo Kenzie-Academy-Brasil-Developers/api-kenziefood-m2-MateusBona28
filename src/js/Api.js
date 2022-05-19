@@ -88,8 +88,8 @@ class Api {
             },
             body: JSON.stringify(data)
         })
+        return response.ok
     }
-
     static async deletePost(id) {
         const deleteUrl = `/my/products/${id}`
         fetch(`${this.baseUrl}${deleteUrl}`,{

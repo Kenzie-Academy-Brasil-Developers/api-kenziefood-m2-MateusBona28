@@ -596,29 +596,35 @@ function createFilterElements() {
 
 createFilterElements()
 
-
 function filterPerCategory() {
-    const list = document.getElementById('category-list')
-    list.addEventListener('click', (event) => {
-        const e = event.target
-        const target = e.innerText
-        const filter = productsPub.filter(element => {
-            return element.categoria === target
-        })
+    const list = document.getElementsByClassName('category-button')
+    for (let i = 0; i < list.length; i++) {
+        list[i].addEventListener('click', (event) => {
+            for (let i = 0; i < list.length; i++) {
+                list[i].classList.remove("active")
+            }
+            const e = event.target
+            e.classList.add("active")
+
+            const target = e.innerText
         
-        if(target !== 'Todos') {
-            productsHomePage(filter)
-        } else {
-            productsHomePage(productsPub)
-        }
-    })
+            const filter = productsPub.filter(element => {
+                return element.categoria === target
+            })
+            
+            if(target !== 'Todos') {
+                productsHomePage(filter)
+            } else {
+                productsHomePage(productsPub)
+            }
+        })
+    }
+    
 }
 
 const productsPub = await Api.getPublicProducts()
 
 productsHomePage(productsPub)
-
-//filterPerCategory()
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
