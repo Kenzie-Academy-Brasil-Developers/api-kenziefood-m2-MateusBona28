@@ -33,12 +33,22 @@ function renderizeUserProducts(productsArray) {
         productsArray.forEach(product => {
             
             const productCardLi = document.createElement("li")
+            const cardProdutoName = document.createElement("div")
+            const cardImgArea = document.createElement("figure")
             const cardImg = document.createElement("img")
             const cardProductName = document.createElement("h3")
+            const cardCategoriesArea = document.createElement('div')
             const cardCategories = document.createElement("span")
+            const cardDescriptionArea = document.createElement('div')
             const cardDescription = document.createElement("span")
-            const cardEditProduct = document.createElement("button")
-            const cardDeleteProduct = document.createElement("img")
+            const cardOptions = document.createElement("div")
+            const cardEditProduct = document.createElement("i")
+            const cardDeleteProduct = document.createElement("i")
+
+            cardProdutoName.classList.add('card-area', 'card-name-area')
+            cardCategoriesArea.classList.add('card-area')
+            cardDescriptionArea.classList.add('card-area')
+            cardOptions.classList.add('card-area', 'card-buttons')
 
             productCardLi.classList.add("product-card")
             productCardLi.id = product.id
@@ -52,24 +62,25 @@ function renderizeUserProducts(productsArray) {
             cardDescription.innerText = product.descricao
 
             cardEditProduct.classList.add('edit-product')
-            cardEditProduct.setAttribute("src", "#")
+            //cardEditProduct.setAttribute("src", "#")
+            //cardEditProduct.innerText = 'Editar'
             cardEditProduct.id = product.id
-            cardEditProduct.innerText = 'Editar'
+            cardEditProduct.classList.add('fas', 'fa-edit', "card-option-button")
             cardEditProduct.addEventListener('click', editProduct)
             
-            cardDeleteProduct.classList.add("delete-product")
-            cardDeleteProduct.setAttribute("src", "#")
+            cardDeleteProduct.classList.add("delete-product", "fa-solid", "fa-trash", "card-option-button")
+            //cardDeleteProduct.setAttribute("src", "#")
             cardDeleteProduct.id = product.id
             cardDeleteProduct.addEventListener('click', displayConfirmDelete)
 
-            productCardLi.appendChild(cardImg)
-            productCardLi.appendChild(cardProductName)
-            productCardLi.appendChild(cardCategories)
-            productCardLi.appendChild(cardDescription)
-            productCardLi.appendChild(cardEditProduct)
-            productCardLi.appendChild(cardDeleteProduct)
+            cardImgArea.append(cardImg)
+            cardProdutoName.append(cardImgArea, cardProductName)
+            cardCategoriesArea.append(cardCategories)
+            cardDescriptionArea.append(cardDescription)
+            cardOptions.append(cardEditProduct, cardDeleteProduct)  
+            productCardLi.append(cardProdutoName, cardCategoriesArea, cardDescriptionArea, cardOptions)
 
-            ulProducts.appendChild(productCardLi)
+            ulProducts.append(productCardLi)
         });
     }
     else{
