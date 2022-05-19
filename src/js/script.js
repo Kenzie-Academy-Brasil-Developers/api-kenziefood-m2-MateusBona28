@@ -243,7 +243,7 @@ async function addProductToCart(event) {
         const divNoProducts = document.getElementById("cart-body")
         divNoProducts.style.display = "none"
         const modalDivNoProducts = document.getElementById("modal-cart-body")
-        modalDivNoProducts.style.display = "none"
+        //modalDivNoProducts.style.display = "none"
 
         const newCartProductsArray = await Api.getCartProducts()
 
@@ -419,7 +419,7 @@ async function verifyCart() {
 
         const arrProducts = localStorage.getItem("productsInStorage")
         const divNoProducts = document.getElementById("cart-body")
-        const divNoProductsModal = document.getElementById("modal-cart-body")
+        const divNoProductsModal = document.getElementById("empty-modal-cart-message")
         const divUlProducts = document.getElementById("cart-list")
         divUlProducts.style.display = "block"
 
@@ -438,18 +438,21 @@ async function verifyCart() {
 
         const newCartProductsArray = await Api.getCartProducts()
         const divNoProducts = document.getElementById("cart-body")
-        const divNoProductsModal = document.getElementById("modal-cart-body")
+        const divNoProductsModal = document.getElementById("empty-modal-cart-message")
         const divUlProducts = document.getElementById("cart-list")
+        const divUlProductsModal = document.getElementById("cart-list-modal")
 
         if(newCartProductsArray.length > 0){
             divNoProducts.style.display = "none"
             divNoProductsModal.style.display = "none"
             divUlProducts.style.display = "block"
+            divUlProductsModal.style.display = "flex"
         }
         else{
             divNoProducts.style.display = "flex"
             divNoProductsModal.style.display = "flex"
             divUlProducts.style.display = "none"
+            divUlProductsModal.style.display = "none"
         }
     }
 }
