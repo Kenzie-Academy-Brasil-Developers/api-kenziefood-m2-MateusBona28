@@ -232,7 +232,7 @@ header {
     cursor: pointer;
 }
 
-#register-header, #login-header, #modal-cart-header {
+#register-header, #login-header, #modal-cart-header, .modal-edit-header {
     display: flex;
     justify-content: space-between;
 }
@@ -395,3 +395,57 @@ header {
 .display {
     display: flex;
 }
+/* modal edit */
+
+/* .modal-edit-container {
+    font-family: 'Poppins', sans-serif;
+    display: none;
+}
+
+.modal-edit-header {
+    display: flex;
+    margin: 25px 0;
+}
+
+.modal-edit-header p {
+    margin: 0 100px;
+    border: 1px solid var(--color-grey-3);
+    border-radius: 100%;
+    width: 10px;
+}
+
+#form-edit-product {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+#form-edit-product input {
+    font-size: 14px;
+    color: #868E96;
+    margin: 7px 0;
+    border-radius: 5px;
+    border: 1px solid #DEE2E6;
+    height: 40px;
+    background-color: #E9ECEF;
+}
+
+.modal-edit-btn {
+    border: 1.5px solid var(--color-pink-1);
+    border-radius: 32px;
+    background: var(--color-pink-1);
+    color: #ffff;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.modal-cancel-btn {
+    border: 1.5px solid #F8F9FA;
+    border-radius: 32px;
+    background: #F8F9FA;
+    color: #212529;
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+} */
