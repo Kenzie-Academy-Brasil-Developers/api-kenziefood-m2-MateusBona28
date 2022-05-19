@@ -159,6 +159,64 @@ header {
     padding: 20px;
 }
 
+.form-product input {
+    height: 50px;
+    width: 340px;
+    border: 1.5px solid var(--color-grey-2);
+    color: var(--color-grey-4);
+    border-radius: 12px;
+    padding-left: 10px;
+    background-color: var(--color-grey-1);
+}
+
+.form-product p {
+    font-size: 14px;
+}
+
+.form-product button {
+    border: 1.5px solid var(--color-pink-1);
+    border-radius: 32px;
+    background-color: var(--color-pink-1);
+    color: var(--color-grey-1);
+    height: 50px;
+    cursor: pointer;
+}
+
+.modal-edit-btn {
+    border: 1.5px solid var(--color-grey-2);
+    border-radius: 32px;
+    background: var(--color-pink-1);
+    color: #ffff;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    margin: 10px 15px;
+}
+
+.modal-cancel-btn {
+    border: 1.5px solid var(--color-grey-2);
+    border-radius: 32px;
+    background: #F8F9FA;
+    color: #212529;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.form-product-edit p {
+    margin: 15px;
+}
+
+.button-category-dashboard button {
+    background-color: var(--color-grey-1);
+    color: var(--color-grey-3);
+    width: 100px;
+    height: 30px;
+    border: 1px solid var(--color-grey-2);
+    font-size: 12px;
+    margin: 0 5px;
+}
+
 
 .close-modal {
     cursor: pointer;
@@ -302,8 +360,23 @@ header {
     height: 100%;
 }
 
+@media screen and (max-width: 500px) {
+    .form-product input {
+        width: 200px;
+        height: 30px;
+    }
+
+    .button-category-dashboard button {
+        display: flex;
+        flex-direction: row;
+        margin: 10px 0;
+        padding: 6px;
+    }
+}
+
 @media screen and (min-width: 1150px){
 
+    
     .content {
         padding: 0;
     }
@@ -405,12 +478,25 @@ header {
     gap: 20px;
 }
 
+.new-product-button {
+    margin: 20px 0;
+    border-radius: 32px;
+    color: var(--color-grey-1);
+    background-color: var(--color-pink-1);
+    border: none;
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
 .product-card {
     padding: 15px 20px;
     border: 1px solid var(--color-grey-2);
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
 }
 
 .card-area {
@@ -419,8 +505,25 @@ header {
     align-items: center;
 }
 
+
 .card-name-area {
     gap: 20px;
+    font-weight: 500;
+}
+
+.card-category-dashboard {
+    border-radius: 8px;
+    background-color: var(--color-grey-1);
+    color: var(--color-grey-3);
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-description-dashboard {
+    color: var(--color-grey-3);
 }
 
 .card-buttons {
