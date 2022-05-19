@@ -29,10 +29,9 @@ body {
     justify-content: space-between;
 }
 
-.main-content {
+.content {
     padding: 15px;
 }
-
 
 header {
     display: flex;
@@ -304,6 +303,11 @@ header {
 }
 
 @media screen and (min-width: 1150px){
+
+    .content {
+        padding: 0;
+    }
+
     header {
         flex-direction: row;
         justify-content: space-between;

@@ -18,8 +18,8 @@ async function actualizeCart() {
     const newCartProductsArray = await Api.getCartProducts()
     const ulCartItems = document.getElementById("cart-list")
 
-    const footerFinalPrice = document.querySelector("#cart-footer-total-price>span")
-    const footerProductsQuantity = document.querySelector("#cart-footer-total-amount>span")
+    const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
+    const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
     let finalPrice = 0
     let quantity = 0
 
@@ -71,8 +71,8 @@ function deleteCartProductOff(event) {
 
 
     const newProductsInLocalStorage = localStorage.getItem("productsInStorage").split(",")
-    const footerFinalPrice = document.getElementById("cart-footer-total-price")
-    const footerProductsQuantity = document.getElementById("cart-footer-total-amount")
+    const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
+    const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
     const productPrice = document.getElementsByClassName("preco-produtos")
 
     const productId = event.target.id
@@ -106,8 +106,8 @@ function deleteCartProductOff(event) {
         }
     }
 
-    footerFinalPrice.innerText = `Total: R$${globalFinalPrice}`
-    footerProductsQuantity.innerText = `Total de produtos no carrinho : ${globalQuantity}`
+    footerFinalPrice.innerText = `R$ ${globalFinalPrice.toFixed(2).split('.').join(',')}`
+    footerProductsQuantity.innerText = `${globalQuantity}`
 
     closeLi.style.display = "none"
 }
@@ -118,8 +118,9 @@ async function actualizeModalCart() {
 
     const ulModalCartItems = document.getElementById("cart-list-modal")
 
-    const modalFinalPrice = document.getElementById("modal-cart-footer-total-price")
-    const modalProductsAmount = document.getElementById("modal-cart-footer-total-amount")
+    const modalFinalPrice = document.querySelector("#modal-cart-footer-total-price > span")
+    const modalProductsAmount = document.querySelector("#modal-cart-footer-total-amount > span")
+    console.log(modalProductsAmount)
 
     let finalPrice = 0
     let quantity = 0
@@ -141,8 +142,8 @@ async function actualizeModalCart() {
 
         })
 
-        modalFinalPrice.innerText = `Total: R$${finalPrice}`
-        modalProductsAmount.innerText = `Total de produtos no carrinho : ${quantity}`
+        modalFinalPrice.innerText = `R$ ${finalPrice.toFixed(2).split('.').join(',')}`
+        modalProductsAmount.innerText = `${quantity}`
     }
 }
 
@@ -154,8 +155,8 @@ async function addProductToCart(event) {
         const newProductsInLocalStorage = [localStorage.getItem("productsInStorage")]
         const ulCartItems = document.getElementById("cart-list")
 
-        const footerFinalPrice = document.getElementById("cart-footer-total-price")
-        const footerProductsQuantity = document.getElementById("cart-footer-total-amount")
+        const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
+        const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
 
         const product = api_products.filter((product)=>{
             if(product.id === idProduct){
@@ -170,8 +171,8 @@ async function addProductToCart(event) {
             }
         })
 
-        footerFinalPrice.innerText = `Total: R$${globalFinalPrice}`
-        footerProductsQuantity.innerText = `Total de produtos no carrinho : ${globalQuantity}`
+        footerFinalPrice.innerText = `R$ ${globalFinalPrice.toFixed(2).split('.').join(',')}`
+        footerProductsQuantity.innerText = `${globalQuantity}`
 
         newProductsInLocalStorage.push(idProduct)
 
@@ -229,7 +230,7 @@ function productsHomePage(products) {
         const cardFooterPrice = document.createElement('p')
         const cardFooterAddCart = document.createElement('button')
 
-        cardFooterPrice.innerText = 'R$' + (element.preco.toFixed(2) + ' ').split('.').join(',')
+        cardFooterPrice.innerText = 'R$' + (element.preco.toFixed(2)).split('.').join(',')
         cardFooterAddCart.innerText = 'Add'
         cardFooterAddCart.addEventListener('click', addProductToCart)
 
