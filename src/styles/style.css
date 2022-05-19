@@ -310,17 +310,20 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: red;
     width: 100%;
     max-width: 300px;
+    border-radius: 5px;
 }
 
-.card figure img {
-    width: 300px;
-    height: 200px;
+.card:hover {
+    box-shadow: 0px 2px 5px 0px #00000040;
 }
 
-.card figure {
+.card > figure > img {
+    width: 295px;
     height: 200px;
+    border-radius: 3px;
 }
 
 .card-body {
