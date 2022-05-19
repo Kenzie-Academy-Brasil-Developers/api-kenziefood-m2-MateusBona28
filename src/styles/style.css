@@ -107,9 +107,6 @@
 .modal-edit-container {
     font-family: 'Poppins', sans-serif;
     display: none;
-    margin: 0 auto;
-    width: 350px;
-    justify-content: center;
 }
 
 .modal-edit-header {
