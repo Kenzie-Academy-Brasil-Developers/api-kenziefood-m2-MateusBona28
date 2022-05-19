@@ -16,11 +16,11 @@ class Api {
         return response
     }
     
-    static async getPrivateProducts(token) {
+    static async getPrivateProducts() {
         const response = await fetch('https://api-kenzie-food.herokuapp.com/my/products', {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${token}`,
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
                 "Content-Type": "application/json"
             },
         })
@@ -63,9 +63,7 @@ class Api {
     }
 
     static async getUserProducts(data) {
-
         const productsUrl = "/my/products"
-
         const response = await fetch(`${this.baseUrl}${productsUrl}`, {
             method: "GET",
             headers: {
@@ -81,9 +79,7 @@ class Api {
     }
 
     static async postNewProduct(data) {
-
         const addProductUrl = "/my/products"
-
         const response = await fetch(`${this.baseUrl}${addProductUrl}`, {
             method: "POST",
             headers: {
@@ -95,9 +91,7 @@ class Api {
     }
 
     static async deletePost(id) {
-
         const deleteUrl = `/my/products/${id}`
-
         fetch(`${this.baseUrl}${deleteUrl}`,{
             method: "DELETE",
             headers: {

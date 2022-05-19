@@ -1,11 +1,11 @@
 import Api from "./Api.js";
 
+const logoutBtn = document.getElementById('dashboard-logout-button')
 const ulProducts = document.getElementById("owner-product-list")
 const btnAddProduct = document.getElementById("new-product-button")
 const allModals = document.getElementsByClassName("modal")
 const btnPostProduct = document.getElementById("add-product")
 const deleteProduct = document.getElementsByClassName("delete-product")
-
 
 btnAddProduct.addEventListener("click", displayNewProductModal)
 
@@ -15,22 +15,16 @@ renderizeUserProducts(productsArray)
 
 
 for(let i = 0; i < allModals.length; i++){
-    
     const modal = allModals[i]
-
     modal.addEventListener("click", closeModal)
 }
 
 for(let i = 0; i < deleteProduct.length; i++){
-
     let productsArray = await Api.getUserProducts()
-
     deleteProduct[i].addEventListener("click", displayConfirmDelete)
-    
 }
 
 btnPostProduct.addEventListener("click", postNewProduct)
-
 
 function renderizeUserProducts(productsArray) {
 
@@ -82,17 +76,14 @@ function renderizeUserProducts(productsArray) {
 }
 
 renderizeUserProducts(productsArray)
-const logoutBtn = document.getElementById('dashboard-logout-button')
+// const logoutBtn = document.getElementById('dashboard-logout-button')
 
-/*
 
-se descomentar isso ele dá conflito com o script.js,
-    pq o script tá lendo esse eventListener por algum motivo
 
-logoutBtn.addEventListener("click", () => {
-    localStorage.clear()
-    window.location.href = "/index.html"
-})*/
+// logoutBtn.addEventListener("click", () => {
+//     localStorage.clear()
+//     window.location.href = "/index.html"
+// })
 
 
 function displayNewProductModal(event) {

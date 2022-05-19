@@ -6,44 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/style.css">
+    <!-- <link rel="stylesheet" href="styles/dashboard.css"> -->
     <title>Kenzie Food - Dashboard</title>
 </head>
 <body>
-    <div class="main-content" >
-    <header>
-        <div id="logo">
-            <a href="../index.html">
-                <h1>Kenzie<span>Food</span></h1>
-            </a>
-            <figure id="profile">
-                <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
-            </figure>
-        </div>
-        <div id="search-area">
-            <div id="search-icon"></div>
-            <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
-        </div>
-        <!-- <button id="dashboard-logout-button">Sair</button> -->
-    </header>
+    <div class="content">
+        <header>
+            <div id="logo">
+                <a href="../index.html">
+                    <h1>Kenzie<span>Food</span></h1>
+                </a>
+                <figure id="profile">
+                    <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
+                </figure>
+            </div>
+            <div id="search-area">
+                <div id="search-icon"></div>
+                <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+            </div>
+            <!-- <button id="dashboard-logout-button">Sair</button> -->
+        </header>
+        <div class="main-content" >
+        <main>
 
-    <main>
+            <div id="categoy-new-product">
+                <ul id="category-list">
+                    <li class="category-button active">Todos</li>
+                    <li class="category-button">Panificadora</li>
+                    <li class="category-button">Frutas</li>
+                    <li class="category-button">Bebidas</li>
+                </ul>
 
-        <div id="categoy&new-product"></div>
-            <ul id="category-list">
-                <li class="category-button active">Todos</li>
-                <li class="category-button">Panificadora</li>
-                <li class="category-button">Frutas</li>
-                <li class="category-button">Bebidas</li>
+                <button id="new-product-button">Adicionar novo produto</button>
+            </div>
+
+            <ul id="owner-product-list">
+                <!-- Lista dos Produtos com os botões de editar e deletar -->
             </ul>
 
-            <button id="new-product-button">Adicionar novo produto</button>
+        </main>
         </div>
-
-        <ul id="owner-product-list">
-            <!-- Lista dos Produtos com os botões de editar e deletar -->
-        </ul>
-
-    </main>
     </div>
 
     <div class="modal" id="modal-logout">
@@ -58,7 +60,6 @@
         </div>
         <p id="status-message">Ocorreu algum erro, o produto não foi adicionado</p>
     </div>
-
 
     <div class="modal" id="add-product-modal">
         <div class="modal-content">

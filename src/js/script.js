@@ -120,7 +120,7 @@ async function actualizeModalCart() {
 
     const modalFinalPrice = document.querySelector("#modal-cart-footer-total-price > span")
     const modalProductsAmount = document.querySelector("#modal-cart-footer-total-amount > span")
-    console.log(modalProductsAmount)
+    
 
     let finalPrice = 0
     let quantity = 0
@@ -458,6 +458,7 @@ async function logUser(event) {
     console.log(localStorage.getItem("token"))
 }
 
+
 function createFilterElements() {
     const categoryList = document.getElementById('category-list')
 
@@ -484,6 +485,7 @@ function createFilterElements() {
 
 createFilterElements()
 
+
 function filterPerCategory() {
     const list = document.getElementById('category-list')
     list.addEventListener('click', (event) => {
@@ -503,9 +505,9 @@ function filterPerCategory() {
 
 const productsPub = await Api.getPublicProducts()
 
-
 productsHomePage(productsPub)
 
+//filterPerCategory()
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
