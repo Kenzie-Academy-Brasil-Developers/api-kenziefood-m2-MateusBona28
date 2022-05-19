@@ -624,3 +624,11 @@ logoutBtn.addEventListener("click", () => {
     localStorage.clear()
     window.location.href = "/index.html"
 })
+
+const searchInput = document.getElementById('search-product-input')
+searchInput.addEventListener('keyup', (e) => {
+    const searchProducts = productsPub.filter(product => product.nome.toLowerCase().includes(e.currentTarget.value.toLowerCase()))
+    console.log(searchProducts)
+    console.log(e.currentTarget.value)
+    productsHomePage(searchProducts)
+})

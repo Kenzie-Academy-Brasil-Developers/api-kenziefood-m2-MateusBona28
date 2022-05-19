@@ -363,4 +363,30 @@ function closeModalFunctionality() {
     }
 }
 
+function filterPerCategoryDashboard() {
+    const list = document.getElementById('category-list')
+    list.addEventListener('click', (event) => {
+        const e = event.target
+        const target = e.innerHTML
+        const filter = productsArray.filter(element => {
+            return element.categoria === target
+        })
+
+        if(target !== 'Todos') {
+            renderizeUserProducts(filter)
+        } else {
+            renderizeUserProducts(productsArray)
+        }
+    })
+}
+
+const searchInput = document.getElementById('search-product-input')
+searchInput.addEventListener('keyup', (e) => {
+    const searchProducts = productsArray.filter(product => product.nome.toLowerCase().includes(e.currentTarget.value.toLowerCase()))
+    console.log(searchProducts)
+    console.log(e.currentTarget.value)
+    renderizeUserProducts(searchProducts)
+})
+
+filterPerCategoryDashboard()
 closeModalFunctionality()
