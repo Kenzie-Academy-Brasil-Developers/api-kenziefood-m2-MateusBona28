@@ -109,14 +109,15 @@ function editProduct(event) {
     formEdit[2].value = product[0].categoria
     formEdit[3].value = product[0].preco
     formEdit[4].value = product[0].imagem
+    
     modalContainer.style.display = 'flex'
     sendBtn.addEventListener('click', () => {
         const data = {
             nome: formEdit[0].value,
-            preco: formEdit[1].value,
+            preco: formEdit[3].value,
             categoria: formEdit[2].value,
-            imagem: formEdit[3].value,
-            descricao: formEdit[4].value
+            imagem: formEdit[4].value,
+            descricao: formEdit[1].value
         }
         Api.editPost(id, token, data)
         modalContainer.style.display = 'none'
