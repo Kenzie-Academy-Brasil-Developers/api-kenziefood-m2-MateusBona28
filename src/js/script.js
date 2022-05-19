@@ -10,7 +10,9 @@ let globalFinalPrice = 0
 let globalQuantity = 0
 
 
-localStorage.setItem("productsInStorage", [])
+localStorage.setItem("productsInStorage", "")
+
+verifyCart()
 
 
 async function actualizeCart() {
@@ -42,6 +44,8 @@ async function actualizeCart() {
             
         footerFinalPrice.innerText = `${finalPrice.toFixed(2).split(".").join(",")}`
         footerProductsQuantity.innerText = `${quantity}`
+
+        verifyCart()
     }
     
 }
@@ -70,46 +74,50 @@ async function deleteCartProduct(event) {
 function deleteCartProductOff(event) {
 
 
-    const newProductsInLocalStorage = localStorage.getItem("productsInStorage").split(",")
-    const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
-    const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
-    const productPrice = document.getElementsByClassName("preco-produtos")
+    if(event.target.id === "testeId"){
+        const newProductsInLocalStorage = localStorage.getItem("productsInStorage").split(",")
+        const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
+        const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
+        const productPrice = document.getElementsByClassName("preco-produtos")
 
-    const productId = event.target.id
-    let removeCounter = 1
+        const productId = event.target.dataset.id
+        let removeCounter = 1
 
-    const attProducts = []
+        const attProducts = []
 
-    newProductsInLocalStorage.forEach(id =>{
+        newProductsInLocalStorage.forEach(id =>{
 
-        if(id === productId && removeCounter === 1){
-            removeCounter -= 1
+            if(id === productId && removeCounter === 1){
+                removeCounter -= 1
+            }
+            else{
+                attProducts.push(id)
+            }
+        })
+
+        localStorage.setItem("productsInStorage", attProducts)
+
+        const closeLi = event.target.closest("li")
+
+        let priceCounter = 1
+
+        for(let i = 0; i< productPrice.length; i++){
+            const item = productPrice[i]
+
+            if(item.id === event.target.title && priceCounter === 1){
+                priceCounter -= 1
+                globalFinalPrice -= item.id
+                globalQuantity -= 1
+            }
         }
-        else{
-            attProducts.push(id)
-        }
-    })
 
-    localStorage.setItem("productsInStorage", attProducts)
+        footerFinalPrice.innerText = `R$ ${globalFinalPrice.toFixed(2).split('.').join(',')}`
+        footerProductsQuantity.innerText = `${globalQuantity}`
 
-    const closeLi = event.target.closest("li")
+        closeLi.style.display = "none"
 
-    let priceCounter = 1
-
-    for(let i = 0; i< productPrice.length; i++){
-        const item = productPrice[i]
-
-        if(item.id === event.target.title && priceCounter === 1){
-            priceCounter -= 1
-            globalFinalPrice -= item.id
-            globalQuantity -= 1
-        }
+        verifyCart()
     }
-
-    footerFinalPrice.innerText = `R$ ${globalFinalPrice.toFixed(2).split('.').join(',')}`
-    footerProductsQuantity.innerText = `${globalQuantity}`
-
-    closeLi.style.display = "none"
 }
 
 async function actualizeModalCart() {
@@ -152,8 +160,12 @@ async function addProductToCart(event) {
     const idProduct = event.target.id
     if(localStorage.getItem("token") === null){
 
+        const divNoProducts = document.getElementById("cart-body")
+        divNoProducts.style.display = "none"
+
         const newProductsInLocalStorage = [localStorage.getItem("productsInStorage")]
         const ulCartItems = document.getElementById("cart-list")
+        ulCartItems.style.display = "block"
 
         const footerFinalPrice = document.querySelector("#cart-footer-total-price > span")
         const footerProductsQuantity = document.querySelector("#cart-footer-total-amount > span")
@@ -181,6 +193,12 @@ async function addProductToCart(event) {
     }
     else{
         await Api.postCartProduct(idProduct)
+
+        const divNoProducts = document.getElementById("cart-body")
+        divNoProducts.style.display = "none"
+        const modalDivNoProducts = document.getElementById("modal-cart-body")
+        modalDivNoProducts.style.display = "none"
+
         const newCartProductsArray = await Api.getCartProducts()
 
         newCartProductsArray.forEach(product =>{
@@ -269,29 +287,44 @@ function renderizeCartProduct(product) {
     ulModalCartItems.addEventListener("click", deleteCartProduct)
 
     const cartProductCard = document.createElement("li")
+    cartProductCard.classList.add("cart-card")
     const productImg = document.createElement("img")
+    productImg.classList.add("cart-img")
+
+    const divProductInfo = document.createElement("div")
+    divProductInfo.classList.add("div-product-info")
     const productName = document.createElement("h3")
+    productName.classList.add("product-cart-title")
+
     const productPrice = document.createElement("span")
+    productPrice.classList.add("product-cart-price")
+
     const productQuantity = document.createElement("span")
+    
     const btnRemoveProduct = document.createElement("button")
-  
+
+    const productCategory = document.createElement("span")
+    productCategory.classList.add("cart-product-category")
+
 
     productImg.setAttribute("src", `${product.products.imagem}`)
     productName.innerText = `${product.products.nome}`
-    productPrice.innerText = `Preço: ${product.products.preco}`
+    productPrice.innerText = `R$: ${product.products.preco.toFixed(2).split(".").join(",")}`
     productQuantity.innerText = `Quantidade: ${product.quantity}`
+    productCategory.innerText = product.products.categoria
 
-    btnRemoveProduct.innerText = "Remover"
     btnRemoveProduct.title = "delete-cart-item"
     btnRemoveProduct.id = `${product.products.id}`
+    btnRemoveProduct.classList.add("fa-solid")
+    btnRemoveProduct.classList.add("fa-trash")
+
+    divProductInfo.appendChild(productName)
+    divProductInfo.appendChild(productCategory)
+    divProductInfo.appendChild(productPrice)
 
     cartProductCard.appendChild(productImg)
-    cartProductCard.appendChild(productName)
-    cartProductCard.appendChild(productPrice)
-    cartProductCard.appendChild(productQuantity)
+    cartProductCard.appendChild(divProductInfo)
     cartProductCard.appendChild(btnRemoveProduct)
-
-    //ulCartItems.appendChild(cartProductCard)
 
     return cartProductCard
 }
@@ -305,7 +338,15 @@ function renderizeCartProductOff(product) {
     ulModalCartItems.addEventListener("click", deleteCartProductOff)
 
     const cartProductCard = document.createElement("li")
+    cartProductCard.classList.add("cart-card")
+    cartProductCard.classList.add("cart-card")
+
     const productImg = document.createElement("img")
+    productImg.classList.add("cart-img")
+
+    const divProductInfo = document.createElement("div")
+    divProductInfo.classList.add("div-product-info")
+
     const productName = document.createElement("h3")
     const productPrice = document.createElement("span")
     const btnRemoveProduct = document.createElement("button")
@@ -317,16 +358,65 @@ function renderizeCartProductOff(product) {
     productPrice.id = product.preco
     productPrice.classList.add("preco-produtos")
 
-    btnRemoveProduct.innerText = "Remover"
+    productName.classList.add("product-cart-title")
+    productPrice.classList.add("product-cart-price")
+    const productCategory = document.createElement("span")
+    productCategory.classList.add("cart-product-category")
+
     btnRemoveProduct.title = product.preco
     btnRemoveProduct.id = `testeId`
+    btnRemoveProduct.dataset.id = product.id
+    btnRemoveProduct.classList.add("fa-solid")
+    btnRemoveProduct.classList.add("fa-trash")
+    productCategory.innerText = product.categoria
+
+    divProductInfo.appendChild(productName)
+    divProductInfo.appendChild(productCategory)
+    divProductInfo.appendChild(productPrice)
 
     cartProductCard.appendChild(productImg)
-    cartProductCard.appendChild(productName)
-    cartProductCard.appendChild(productPrice)
+    cartProductCard.appendChild(divProductInfo)
     cartProductCard.appendChild(btnRemoveProduct)
 
     return cartProductCard
+}
+
+async function verifyCart() {
+
+    if(localStorage.getItem("token") === null){
+
+        const arrProducts = localStorage.getItem("productsInStorage").split(",")
+        const divNoProducts = document.getElementById("cart-body")
+        const divUlProducts = document.getElementById("cart-list")
+        divUlProducts.style.display = "block"
+
+        if(arrProducts.length > 1){
+            divNoProducts.style.display = "none"
+            divUlProducts.style.display = "block"
+        }
+        else{
+            divNoProducts.style.display = "flex"
+            divUlProducts.style.display = "none"
+        }
+    }
+    else{
+
+        const newCartProductsArray = await Api.getCartProducts()
+        const divNoProducts = document.getElementById("cart-body")
+        const divNoProductsModal = document.getElementById("modal-cart-body")
+        const divUlProducts = document.getElementById("cart-list")
+
+        if(newCartProductsArray.length > 0){
+            divNoProducts.style.display = "none"
+            divNoProductsModal.style.display = "none"
+            divUlProducts.style.display = "block"
+        }
+        else{
+            divNoProducts.style.display = "flex"
+            divNoProductsModal.style.display = "flex"
+            divUlProducts.style.display = "none"
+        }
+    }
 }
 
 
