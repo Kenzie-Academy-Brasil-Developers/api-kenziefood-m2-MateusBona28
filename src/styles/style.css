@@ -376,11 +376,29 @@ header {
 .card figure img {
     width: 300px;
     height: 200px;
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.card figure img:hover {
+    transform: scale(1.2);
+    transition: 0.3s;
 }
 
 .card figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     height: 200px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0);
 }
+
+.card figure:hover {
+    border: 2px solid var(--color-pink-1);
+}
+
 
 .card-body {
     width: 300px;
