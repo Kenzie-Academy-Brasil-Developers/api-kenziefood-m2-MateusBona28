@@ -58,8 +58,10 @@ function renderizeUserProducts(productsArray) {
             cardProductName.innerText = product.nome
             
             cardCategories.innerText = product.categoria
+            cardCategories.classList.add('card-category-dashboard')
 
             cardDescription.innerText = product.descricao
+            cardDescription.classList.add('card-description-dashboard')
 
             cardEditProduct.classList.add('edit-product')
             //cardEditProduct.setAttribute("src", "#")
@@ -103,10 +105,10 @@ function editProduct(event) {
         return element.id === id
     })
     formEdit[0].value = product[0].nome
-    formEdit[1].value = product[0].preco
+    formEdit[1].value = product[0].descricao
     formEdit[2].value = product[0].categoria
-    formEdit[3].value = product[0].imagem
-    formEdit[4].value = product[0].descricao
+    formEdit[3].value = product[0].preco
+    formEdit[4].value = product[0].imagem
     modalContainer.style.display = 'flex'
     sendBtn.addEventListener('click', () => {
         const data = {
@@ -199,15 +201,11 @@ async function postNewProduct(event) {
     event.preventDefault()
 
     const formNewProduct = document.getElementById("form-add-product")
-
     const newProductInfo = formNewProduct.elements
-
     const newProduct = {}
 
     for(let i = 0; i < newProductInfo.length; i++){
-
         const info = newProductInfo[i]
-
         if(info.value !== ""){
             newProduct[info.name] = info.value
         }
