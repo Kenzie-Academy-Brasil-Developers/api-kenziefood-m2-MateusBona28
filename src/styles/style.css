@@ -588,6 +588,37 @@ header {
     }
 }
 
+.dashboard-body-modal {
+    position: relative;
+    left: 1380px;
+    background-color: #fff;
+    margin: 20px;
+    display: flex;
+    padding: 10px;
+    margin-left: 200px;
+    border-radius: 7px;
+    width: 300px;
+    height: 100px;
+    box-shadow: 0px 0px 5px 2px #00000040;
+}
+
+.dashboard-modal-status-message {
+    display: flex;
+    align-items: center;
+}
+
+.close-dashboard-error-modal-status {
+    width: 30px;
+    height: 25px;
+    font-weight: bold;
+    border-radius: 3px;
+    margin-bottom: 78px;
+    cursor: pointer;
+    color: #fff;
+    border: 1px solid var(--color-pink-1);
+    background-color: var(--color-pink-1);
+}
+
 /* modal edit */
 
 /* .modal-edit-container {

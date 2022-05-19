@@ -80,6 +80,8 @@ class Api {
 
     static async postNewProduct(data) {
         const addProductUrl = "/my/products"
+        let teste = localStorage.getItem("token")
+        console.log(teste)
         const response = await fetch(`${this.baseUrl}${addProductUrl}`, {
             method: "POST",
             headers: {
@@ -88,18 +90,21 @@ class Api {
             },
             body: JSON.stringify(data)
         })
+        return response.ok
     }
 
     static async deletePost(id) {
         const deleteUrl = `/my/products/${id}`
-        fetch(`${this.baseUrl}${deleteUrl}`,{
+        let response = await fetch(`${this.baseUrl}${deleteUrl}`,{
             method: "DELETE",
             headers: {
                 "Authorization" : `Bearer ${localStorage.getItem("token")}`
             }
-        }).finally(()=>{
-            window.location.href = "dashboard.html"
         })
+        //.finally(()=>{
+        //    window.location.href = "dashboard.html"
+        //})
+        return response.ok
     }
 
     static async postCartProduct(id) {
@@ -161,8 +166,9 @@ class Api {
         .then(response => response)
         .catch(error => error)
 
-        return response
+        return response.ok
     }
 }
+
 
 export default Api;

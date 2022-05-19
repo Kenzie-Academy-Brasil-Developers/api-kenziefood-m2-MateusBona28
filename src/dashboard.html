@@ -54,13 +54,52 @@
         <button></button>
     </div>
 
-    <div class="modal-status"> <!-- Modal do status  -->
-        <div id="modal-status-header">
-            <h3>Status</h3>
-            <button id="close-modal-status">X</button>
+    <div id="status-modals-container">
+
+        <div class="modal" id="error-product-status-modal">
+            <p class="dashboard-modal-status-message" id="error-status-message">Ocorreu algum erro, o produto não foi adicionado, verifique as informações inseridas e tente novamente.</p>
+            <div id="error-modal-status-header">
+                <button class="close-dashboard-error-modal-status" id="close-error-modal-status-btn">X</button>
+            </div>
         </div>
-        <p id="status-message">Ocorreu algum erro, o produto não foi adicionado</p>
+
+        <div class="modal" id="success-product-status-modal">
+            <p class="dashboard-modal-status-message" id="success-status-message">O produto foi adicionado com sucesso.</p>
+            <div id="success-modal-status-header">
+                <button class="close-dashboard-error-modal-status" id="close-success-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="delete-error-product-status-modal">
+            <p class="dashboard-modal-status-message" id="delete-error-status-message">Ocorreu algum erro, o produto não pôde ser deletado.</p>
+            <div id="delete-error-modal-status-header">
+                <button class="close-dashboard-error-modal-status" id="close-error-delete-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="delete-success-product-status-modal">
+            <p class="dashboard-modal-status-message" id="delete-success-status-message">O produto foi deletado com sucesso.</p>
+            <div id="delete-success-modal-status-header">
+                <button class="close-dashboard-error-modal-status" id="close-success-delete-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="edit-error-product-status-modal">
+            <p class="dashboard-modal-status-message" id="edit-error-status-message">Ocorreu algum erro, o produto não foi editado. Verifique as informações inseridas e tente novamente.</p>
+            <div id="edit-error-modal-status-header">
+                <button class="close-dashboard-error-modal-status" id="close-error-edit-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="edit-success-product-status-modal">
+            <p class="dashboard-modal-status-message" id="edit-success-status-message">O produto foi editado com sucesso.</p>
+            <div id="edit-success-modal-status-header">
+                <button class="close-dashboard-error-modal-status" id="close-success-edit-modal-status-btn">X</button>
+            </div>
+        </div>
+
     </div>
+    
 
     <div class="modal-edit-container modal">
         <div class="modal-edit-content modal-content">

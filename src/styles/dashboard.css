@@ -99,6 +99,34 @@ header {
     margin-bottom: 2px;
 }
 
+.dashboard-body-modal {
+    margin: 20px;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    padding: 10px;
+    margin-left: 200px;
+    border-radius: 7px;
+    width: 300px;
+    height: 100px;
+    box-shadow: 0px 0px 5px 2px #00000040;
+}
+
+.dashboard-modal-status-message {
+    display: flex;
+    align-items: center;
+}
+
+.close-dashboard-error-modal-status {
+    font-family: 'Poppins', sans-serif;
+    width: 30px;
+    font-weight: bold;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #ffffff;
+    border: 1px solid #FF2253;
+    background-color: #FF2253;
+}
+
 @media screen and (max-width: 1000px){
     #dashboard-search-btn {
         display: none;
