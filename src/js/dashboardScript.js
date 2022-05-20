@@ -168,14 +168,13 @@ function renderizeUserProducts(productsArray) {
             cardDescription.classList.add('card-description-dashboard')
 
             cardEditProduct.classList.add('edit-product')
-            //cardEditProduct.setAttribute("src", "#")
-            //cardEditProduct.innerText = 'Editar'
+
             cardEditProduct.id = product.id
             cardEditProduct.classList.add('fas', 'fa-edit', "card-option-button")
             cardEditProduct.addEventListener('click', editProduct)
             
             cardDeleteProduct.classList.add("delete-product", "fa-solid", "fa-trash", "card-option-button")
-            //cardDeleteProduct.setAttribute("src", "#")
+            
             cardDeleteProduct.id = product.id
             cardDeleteProduct.addEventListener('click', displayConfirmDelete)
 
@@ -197,7 +196,7 @@ function renderizeUserProducts(productsArray) {
 
 function editProduct(event) {
     const token = localStorage.getItem("token")
-    // const editBtn = document.querySelectorAll('.edit-product')
+    
     const modalContainer = document.querySelector('.modal-edit-container')
     const formEdit = document.getElementById('form-edit-product')
     const sendBtn = document.querySelector('.modal-edit-btn')
@@ -215,7 +214,7 @@ function editProduct(event) {
     formEdit[4].value = product[0].imagem
     
     modalContainer.style.display = 'flex'
-    sendBtn.addEventListener('click', () => {
+    sendBtn.addEventListener('click', async () => {
         const data = {
             nome: formEdit[0].value,
             preco: formEdit[3].value,
@@ -223,65 +222,33 @@ function editProduct(event) {
             imagem: formEdit[4].value,
             descricao: formEdit[1].value
         }
-        Api.editPost(id, token, data)
+        const respostaApi = await Api.editPost(id, token, data)
         modalContainer.style.display = 'none'
+        
+        let productsArray = await Api.getUserProducts()
+        renderizeUserProducts(productsArray)
+
+        if(respostaApi) {
+            editSuccessModalDisplay()
+        } else {
+            editErrorModalDisplay()
+        }
         setTimeout(() => {
-            document.location.reload(true)
-        }, 1500)
+            const bodyModal = document.getElementById('edit-success-product-status-modal')
+            bodyModal.style.display = 'none';
+            const bodyModalError = document.getElementById('error-product-status-modal')
+            bodyModalError.style.display = 'none';
+            
+        }, 3000)
     })
     cancelBtn.addEventListener('click', () => {
         modalContainer.style.display = 'none'
     })
-    // closeModal.addEventListener('click', () => {
-    //     console.log('olá mundo')
-    //     //modalContainer.style.display = 'none'
-    // })
-    // editBtn.forEach(element => {
-    //     element.addEventListener('click', (event) => {
-    //         const e = event.target
-    //         const id = e.id
-    //         const product = productsArray.filter(element => {
-    //             return element.id === id
-    //         })
-    //         formEdit[0].value = product[0].nome
-    //         formEdit[1].value = product[0].preco
-    //         formEdit[2].value = product[0].categoria
-    //         formEdit[3].value = product[0].imagem
-    //         formEdit[4].value = product[0].descricao
-    //         modalContainer.style.display = 'flex'
-    //         sendBtn.addEventListener('click', () => {
-    //             const data = {
-    //                 nome: formEdit[0].value,
-    //                 preco: formEdit[1].value,
-    //                 categoria: formEdit[2].value,
-    //                 imagem: formEdit[3].value,
-    //                 descricao: formEdit[4].value
-    //             }
-    //             Api.editPost(id, token, data)
-    //             modalContainer.style.display = 'none'
-    //             setTimeout(() => {
-    //                 document.location.reload(true)
-    //             }, 1500)
-    //         })
-    //         cancelBtn.addEventListener('click', () => {
-    //             modalContainer.style.display = 'none'
-    //         })
-    //         closeModal.addEventListener('click', () => {
-    //             modalContainer.style.display = 'none'
-    //         })
-    //     })
-    // })
+    
 }
 
 renderizeUserProducts(productsArray)
-// const logoutBtn = document.getElementById('dashboard-logout-button')
 
-
-
-// logoutBtn.addEventListener("click", () => {
-//     localStorage.clear()
-//     window.location.href = "/index.html"
-// })
 
 
 function displayNewProductModal(event) {
@@ -309,7 +276,7 @@ async function postNewProduct(event) {
     }
 
     const requestStatus = await Api.postNewProduct(newProduct)
-    console.log(requestStatus)
+    
     if (requestStatus === false) {
         errorModalDisplay()
     } else {
@@ -322,6 +289,14 @@ async function postNewProduct(event) {
     const modalProduct = document.getElementById("add-product-modal")
 
     modalProduct.style.display = "none"
+
+    setTimeout(() => {
+        const bodyModal = document.getElementById('success-product-status-modal')
+        bodyModal.style.display = 'none';
+        const bodyModalError = document.getElementById('error-product-status-modal')
+        bodyModalError.style.display = 'none';
+        
+    }, 3000)
 }
 
 function displayConfirmDelete(event) {
@@ -329,7 +304,6 @@ function displayConfirmDelete(event) {
     event.preventDefault()
 
     const productId = event.target.id
-    console.log(productId)
 
     const confirmDeleteModal = document.getElementById("confirm-delete")
 
@@ -345,11 +319,30 @@ function displayConfirmDelete(event) {
         confirmDeleteModal.style.display = "none"
     })
 
-    btnDelete.addEventListener("click", (event)=>{
+    btnDelete.addEventListener("click", async (event)=>{
 
         event.preventDefault()
 
-        Api.deletePost(productId)
+        const respostaApi = await Api.deletePost(productId)
+        const comfirmDelete = document.getElementById("confirm-delete")
+        comfirmDelete.style.display = 'none'
+
+        let productsArray = await Api.getUserProducts()
+        renderizeUserProducts(productsArray)
+
+        if(respostaApi) {
+            deleteSuccessModalDisplay()
+        } else {
+            deleteErrorModalDisplay()
+        }
+        setTimeout(() => {
+            const bodyModal = document.getElementById('delete-success-product-status-modal')
+            bodyModal.style.display = 'none';
+            const bodyModalError = document.getElementById('delete-error-product-status-modal')
+            bodyModalError.style.display = 'none';
+            
+        }, 3000)
+
     })
 }
 

@@ -376,6 +376,7 @@ function renderizeCartProductOff(product) {
     cartProductCard.classList.add("cart-card")
     cartProductCard.classList.add("cart-card")
 
+    const productFigure = document.createElement("figure")
     const productImg = document.createElement("img")
     productImg.classList.add("cart-img")
 
@@ -389,7 +390,7 @@ function renderizeCartProductOff(product) {
 
     productImg.setAttribute("src", `${product.imagem}`)
     productName.innerText = `${product.nome}`
-    productPrice.innerText = `Preço: ${product.preco}`
+    productPrice.innerText = `R$: ${product.preco.toFixed(2).split(".").join(",")}`
     productPrice.id = product.preco
     productPrice.classList.add("preco-produtos")
 
@@ -408,7 +409,8 @@ function renderizeCartProductOff(product) {
     divProductInfo.appendChild(productCategory)
     divProductInfo.appendChild(productPrice)
 
-    cartProductCard.appendChild(productImg)
+    productFigure.append(productImg)
+    cartProductCard.appendChild(productFigure)
     cartProductCard.appendChild(divProductInfo)
     cartProductCard.appendChild(btnRemoveProduct)
 
@@ -423,17 +425,23 @@ async function verifyCart() {
         const divNoProducts = document.getElementById("cart-body")
         const divNoProductsModal = document.getElementById("empty-modal-cart-message")
         const divUlProducts = document.getElementById("cart-list")
+        const divUlProductsModal = document.getElementById("cart-list-modal")
+        const divCardBodyModal = document.getElementById("modal-cart-body")
         divUlProducts.style.display = "block"
 
         if(arrProducts.length > 1){
             divNoProducts.style.display = "none"
             divNoProductsModal.style.display = "none"
-            divUlProducts.style.display = "block"
+            divUlProducts.style.display = "flex"
+            divUlProductsModal.style.display = "flex"
+            divCardBodyModal.style.alignItems = "flex-start"
         }
         else{
             divNoProducts.style.display = "flex"
             divNoProductsModal.style.display = "flex"
             divUlProducts.style.display = "none"
+            divUlProductsModal.style.display = "none"
+            divCardBodyModal.style.alignItems = "center"
         }
     }
     else{
@@ -443,18 +451,21 @@ async function verifyCart() {
         const divNoProductsModal = document.getElementById("empty-modal-cart-message")
         const divUlProducts = document.getElementById("cart-list")
         const divUlProductsModal = document.getElementById("cart-list-modal")
+        const divCardBodyModal = document.getElementById("modal-cart-body")
 
         if(newCartProductsArray.length > 0){
             divNoProducts.style.display = "none"
             divNoProductsModal.style.display = "none"
-            divUlProducts.style.display = "block"
+            divUlProducts.style.display = "flex"
             divUlProductsModal.style.display = "flex"
+            divCardBodyModal.style.alignItems = "flex-start"
         }
         else{
             divNoProducts.style.display = "flex"
             divNoProductsModal.style.display = "flex"
             divUlProducts.style.display = "none"
             divUlProductsModal.style.display = "none"
+            divCardBodyModal.style.alignItems = "center"
         }
     }
 }

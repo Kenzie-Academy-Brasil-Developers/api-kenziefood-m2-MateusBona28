@@ -59,7 +59,6 @@ class Api {
             window.location.href = window.location.href
         })
         
-        //console.log(newData)
     }
 
     static async getUserProducts(data) {
@@ -90,16 +89,16 @@ class Api {
         })
         return response.ok
     }
+
     static async deletePost(id) {
         const deleteUrl = `/my/products/${id}`
-        fetch(`${this.baseUrl}${deleteUrl}`,{
+        const response = await fetch(`${this.baseUrl}${deleteUrl}`,{
             method: "DELETE",
             headers: {
                 "Authorization" : `Bearer ${localStorage.getItem("token")}`
             }
-        }).finally(()=>{
-            window.location.href = "dashboard.html"
         })
+        return response.ok
     }
 
     static async postCartProduct(id) {
@@ -157,11 +156,10 @@ class Api {
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(response => response)
-        .catch(error => error)
+        const newData = await response.json()
+        
 
-        return response
+        return response.ok
     }
 }
 
