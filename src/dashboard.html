@@ -6,48 +6,231 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <script src="https://kit.fontawesome.com/0502a0e97b.js" crossorigin="anonymous"></script>
     <title>Kenzie Food - Dashboard</title>
 </head>
 <body>
-    <header>
-        <div id="logo">
-            <a href="../index.html">
-                <h1>Kenzie</h1>
-                <h2>Food</h2>
-            </a>
-        </div>
-        <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
-        <figure id="profile">
-            <img src="" alt="profile" id="profile-image">
-        </figure>
-    </header>
+    <div class="content">
+        <header>
+            <div id="logo">
+                <a href="../index.html">
+                    <h1>Kenzie<span>Food</span></h1>
+                </a>
+                <figure id="profile">
+                    <img src="https://colegioclassea.com.br/wp-content/themes/PageLand/assets/img/avatar/avatar.jpg" alt="profile" id="profile-image">
+                </figure>
+            </div>
+            <div id="search-area">
+                <div id="search-icon"></div>
+                <input type="text" id="search-product-input" placeholder="Pesquisar por produto">
+            </div>
+            <div class="modal" id="modal-logout">
+                <div class="modal-content" id="content-logout">
+                    <p class="close-modal close-modal__logout">X</p>
+                    <h3>Deseja realmente sair?</h3>
+                    <button id="index-logout-button">Logout</button>
+                </div>
+            </div>
+        </header>
+        <div class="main-content" >
+        <main>
 
-    <main>
+            <div id="categoy-new-product">
+                <ul id="category-list">
+                    <li class="category-button active">Todos</li>
+                    <li class="category-button">Panificadora</li>
+                    <li class="category-button">Frutas</li>
+                    <li class="category-button">Bebidas</li>
+                </ul>
 
-        <div id="categoy&new-product"></div>
-            <ul id="category-list">
-                <li class="category-button active">Todos</li>
-                <li class="category-button">Panificadora</li>
-                <li class="category-button">Frutas</li>
-                <li class="category-button">Bebidas</li>
+                <button id="new-product-button" class="new-product-button">Adicionar novo produto</button>
+            </div>
+
+            <ul id="owner-product-list">
+                
             </ul>
 
-            <button id="new-product-button">Adicionar novo produto</button>
+        </main>
         </div>
-
-        <ul id="owner-product-list">
-            <!-- Lista dos Produtos com os botões de editar e deletar -->
-        </ul>
-
-    </main>
-
-    <div class="modal-status"> <!-- Modal do status  -->
-        <div id="modal-status-header">
-            <h3>Status</h3>
-            <button id="close-modal-status">X</button>
-        </div>
-        <p id="status-message">Ocorreu algum erro, o produto não foi adicionado</p>
     </div>
+
+    <div id="status-modals-container">
+
+        <div class="modal" id="error-product-status-modal">
+            <p id="error-status-message">Ocorreu algum erro, o produto não foi adicionado, verifique as informações inseridas e tente novamente.</p>
+            <div id="error-modal-status-header">
+                <button id="close-error-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="success-product-status-modal">
+            <p id="success-status-message">O produto foi adicionado com sucesso.</p>
+            <div id="success-modal-status-header">
+                <button id="close-success-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="delete-error-product-status-modal">
+            <p id="delete-error-status-message">Ocorreu algum erro, o produto não pôde ser deletado.</p>
+            <div id="delete-error-modal-status-header">
+                <button id="close-error-delete-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="delete-success-product-status-modal">
+            <p id="delete-success-status-message">O produto foi deletado com sucesso.</p>
+            <div id="delete-success-modal-status-header">
+                <button id="close-success-delete-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="edit-error-product-status-modal">
+            <p id="edit-error-status-message">Ocorreu algum erro, o produto não foi editado. Verifique as informações inseridas e tente novamente.</p>
+            <div id="edit-error-modal-status-header">
+                <button id="close-error-edit-modal-status-btn">X</button>
+            </div>
+        </div>
+
+        <div class="modal" id="edit-success-product-status-modal">
+            <p id="edit-success-status-message">O produto foi editado com sucesso.</p>
+            <div id="edit-success-modal-status-header">
+                <button id="close-success-edit-modal-status-btn">X</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal" id="modal-logout">
+        <span id="username"></span>
+        <button></button>
+    </div>
+
+    
+
+    <div class="modal-edit-container modal">
+        <div class="modal-edit-content modal-content">
+            <div class="modal-edit-header">
+                <h3>Editar Produtos</h3>
+                <p class="close-modal" id="close-modal">X</p>
+            </div>
+
+            <form action="" id="form-edit-product" class="form-product form-product-edit">
+                <p>Nome do Produto</p>
+                <input type="text" name="nome" placeholder="Digitar o nome">
+                <p>Descrição</p>
+                <input type="text" name="descricao" placeholder="Digitar a descrição">
+                <p>Categoria</p>
+                <input type="text" name="categoria" placeholder="Categoria do produto">
+                <p>Valor do Produto</p>
+                <input type="text" name="preco" placeholder="Digite o valor aqui">
+                <p>Link da imagem</p>
+                <input type="text" name="imagem" placeholder="Inserir link">
+            </form>
+
+            <div class="modal-edit-footer">
+                <button class="modal-edit-btn">Salvar</button>
+                <button class="modal-cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="add-product-modal">
+        <div class="modal-content">
+            <div id="register-header">
+                <h3>Cadastro de Produto</h3>
+                <p class="close-modal" id="close-modal">X</p>
+            </div>
+
+            <form action="" id="form-add-product" class="form-product">
+                <p>Nome do Produto</p>
+                <input type="text" name="nome" placeholder="Digitar o nome">
+                <p>Descrição</p>
+                <input type="text" name="descricao" placeholder="Digitar a descrição">
+                <p>Categoria</p>
+                <input type="text" name="categoria" placeholder="Categoria do produto">
+                <p>Valor do Produto</p>
+                <input type="text" name="preco" placeholder="Digite o valor aqui">
+                <p>Link da imagem</p>
+                <input type="text" name="imagem" placeholder="Inserir link">
+
+                <button id="add-product">Cadastrar Produto</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="confirm-delete">
+        <div class="modal-content">
+            <div id="delete-product-header">
+                <h3>Excluir produto?</h3>
+            </div>
+
+            <button id="delete-product">Sim</button>
+            <button id="cancel-delete">Não</button>
+        </div>
+    </div>
+
+    <div  class="modal" id="login-register">
+        <div class="modal-content">  
+            <div id="login-register-header">
+                <p class="close-modal close-modal__register-login">X</p>
+            </div>
+            <div id="modal-body">
+                <button id="goTo-login">Login</button>
+                <button id="goTo-register">Registrar</button>
+            </div>
+        </div>  
+    </div>
+
+    <div class="modal" id="login">
+
+        <div class="modal-content">
+            <div id="login-header">
+                <h3>Login</h3>
+                <p class="close-modal">X</p>
+            </div>
+            <div id="login-body">
+                <form action="" id="form-login">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="Digite seu email">
+                    <label for="password">Senha</label>
+                    <input type="password" name="password" placeholder="Digite sua senha">
+                    <button id="login-button">Entrar</button>
+                </form>
+            </div>
+            <div id="login-footer">
+                <p>Não tem conta? <a id="redirect-register">Cadastre-se</a></p>
+            </div>
+        </div>
+            
+    </div>
+
+    <div class="modal" id="register">
+        
+        <div class="modal-content">
+            <div id="register-header">
+                <h3>Cadastro</h3>
+                <p class="close-modal">X</p>
+            </div>
+            <div id="register-body">
+                <form action="" id="form-register">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" placeholder="Digite seu nome">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="Digite seu email">
+                    <label for="password">Senha</label>
+                    <input type="password" name="password" placeholder="Digite sua senha">
+                    <button id="register-button">Cadastrar</button>
+                </form>
+            </div>
+            <div id="register-footer">
+                <p>Já tem conta? <a id="redirect-login">Entrar</a></p>
+            </div>
+        </div>
+
+    </div>
+    
 
     <script type="module" src="js/dashboardScript.js"></script>
 </body>
