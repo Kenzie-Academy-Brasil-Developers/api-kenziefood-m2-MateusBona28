@@ -681,7 +681,7 @@ function filterPerCategory() {
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
-    window.location.href = "/index.html"
+    window.location.href = window.location.href
 })
 
 const searchInput = document.getElementById('search-product-input')

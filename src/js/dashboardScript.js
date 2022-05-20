@@ -348,7 +348,7 @@ function displayConfirmDelete(event) {
 
 logoutBtn.addEventListener("click", () => {
     localStorage.clear()
-    window.location.href = "/index.html"
+    window.location.href = window.location.href
 })
 
 function closeModalFunctionality() {
